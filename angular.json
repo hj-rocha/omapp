@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "omapp"
+    }
+  },
+  "defaultProject": "omapp",
+  "cli": {
+    "analytics": "44c936ca-2e2c-495b-aab3-d1106f2b1841"
+  }
 }
