@@ -1,0 +1,74 @@
+<h1 class="mt-4">Pessoas</h1>
+<ol class="breadcrumb mb-4">
+  <li class="breadcrumb-item active">{{ pessoa.id ? 'Edição' : 'Cadastro' }}</li>
+</ol>
+<div class="container">
+  <form #pessoaForm="ngForm" (ngSubmit)="onSubmit()">
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="alert alert-success" role="alert" *ngIf="success == true">
+          Pessoa salva/atualizado com sucesso!
+        </div>
+        <div class="alert alert-danger" role="alert" *ngFor="let erro of errors">
+          {{ erro }}
+        </div>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="pessoa.id">
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>ID:</label>
+          <input type="text" [ngModel]="pessoa.id" name="id" class="form-control" disabled="true" />
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Nome: *</label>
+          <input type="text" class="form-control" [(ngModel)]="pessoa.nome" name="nome" />
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Email: *</label>
+          <input type="text" class="form-control" [(ngModel)]="pessoa.email" name="email" />
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Data Cadastro: *</label>
+          <input class="form-control" [(ngModel)]="pessoa.dataCadastro" name="dataCadastro" placeholder="yyyy-mm-dd" />
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Email: *</label>
+          <input type="text" class="form-control" [(ngModel)]="pessoa.usuario.username" name="usuario.email" />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Senha: *</label>
+          <input type="text" class="form-control" [(ngModel)]="pessoa.usuario.password" name="usuario.senha" />
+        </div>
+      </div>
+    </div>
+
+
+
+  </form>
+</div>
