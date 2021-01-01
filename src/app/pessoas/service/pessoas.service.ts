@@ -26,8 +26,17 @@ export class PessoasService {
       return this.http.delete<any>(`${this.apiURL}/${pessoa.id}`);
     }
 
-    getClienteById(id: number) : Observable<Pessoa> {
+    getPessoaById(id: number) : Observable<Pessoa> {
       return this.http.get<any>(`${this.apiURL}/${id}`);
+    }
+
+
+    salvar( pessoa: Pessoa ) : Observable<Pessoa> {
+      return this.http.post<Pessoa>( `${this.apiURL}` , pessoa);
+    }
+
+    atualizar( pessoa: Pessoa ) : Observable<any> {
+      return this.http.put<Pessoa>(`${this.apiURL}/${pessoa.id}` , pessoa);
     }
 
 }

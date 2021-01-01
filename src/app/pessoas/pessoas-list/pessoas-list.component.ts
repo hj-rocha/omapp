@@ -1,3 +1,4 @@
+import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { PessoasService } from './../service/pessoas.service';
 import { Pessoa } from './../model/pessoa';
@@ -15,8 +16,10 @@ export class PessoasListComponent implements OnInit {
   pessoaSelecionada: Pessoa;
   mensagemSucesso: string;
   mensagemErro: string;
+  model: NgbDateStruct;
+  date: {year: number, month: number};
 
-  constructor(private service: PessoasService, private router: Router) { }
+  constructor(private service: PessoasService, private router: Router, private calendar: NgbCalendar) { }
 
   ngOnInit(): void {
     this.service
@@ -41,5 +44,9 @@ export class PessoasListComponent implements OnInit {
         erro => this.mensagemErro = 'Ocorreu um erro ao deletar a pessoa.'
       )
   }
+
+    selectToday() {
+        this.model = this.calendar.getToday();
+      }
 
 }

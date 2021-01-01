@@ -33,19 +33,22 @@
                       </table>
                   </td>
                   <td>{{ p.email }}</td>
-                  <td>{{ p.dataAtualizacao}}</td>
-                  <td>{{ p.dataAtualizacao }}</td>
+                  <td>{{ p.dataCadastro | date:'dd/MM/yyy'}}</td>
+                  <td>{{ p.dataAtualizacao | date:'dd/MM/yyy' }}</td>
                   <td><span *ngIf=p.usuario>{{ p.usuario.username }}</span></td>
                   <td>{{ p.id }} </td>
+
                   <td>
-                    <button class="btn btn-primary"
+                    <div class="btn-group" role="group">
+                    <button class="btn btn-primary btn-sm"
                             routerLink="/pessoas/form/{{ p.id }}">
                         <i class="fa fa-edit"></i>
                     </button>
-                    <button class="btn btn-danger" (click)="preparaDelecao(p)"
+                    <button class="btn btn-danger btn-sm" (click)="preparaDelecao(p)"
                             data-toggle="modal" data-target="#modalDelecao">
                         <i class="fa fa-trash"></i>
                     </button>
+                  </div>
                 </td>
                 </tr>
           </tbody>
@@ -73,5 +76,7 @@
 </div>
 
 </div>
+
+
 
 

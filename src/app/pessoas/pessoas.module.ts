@@ -8,6 +8,7 @@ import { PessoasListComponent } from './pessoas-list/pessoas-list.component';
 
 import { PainelComponent } from './painel/painel.component';
 import { UsuariosListComponent } from './usuarios-list/usuarios-list.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -16,7 +17,8 @@ import { UsuariosListComponent } from './usuarios-list/usuarios-list.component';
   imports: [
     CommonModule,
     PessoasRoutingModule,
-    FormsModule
+    FormsModule,
+    NgbModule
   ], exports: [
       PessoasFormComponent,
       PessoasListComponent,
