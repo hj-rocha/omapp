@@ -28,6 +28,13 @@ export class PessoasGruposListComponent implements OnInit {
   ngOnInit(): void {
 
     let params: Observable<Params> = this.activatedRoute.params;
+
+    this.service
+    .listarGrupos()
+    .subscribe(
+      response => (this.grupos = response)
+    );
+
     params.subscribe(urlParams => {
       this.pessoaId = urlParams['pessoa_id'];
       this.pessoaNome = urlParams['pessoa_nome'];
@@ -39,13 +46,6 @@ export class PessoasGruposListComponent implements OnInit {
           )
         }
     });
-
-    this.service
-          .listarGrupos()
-          .subscribe(
-            response => (this.grupos = response)
-          );
-
   }
 
 

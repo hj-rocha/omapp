@@ -23,11 +23,9 @@ export class FormatDateAdapter extends NgbDateAdapter<string> {
     return null;
   }
 
-
   toModel(date: NgbDateStruct | null): string | null {
     return date ? date.day + this.DELIMITER + date.month + this.DELIMITER + date.year : null;
   }
-
 
 }
 
@@ -35,8 +33,6 @@ export class FormatDateAdapter extends NgbDateAdapter<string> {
 export class FormataData extends NgbDateParserFormatter {
 
   readonly DELIMITER = '/'; // 18/10/1987
-
-
 
   parse(value: string): NgbDateStruct | null {
 
@@ -84,8 +80,6 @@ export class PessoasFormComponent implements OnInit {
   success: boolean = false;
   errors: String[];
   id: number;
-  date: NgbDateStruct;// = { year: 1789, month: 7, day: 14 }; // July, 14 1789
-
 
   constructor(
       private service: PessoasService ,
@@ -102,10 +96,7 @@ export class PessoasFormComponent implements OnInit {
           this.service
             .getPessoaById(this.id)
             .subscribe(
-              response => (this.pessoa = response, this.date = {
-                 year: Number.parseInt((this.pessoa.dataNascimento.split('/'))[2]),
-                 month: Number.parseInt((this.pessoa.dataNascimento.split('/'))[1]),
-                 day: Number.parseInt((this.pessoa.dataNascimento.split('/'))[0]) } ),
+              response => (this.pessoa = response ),
               errorResponse => this.pessoa = new Pessoa()
             )
         }

@@ -73,8 +73,9 @@
                 [(ngModel)]="pessoa.dataNascimento" ngbDatepicker #dataNascimento="ngbDatepicker" id="dataNascimento"
                 required="true">
               <div class="input-group-append">
-                <button class="btn btn-outline-secondary calendar" (click)="dataNascimento.toggle()"
-                  type="button"></button>
+                <button class="btn btn-outline-secondary calendar" (click)="dataNascimento.toggle()" type="button">
+                  <i class="fas fa-calendar-alt fa-fw"></i>
+                </button>
               </div>
             </div>
           </div>
