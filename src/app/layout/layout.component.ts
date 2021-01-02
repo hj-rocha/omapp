@@ -1,6 +1,6 @@
-import { jQuery } from 'jquery';
 import { Component, AfterViewInit } from '@angular/core';
 
+import  jQuery  from 'jquery';
 
 @Component({
   selector: 'app-layout',
