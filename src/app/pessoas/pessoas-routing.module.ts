@@ -1,3 +1,4 @@
+import { PessoasGruposListComponent } from './pessoas-grupos-list/pessoas-grupos-list.component';
 import { PainelComponent } from './painel/painel.component';
 import { PessoasListComponent } from './pessoas-list/pessoas-list.component';
 import { PessoasFormComponent } from './pessoas-form/pessoas-form.component';
@@ -16,6 +17,9 @@ const routes: Routes = [
     {path:'list', component: PessoasListComponent},
     {path:'form', component: PessoasFormComponent},
     {path: 'form/:id', component: PessoasFormComponent},
+
+    {path: ':pessoa_id/:pessoa_nome/grupos-list', component: PessoasGruposListComponent},
+
     { path: '', redirectTo : '/pessoas', pathMatch: 'full' }
     ]}
    ]}

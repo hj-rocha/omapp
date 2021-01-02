@@ -1,0 +1,95 @@
+<h1 class="mt-4">Grupos de uma pessoa</h1>
+<ol class="breadcrumb mb-4">
+  <li class="breadcrumb-item active">{{ gruposPessoa ? 'Edição' : 'Cadastro' }}</li>
+</ol>
+<div class="container">
+
+
+<div *ngIf="gruposPessoa[0]">
+  <h4>Editando os grupos de : {{pessoaNome}}</h4>
+
+  <div class="card-group">
+    <div class="card text-white bg-primary mb-3">
+      <div class="card-body">
+        <div class="card-header">
+          <h5 class="card-title">Adicionar grupos para a pessoa: {{pessoaNome}}</h5>
+          <h6 class="card-subtitle mb-2">Selecione um grupo</h6>
+        </div>
+
+        <div class="dropdown">
+          <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Associe um grupo a esta pessoa
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <!--  <a *ngFor="let grupoL of grupos; let i=index; first as isFirst" class="dropdown-item"
+              (click)="trocarGrupo(grupoL.id)">-->
+            <!--  {{i}}/{{grupos.length}}. {{grupoL.nome}} <span *ngIf="isFirst">default</span>-->
+            <!--{{grupoL.nome}}
+            </a>-->
+            <input type="button" *ngFor="let grupoL of grupos; let i=index; first as isFirst" class="dropdown-item"
+              (click)="associarGrupoAPessoa(pessoaId ,grupoL.id)" value="{{grupoL.nome}}" />
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="card-group">
+    <div class="card text-white bg-primary mb-3">
+      <div class="card-body">
+        <div class="card-header">
+          <h5 class="card-title">Grupos</h5>
+          <h6 class="card-subtitle mb-2">Selecione um grupo</h6>
+        </div>
+
+        <table class="table">
+          <tr *ngFor="let grupo of gruposPessoa; let i=index">
+            <td>
+                <input type="button" class="btn btn-info btn-block" (click)="trocarGrupo(i)" value="Permissões {{grupo.nome}}" />
+            </td>
+            <td>
+                <input type="button" class="btn btn-danger btn-block" data-toggle="modal" *ngIf="grupo.nome!='Gestor'"
+                 data-target="#modalDelecao" (click)="preparaDelecao(grupo.id, grupo.nome,i)" value="Desassociar" />
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="card text-white bg-info mb-3">
+      <div class="card-body">
+        <div class="card-header">
+          <h5 class="card-title">{{(gruposPessoa[grupoPermissao]).nome}}</h5>
+          <h6 class="card-subtitle mb-2">Permissões do grupo selecionado</h6>
+        </div>
+        <span *ngIf="!gruposPessoa[grupoPermissao].permissoes[0]">Não há permissões para esse grupo</span>
+        <table class="table">
+          <tr *ngFor="let grupo of gruposPessoa[grupoPermissao].permissoes">
+            <td>{{grupo.nome}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modalDelecao" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4>Confirmação</h4>
+      </div>
+
+      <div class="modal-body" *ngIf="grupoSelecionado">
+        Confirma a desassociação da pessoa {{ pessoaNome }} ao grupo {{grupoSelecionado}}?
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-success" (click)="deassociarGrupoAPessoa(grupoId)" data-dismiss="modal">Confirmar</button>
+        <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
