@@ -27,8 +27,8 @@
             <!--  {{i}}/{{grupos.length}}. {{grupoL.nome}} <span *ngIf="isFirst">default</span>-->
             <!--{{grupoL.nome}}
             </a>-->
-            <input type="button" *ngFor="let grupoL of grupos; let i=index; first as isFirst" class="dropdown-item"
-              (click)="associarGrupoAPessoa(pessoaId ,grupoL.id)" value="{{grupoL.nome}}" />
+            <a type="button" *ngFor="let grupoL of grupos; let i=index; first as isFirst" class="dropdown-item"
+              (click)="associarGrupoAPessoa(pessoaId ,grupoL.id)" >{{grupoL.nome}}</a>
           </div>
         </div>
 
