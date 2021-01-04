@@ -11,10 +11,13 @@ const routes: Routes = [
   { path: 'pessoas', loadChildren: () => import('./pessoas/pessoas.module').then(m => m.PessoasModule) },
   { path: 'login', component: LoginComponent },
   { path: '', component: LayoutComponent, children: [
-    { path : 'home', component: HomeComponent, canActivate : [AuthGuard] },
+    { path : 'home', component: HomeComponent, canActivate : [AuthGuard],
+    data: { roles: ['EDITAR_PESSOAS'] } },
     { path: '' , redirectTo: '/home', pathMatch: 'full' }
   ]},
-  {path: '**', component: PaginaNaoEncontradaComponent}
+  { path: '', component: LayoutComponent, children: [
+  {path: '**', component: PaginaNaoEncontradaComponent, canActivate : [AuthGuard]}
+  ]}
 ];
 
 @NgModule({

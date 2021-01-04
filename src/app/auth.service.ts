@@ -18,8 +18,13 @@ export class AuthService {
   clientSecret: string = environment.clientSecret;
   jwtHelper: JwtHelperService = new JwtHelperService();
 
+    /**Alga */
+    jwtPayload: any;
+
+
   constructor(
     private http: HttpClient
+    //,private jwtHelper: JwtHelperService
   ) { }
 
   obterToken(){
@@ -38,7 +43,7 @@ export class AuthService {
   getUsuarioAutenticado(){
     const token = this.obterToken();
     if(token){
-      const usuario = this.jwtHelper.decodeToken(token).user_name
+       const usuario = this.jwtHelper.decodeToken(token).user_name
       return usuario;
     }
     return null;
@@ -47,6 +52,10 @@ export class AuthService {
   isAuthenticated() : boolean {
     const token = this.obterToken();
     if(token){
+
+
+           /**Alga */
+           this.armazenarToken(token);
       const expired = this.jwtHelper.isTokenExpired(token)
       return !expired;
     }
@@ -70,4 +79,28 @@ export class AuthService {
 
     return this.http.post( this.tokenURL, params.toString(), { headers });
   }
+
+
+    /**Alga */
+    private armazenarToken(token: string) {
+      this.jwtPayload = this.jwtHelper.decodeToken(token);
+     //localStorage.setItem('token', token);
+    }
+
+      /**Alga */
+  temPermissao(permissao: string) {
+    return this.jwtPayload && this.jwtPayload.authorities.includes(permissao);
+  }
+
+  /**Alga */
+  temQualquerPermissao(roles) {
+    for (const role of roles) {
+      if (this.temPermissao(role)) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
 }

@@ -19,7 +19,10 @@ export class AuthGuard implements CanActivate {
 
     const authenticated =  this.authService.isAuthenticated();
 
-    if(authenticated){
+    /**Alga */
+    const temPermissao = this.authService.temQualquerPermissao(next.data.roles);
+
+    if(authenticated && temPermissao){
       return true;
     }else{
       this.router.navigate(['/login'])
