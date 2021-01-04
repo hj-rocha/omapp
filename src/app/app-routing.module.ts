@@ -1,3 +1,4 @@
+import { NaoTemPermissaoComponent } from './nao-tem-permissao/nao-tem-permissao.component';
 
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -11,8 +12,9 @@ const routes: Routes = [
   { path: 'pessoas', loadChildren: () => import('./pessoas/pessoas.module').then(m => m.PessoasModule) },
   { path: 'login', component: LoginComponent },
   { path: '', component: LayoutComponent, children: [
+    {path:'nao_tem_permissao', component: NaoTemPermissaoComponent},
     { path : 'home', component: HomeComponent, canActivate : [AuthGuard],
-    data: { roles: ['EDITAR_PESSOAS'] } },
+    data: { roles: ['LISTAR_PESSOAS'] } },
     { path: '' , redirectTo: '/home', pathMatch: 'full' }
   ]},
   { path: '', component: LayoutComponent, children: [

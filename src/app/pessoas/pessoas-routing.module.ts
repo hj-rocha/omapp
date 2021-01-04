@@ -14,15 +14,19 @@ const routes: Routes = [
 
   { path: '', component: LayoutComponent,
   canActivate: [AuthGuard],
-  data: { roles: ['EDITAR_PESSOAS'] }, children:[
+  data: { roles: ['LISTAR_PESSOAS'] }, children:[
     { path: '', component: PainelComponent, children:[
 
     {path:'list', component: PessoasListComponent},
     {path:'form', component: PessoasFormComponent},
-    {path: 'form/:id', component: PessoasFormComponent},
+    {path: 'form/:id', component: PessoasFormComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['EDITAR_PESSOAS'] }},
 
     {path:'usuarios/list', component: UsuariosListComponent},
-    {path: 'grupos/list', component: GruposListComponent},
+    {path: 'grupos/list', component: GruposListComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['EDITAR_PESSOAS'] }},
 
     {path: ':pessoa_id/:pessoa_nome/grupos-list', component: PessoasGruposListComponent},
 
