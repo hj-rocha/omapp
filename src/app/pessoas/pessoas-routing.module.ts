@@ -12,7 +12,7 @@ import { AuthGuard } from '../auth.guard'
 
 const routes: Routes = [
 
-  { path: 'pessoas', component: LayoutComponent,
+  { path: '', component: LayoutComponent,
   canActivate: [AuthGuard], children:[
     { path: '', component: PainelComponent, children:[
 

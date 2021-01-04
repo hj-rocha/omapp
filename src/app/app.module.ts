@@ -18,6 +18,7 @@ import { LoginComponent } from './login/login.component';
 import { LayoutComponent } from './layout/layout.component'
 import { AuthService } from './auth.service';
 import { TokenInterceptor } from './token.interceptor';
+import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada/pagina-nao-encontrada.component';
 
 
 
@@ -26,7 +27,8 @@ import { TokenInterceptor } from './token.interceptor';
     AppComponent,
     HomeComponent,
     LoginComponent,
-    LayoutComponent
+    LayoutComponent,
+    PaginaNaoEncontradaComponent
   ],
   imports: [
     BrowserModule,
