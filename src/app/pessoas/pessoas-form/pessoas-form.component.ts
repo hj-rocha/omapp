@@ -104,7 +104,7 @@ export class PessoasFormComponent implements OnInit {
   }
 
   voltarParaListagem(){
-    this.router.navigate(['/pessoas'])
+    this.router.navigate(['pessoas/list'])
   }
 
   onSubmit(){

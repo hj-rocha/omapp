@@ -1,3 +1,5 @@
+import { GruposListComponent } from './grupos-list/grupos-list.component';
+import { UsuariosListComponent } from './usuarios-list/usuarios-list.component';
 import { PessoasGruposListComponent } from './pessoas-grupos-list/pessoas-grupos-list.component';
 import { PainelComponent } from './painel/painel.component';
 import { PessoasListComponent } from './pessoas-list/pessoas-list.component';
@@ -17,6 +19,9 @@ const routes: Routes = [
     {path:'list', component: PessoasListComponent},
     {path:'form', component: PessoasFormComponent},
     {path: 'form/:id', component: PessoasFormComponent},
+
+    {path:'usuarios/list', component: UsuariosListComponent},
+    {path: 'grupos/list', component: GruposListComponent},
 
     {path: ':pessoa_id/:pessoa_nome/grupos-list', component: PessoasGruposListComponent},
 

@@ -1,13 +1,12 @@
-<h1 class="mt-4">Grupos de uma pessoa</h1>
 <ol class="breadcrumb mb-4">
-  <li class="breadcrumb-item active">{{ gruposPessoa ? 'Edição' : 'Cadastro' }}</li>
+  <li class="breadcrumb-item active">Grupos de uma pessoa</li>
+  <li class="breadcrumb-item active"><a routerLink="/pessoas/form/{{ pessoaId }}" >Voltar para: {{pessoaNome}}</a></li>
+ <!-- <li class="breadcrumb-item active">{{ gruposPessoa ? 'Edição' : 'Cadastro' }}</li>-->
 </ol>
 <div class="container">
 
 
   <div>
-    <h4>Editando os grupos de : {{pessoaNome}}</h4>
-
     <div class="card-group">
       <div class="card text-white bg-primary mb-3">
         <div class="card-body">

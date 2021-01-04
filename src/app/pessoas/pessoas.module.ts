@@ -10,11 +10,12 @@ import { PainelComponent } from './painel/painel.component';
 import { UsuariosListComponent } from './usuarios-list/usuarios-list.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PessoasGruposListComponent } from './pessoas-grupos-list/pessoas-grupos-list.component';
+import { GruposListComponent } from './grupos-list/grupos-list.component';
 
 
 
 @NgModule({
-  declarations: [ PessoasFormComponent, PessoasListComponent, PainelComponent, UsuariosListComponent, PessoasGruposListComponent],
+  declarations: [ PessoasFormComponent, PessoasListComponent, PainelComponent, UsuariosListComponent, PessoasGruposListComponent, GruposListComponent],
   imports: [
     CommonModule,
     PessoasRoutingModule,

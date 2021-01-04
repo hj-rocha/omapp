@@ -1,27 +1,36 @@
 <h3 class="mt-4">Pessoas</h3>
 <ol class="breadcrumb mb-2">
-    <li class="breadcrumb-item active">Consulta</li>
-</ol>
-<ul class="nav">
-<!--  <li class="nav-item">
+  <li class="breadcrumb-item active">
+
+    <ul class="nav">
+      <!--  <li class="nav-item">
     <button class="btn-sm btn-warning" routerLink="/pessoas/form" >
       <i class="fa fa-plus"></i> Novo
   </button>
   </li>-->
-  <li class="nav-item">
-    <button class="btn-sm btn-primary" routerLink="/pessoas/list" >
-      <i class="fas fa-users"></i>Listar Todas
-    </button>
-  </li>
-  <li class="nav-item">
-    <button class="btn-sm btn-primary" routerLink="/pessoas/list" >
-      <i class="fas fa-users"></i>Usuários
-    </button>
-  </li>
-  <li class="nav-item">
-    <div class="dropdown">
-      <button class="btn-sm btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-       Tipos de Pessoas
+
+
+      <li class="nav-item">
+        <button class="btn-sm btn-primary" routerLink="/pessoas/usuarios/list">
+          <i class="fas fa-users"></i> Usuários
+        </button>
+      </li>
+
+      <li class="nav-item">
+        <button class="btn-sm btn-primary" routerLink="/pessoas/list">
+          <i class="fas fa-users"></i> Pessoas
+        </button>
+
+      <li class="nav-item">
+
+        <button class="btn-sm btn-primary" routerLink="/pessoas/grupos/list">
+          <i class="fas fa-cubes"></i> Grupos
+        </button>
+
+        <!--    <div class="dropdown">
+      <button class="btn-sm btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <i class="fa fa-cubes" aria-hidden="true"></i> Grupos
       </button>
       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
         <a class="dropdown-item" routerLink="/pessoas/list">Clientes</a>
@@ -31,8 +40,12 @@
         <a class="dropdown-item" routerLink="/pessoas/list">Gestores</a>
       </div>
     </div>
+
+  -->
+      </li>
+
+    </ul>
   </li>
 
-</ul>
-
+</ol>
 <router-outlet></router-outlet>
