@@ -1,5 +1,14 @@
 <ol class="breadcrumb mb-4">
   <li class="breadcrumb-item active">Listagem de Pessoas</li>
+  <li class="breadcrumb-item active">
+    <div class="btn-group" role="group">
+      <button class="btn btn-success btn-sm"
+        routerLink="/pessoas/form">
+        <i class="fa fa-user-o"></i> Cadastrar pessoa
+      </button>
+    </div>
+
+  </li>
 </ol>
 <div class="container">
   <div class="row">
@@ -14,8 +23,6 @@
             <th>Cidade</th>
             <th>Bairro</th>
             <th>Data Nascimento</th>
-            <th>Data Cadastro</th>
-            <th>Data Atualização</th>
             <th>Usuário email</th>
             <th>Id</th>
           </tr>
@@ -35,7 +42,7 @@
             </td>
             <td>{{ p.nome }} </td>
             <td>
-              <table *ngIf=p.grupos class="table">
+              <table *ngIf="(p.grupos)[0]" class="table">
                 <tr *ngFor="let g of p.grupos">
                   <td>{{g.nome}}</td>
 
@@ -43,13 +50,13 @@
               </table>
             </td>
             <td>{{ p.email }}</td>
-            <td>{{ p.endereco.cidade.nome }}</td>
-            <td>{{ p.endereco.bairro }}</td>
+            <td><span *ngIf="p.endereco">{{ p.endereco.cidade.nome }}</span></td>
+            <td><span *ngIf="p.endereco">{{ p.endereco.bairro }}</span></td>
             <td>{{ p.dataNascimento}}</td>
-            <td>{{ p.dataCadastro | date:'dd/MM/yyy'}}</td>
-            <td>{{ p.dataAtualizacao | date:'dd/MM/yyy' }}</td>
-            <td><span *ngIf=p.usuario>{{ p.usuario.username }}</span></td>
-            <td>{{ p.id }} </td>
+            <!--<td>{{ p.dataCadastro | date:'dd/MM/yyy'}}</td>
+            <td>{{ p.dataAtualizacao | date:'dd/MM/yyy' }}</td>-->
+            <td><span *ngIf="p.usuario">{{ p.usuario.username }}</span></td>
+            <td>{{ p.id }}</td>
 
           </tr>
         </tbody>

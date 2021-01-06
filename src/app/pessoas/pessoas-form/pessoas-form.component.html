@@ -15,8 +15,7 @@
       </div>
     </div>
 
-    <div class="row" *ngIf="pessoa.id">
-
+    <div class="row">
       <div class="col-md-6">
         <div class="form-group">
           <label>ID:</label>
@@ -43,7 +42,7 @@
       </div>
     </div>
 
-    <div class="row">
+ <!--   <div class="row" *ngIf="pessoa.dataCadastro">
       <div class="col-md-6">
         <div class="form-group">
           <label>Data Cadastro</label>
@@ -52,7 +51,7 @@
       </div>
     </div>
 
-    <div class="row">
+    <div class="row" *ngIf="pessoa.dataAtualizacao">
       <div class="col-md-6">
         <div class="form-group">
           <label>Data última atualização</label>
@@ -61,7 +60,7 @@
         </div>
       </div>
     </div>
-
+  -->
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
@@ -82,24 +81,38 @@
       </div>
     </div>
 
-    <div class="row" *ngIf="pessoa.usuario">
-      <div class="col-md-6">
-        <div class="form-group">
-          <label>Email: *</label>
-          <input type="text" class="form-control" [(ngModel)]="pessoa.usuario.username" name="usuario.email" />
-        </div>
-      </div>
 
+    <div *ngIf="pessoa.usuario && pessoa.id">
       <div class="col-md-6">
         <div class="form-group">
-          <label>Senha: *</label>
-          <input type="text" class="form-control" [(ngModel)]="pessoa.usuario.password" name="usuario.senha" />
+          <div class="card text-white bg-primary mb-3">
+            <div class="card-body">
+              <div class="card-header">
+                <h5 class="card-title">Usuário dessa pessoa</h5>
+
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Email: *</label>
+                    <input type="email" class="form-control" [(ngModel)]="pessoa.usuario.username"
+                      name="usuario.email" />
+                  </div>
+                </div>
+
+
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Senha: *</label>
+                    <input type="password" class="form-control" [(ngModel)]="pessoa.usuario.password"
+                      name="usuario.senha" />
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-
-    <h3>Endereço</h3>
-
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
@@ -131,7 +144,8 @@
       <div class="col-md-6">
         <div class="form-group">
           <label>Complemento</label>
-          <input type="text" class="form-control" [(ngModel)]="pessoa.endereco.complemento" name="complemento" />
+          <input type="text" class="form-control" [(ngModel)]="pessoa.endereco.complemento"
+            name="complemento" />
         </div>
       </div>
     </div>
@@ -140,7 +154,8 @@
       <div class="col-md-6">
         <div class="form-group">
           <label>Bairro</label>
-          <input type="text" class="form-control" [(ngModel)]="pessoa.endereco.bairro" name="bairro" />
+          <input type="text" class="form-control" [(ngModel)]="pessoa.endereco.bairro"
+           name="bairro" />
         </div>
       </div>
     </div>
@@ -148,8 +163,9 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <label>Logradouro</label>
-          <input type="text" class="form-control" [(ngModel)]="pessoa.endereco.logradouro" name="logradouro" />
+          <label>Cidade Id</label>
+          <input type="text" class="form-control" [(ngModel)]="pessoa.endereco.cidade.id"
+           name="cidade.id" />
         </div>
       </div>
     </div>
@@ -158,7 +174,8 @@
       <div class="col-md-6">
         <div class="form-group">
           <label>Cidade</label>
-          <input type="text" class="form-control" [(ngModel)]="pessoa.endereco.cidade.nome" name="cidade" />
+          <input type="text" class="form-control" [(ngModel)]="pessoa.endereco.cidade.nome"
+           name="cidade.nome" />
         </div>
       </div>
     </div>
@@ -167,44 +184,20 @@
       <div class="col-md-6">
         <div class="form-group">
           <label>Estado</label>
-          <input type="text" class="form-control" [(ngModel)]="pessoa.endereco.cidade.estado.nome" name="estado" />
-        </div>
-      </div>
-    </div>
-
-
-    <div class="col-md-6">
-      <div class="form-group">
-        <div class="card text-white bg-primary mb-3">
-          <div class="card-body">
-            <div class="card-header">
-              <h5 class="card-title">Grupos dessa pessoa</h5>
-            </div>
-            <table *ngIf=pessoa.grupos class="table">
-              <tr *ngFor="let g of pessoa.grupos">
-                <td>{{g.nome}}</td>
-              </tr>
-            </table>
-            <div class="card-footer">
-              <div class="btn-group" role="group">
-                <button class="btn btn-warning btn-sm"
-                  routerLink="/pessoas/{{ pessoa.id }}/{{pessoa.nome}}/grupos-list">
-                  <i class="fa fa-edit"></i>Editar grupos
-                </button>
-              </div>
-            </div>
-          </div>
+          <input type="text" class="form-control" [(ngModel)]="pessoa.endereco.cidade.estado.sigla"
+            name="estado.sigla" />
         </div>
       </div>
     </div>
 
     <div class="row">
+
       <div class="col-md-3">
-        <button type="submit" class="btn btn-success" *ngIf="!pessoa.id">
+        <button type="submit" class="btn btn-success"  *ngIf="!pessoa.id">
           <i class="fa fa-save"></i> Salvar
         </button>
 
-        <button type="submit" class="btn btn-primary" *ngIf="pessoa.id">
+        <button type="submit" class="btn btn-primary" >
           <i class="fa fa-sync-alt"></i> Atualizar
         </button>
 
@@ -215,4 +208,29 @@
     </div>
 
   </form>
+  <hr/>
+  <div class="col-md-6" *ngIf="pessoa.id">
+
+      <div class="card text-white bg-primary mb-3">
+        <div class="card-body">
+          <div class="card-header">
+            <h5 class="card-title">Grupos de: {{pessoa.nome}}</h5>
+          </div>
+          <table *ngIf=pessoa.grupos class="table">
+            <tr *ngFor="let g of pessoa.grupos">
+              <td>{{g.nome}}</td>
+            </tr>
+          </table>
+          <div class="card-footer">
+            <div class="btn-group" role="group">
+              <button class="btn btn-warning btn-sm"
+                routerLink="/pessoas/{{ pessoa.id }}/{{pessoa.nome}}/grupos-list">
+                <i class="fa fa-edit"></i>Editar grupos
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
 </div>

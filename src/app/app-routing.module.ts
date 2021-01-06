@@ -1,3 +1,4 @@
+import { ClientesModule } from './clientes/clientes.module';
 import { NaoTemPermissaoComponent } from './nao-tem-permissao/nao-tem-permissao.component';
 
 import { NgModule } from '@angular/core';
@@ -10,6 +11,9 @@ import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada/pagina-nao
 
 const routes: Routes = [
   { path: 'pessoas', loadChildren: () => import('./pessoas/pessoas.module').then(m => m.PessoasModule) },
+  { path: 'clientes', loadChildren: () => import('./clientes/clientes.module').then(m => m.ClientesModule) },
+
+
   { path: 'login', component: LoginComponent },
   { path: '', component: LayoutComponent, children: [
     {path:'nao_tem_permissao', component: NaoTemPermissaoComponent},

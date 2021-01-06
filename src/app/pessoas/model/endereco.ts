@@ -1,10 +1,9 @@
 import { Cidade } from './cidade';
-
 export class Endereco {
   cep: string;
   logradouro: string;
   numero: string;
   complemento: string;
   bairro: string;
-  cidade: Cidade;
+  cidade: Cidade = new Cidade();
 }

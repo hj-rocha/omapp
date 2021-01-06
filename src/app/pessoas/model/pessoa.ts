@@ -4,12 +4,12 @@ import { Usuario } from "./usuario";
 
 export class Pessoa {
   id: number;
-  nome: String;
-  email: String;
-  dataNascimento: String;
-  dataCadastro: String;
-  dataAtualizacao: String;
-  usuario: Usuario = new Usuario();
-  endereco: Endereco = new Endereco();;
-  grupos: Grupo[] = [];
+  nome: string;
+  email: string;
+  dataNascimento: string;
+ // dataCadastro: string;
+ // dataAtualizacao: string;
+  usuario: Usuario ;
+  endereco: Endereco = new Endereco();
+  grupos: Grupo[];
 }

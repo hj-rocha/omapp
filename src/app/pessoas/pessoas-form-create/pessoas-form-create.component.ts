@@ -1,12 +1,8 @@
-import { environment } from './../../../environments/environment';
-import { Cidade } from './../model/cidade';
-import {NgbDateStruct, NgbCalendar, NgbDate, NgbDateParserFormatter, NgbDateAdapter} from '@ng-bootstrap/ng-bootstrap';
-import { PessoasService } from './../service/pessoas.service';
-import { Params, Router, ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
 import { Pessoa } from './../model/pessoa';
+import { Router, ActivatedRoute } from '@angular/router';
+import { PessoasService } from './../service/pessoas.service';
 import { Component, OnInit, Injectable } from '@angular/core';
-import { DatePipe } from '@angular/common';
+import { NgbDateAdapter, NgbDateStruct, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { Endereco } from '../model/endereco';
 
 @Injectable()
@@ -69,42 +65,25 @@ function validarDia(valor) {
   }
 }
 
-
 @Component({
-  selector: 'app-pessoas-form',
-  templateUrl: './pessoas-form.component.html',
-  styleUrls: ['./pessoas-form.component.css'],
-  providers: [{ provide: NgbDateParserFormatter, useClass: FormataData },
-    { provide: NgbDateAdapter, useClass: FormatDateAdapter }]
+  selector: 'app-pessoas-form-create',
+  templateUrl: './pessoas-form-create.component.html',
+  styleUrls: ['./pessoas-form-create.component.css']
 })
-export class PessoasFormComponent implements OnInit {
-
+export class PessoasFormCreateComponent implements OnInit {
 
   pessoa: Pessoa;
   success: boolean = false;
   errors: String[];
-  id: number;
 
   constructor(
-      private service: PessoasService ,
-      private router: Router,
-      private activatedRoute : ActivatedRoute) {
-       //this.pessoa = new Pessoa()
-       }
+    private service: PessoasService ,
+    private router: Router,
+    private activatedRoute : ActivatedRoute) {
+      this.pessoa = new Pessoa();
+     }
 
   ngOnInit(): void {
-    let params : Observable<Params> = this.activatedRoute.params
-    params.subscribe( urlParams => {
-        this.id = urlParams['id'];
-        if(this.id){
-          this.service
-            .getPessoaById(this.id)
-            .subscribe(
-              response => this.pessoa = response /**,
-              errorResponse => this.pessoa = new Pessoa()*/
-            )
-        }
-    });
   }
 
   voltarParaListagem(){
@@ -112,21 +91,7 @@ export class PessoasFormComponent implements OnInit {
   }
 
   onSubmit(){
-    if(this.id){
 
-     //this.pessoa.dataNascimento = this.date;
-
-      this.service
-        .atualizar(this.pessoa)
-        .subscribe(response => {
-            this.success = true;
-            this.errors = null;
-        }, errorResponse => {
-          this.errors = ['Erro ao atualizar a pessoa.']
-        })
-
-
-    }else{
       console.log("OPA"+ JSON.stringify(this.pessoa));
       this.service
         .salvar(this.pessoa)
@@ -138,9 +103,7 @@ export class PessoasFormComponent implements OnInit {
             this.success = false;
             this.errors = errorResponse.error.errors;
           })
+        }
 
-    }
-
-  }
 
 }
