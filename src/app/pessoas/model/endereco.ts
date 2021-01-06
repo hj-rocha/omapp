@@ -5,5 +5,6 @@ export class Endereco {
   numero: string;
   complemento: string;
   bairro: string;
+  referencia: string;
   cidade: Cidade = new Cidade();
 }

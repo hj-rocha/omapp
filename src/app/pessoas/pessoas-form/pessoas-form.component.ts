@@ -1,6 +1,6 @@
 import { environment } from './../../../environments/environment';
 import { Cidade } from './../model/cidade';
-import {NgbDateStruct, NgbCalendar, NgbDate, NgbDateParserFormatter, NgbDateAdapter} from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateStruct, NgbCalendar, NgbDate, NgbDateParserFormatter, NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap';
 import { PessoasService } from './../service/pessoas.service';
 import { Params, Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -75,7 +75,7 @@ function validarDia(valor) {
   templateUrl: './pessoas-form.component.html',
   styleUrls: ['./pessoas-form.component.css'],
   providers: [{ provide: NgbDateParserFormatter, useClass: FormataData },
-    { provide: NgbDateAdapter, useClass: FormatDateAdapter }]
+  { provide: NgbDateAdapter, useClass: FormatDateAdapter }]
 })
 export class PessoasFormComponent implements OnInit {
 
@@ -86,59 +86,56 @@ export class PessoasFormComponent implements OnInit {
   id: number;
 
   constructor(
-      private service: PessoasService ,
-      private router: Router,
-      private activatedRoute : ActivatedRoute) {
-       //this.pessoa = new Pessoa()
-       }
+    private service: PessoasService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute) {
+    //this.pessoa = new Pessoa()
+  }
 
   ngOnInit(): void {
-    let params : Observable<Params> = this.activatedRoute.params
-    params.subscribe( urlParams => {
-        this.id = urlParams['id'];
-        if(this.id){
-          this.service
-            .getPessoaById(this.id)
-            .subscribe(
-              response => this.pessoa = response /**,
+    let params: Observable<Params> = this.activatedRoute.params
+    params.subscribe(urlParams => {
+      this.id = urlParams['id'];
+      if (this.id) {
+        this.service
+          .getPessoaById(this.id)
+          .subscribe(
+            response => this.pessoa = response /**,
               errorResponse => this.pessoa = new Pessoa()*/
-            )
-        }
+          )
+      }
     });
   }
 
-  voltarParaListagem(){
+  voltarParaListagem() {
     this.router.navigate(['pessoas/list'])
   }
 
-  onSubmit(){
-    if(this.id){
-
-     //this.pessoa.dataNascimento = this.date;
-
+  onSubmit() {
+    if (this.id) {
+      //this.pessoa.dataNascimento = this.date;
       this.service
         .atualizar(this.pessoa)
         .subscribe(response => {
-            this.success = true;
-            this.errors = null;
+          this.success = true;
+          this.errors = null;
         }, errorResponse => {
-          this.errors = ['Erro ao atualizar a pessoa.']
+          this.success = false;
+          this.errors = errorResponse.error.errors; /**['Erro ao atualizar a pessoa.']*/
         })
 
-
-    }else{
-      console.log("OPA"+ JSON.stringify(this.pessoa));
+    } else {
+      console.log("OPA" + JSON.stringify(this.pessoa));
       this.service
         .salvar(this.pessoa)
-          .subscribe( response => {
-            this.success = true;
-            this.errors = null;
-            this.pessoa = response;
-          } , errorResponse => {
-            this.success = false;
-            this.errors = errorResponse.error.errors;
-          })
-
+        .subscribe(response => {
+          this.success = true;
+          this.errors = null;
+          this.pessoa = response;
+        }, errorResponse => {
+          this.success = false;
+          this.errors = errorResponse.error.errors;
+        })
     }
 
   }

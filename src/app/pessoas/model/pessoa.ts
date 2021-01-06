@@ -6,6 +6,8 @@ export class Pessoa {
   id: number;
   nome: string;
   email: string;
+  identidade: string;
+  cpf: string;
   dataNascimento: string;
  // dataCadastro: string;
  // dataAtualizacao: string;

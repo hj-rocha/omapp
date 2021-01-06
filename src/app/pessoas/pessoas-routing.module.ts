@@ -1,3 +1,4 @@
+import { PessoasFormCreate2Component } from './pessoas-form-create2/pessoas-form-create2.component';
 import { PessoasFormCreateComponent } from './pessoas-form-create/pessoas-form-create.component';
 import { GruposListComponent } from './grupos-list/grupos-list.component';
 import { UsuariosListComponent } from './usuarios-list/usuarios-list.component';
@@ -20,6 +21,7 @@ const routes: Routes = [
 
     {path:'list', component: PessoasListComponent},
     {path:'form', component: PessoasFormCreateComponent, canActivate: [AuthGuard], data: { roles: ['EDITAR_PESSOAS'] }},
+    {path:'form2', component: PessoasFormCreate2Component, canActivate: [AuthGuard], data: { roles: ['EDITAR_PESSOAS'] }},
     {path: 'form/:id', component: PessoasFormComponent, canActivate: [AuthGuard], data: { roles: ['EDITAR_PESSOAS'] }},
 
     {path:'usuarios/list', component: UsuariosListComponent},

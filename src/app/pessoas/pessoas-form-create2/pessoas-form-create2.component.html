@@ -1,0 +1,9 @@
+<form [formGroup]="form">
+    <div>
+      <label>CPF</label>
+      <input type="text" formControlName="cpf"/>
+    </div>
+    <div *ngIf="form.get('cpf').getError('cpf')"> 
+      O cpf não é válido.
+    </div>
+</form>
