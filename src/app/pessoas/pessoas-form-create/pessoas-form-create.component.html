@@ -2,7 +2,7 @@
   <li class="breadcrumb-item active">Cadastrar nova pessoa</li>
 </ol>
 <div class="container">
-  <form #pessoaForm="ngForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
     <div class="row">
       <div class="col-md-12">
@@ -19,16 +19,23 @@
       <div class="col-md-6">
         <div class="form-group">
           <label>Nome: *</label>
-          <input type="text" class="form-control" [(ngModel)]="pessoa.nome" name="nome" required=true />
+          <input type="text" class="form-control" formControlName="nome"
+          [ngClass]="{ 'is-invalid': submitted && f.nome.errors }"/>
+          <div *ngIf="submitted && f.nome.errors" class="invalid-feedback">
+            <div *ngIf="f.nome.errors.required">Nome é requerido</div>
+        </div>
         </div>
       </div>
     </div>
 
     <div class="row">
       <div class="col-md-6">
-        <div class="form-group">
-          <label>Email de contato: *</label>
-          <input type="text" class="form-control" [(ngModel)]="pessoa.email" name="email" />
+        <label>Email</label>
+        <input type="email" formControlName="email" class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+          <div *ngIf="f.email.errors.required">Email é requerido</div>
+          <div *ngIf="f.email.errors.email">Digite um email válido</div>
         </div>
       </div>
     </div>
@@ -37,10 +44,12 @@
       <div class="col-md-6">
         <div class="form-group">
           <label>CPF:</label>
-          <span style="color: red; font-size: 23px;" *ngIf="cpfValidate.invalid"> *</span>
-          <input type="text" class="form-control" [(ngModel)]="pessoa.cpf" name="cpf" id="cpf"
-           #cpfValidate="ngModel"  mask="000.000.000-00" autocomplete="false"/>
-        </div>
+            <input type="text" class="form-control" formControlName="cpf" mask="000.000.000-00"
+              [ngClass]="{ 'is-invalid': submitted && f.cpf.errors }" />
+              <div class="invalid-feedback">
+              * CPF inválido.
+            </div>
+          </div>
       </div>
     </div>
 
@@ -48,7 +57,7 @@
       <div class="col-md-6">
         <div class="form-group">
           <label>Identidade:</label>
-          <input type="text" class="form-control" [(ngModel)]="pessoa.identidade" name="identidade" />
+          <input type="text" class="form-control" formControlName="identidade" />
         </div>
       </div>
     </div>
@@ -57,7 +66,11 @@
       <div class="col-md-6">
         <div class="form-group">
           <label>CEP:</label>
-          <input type="text" class="form-control" [(ngModel)]="pessoa.endereco.cep" name="cep" />
+          <input type="text" class="form-control" formControlName="cep" mask="00.000-000"
+          [ngClass]="{ 'is-invalid': submitted && f.cep.errors }"/>
+          <div class="invalid-feedback">
+            * CEP inválido.
+          </div>
         </div>
       </div>
     </div>
@@ -68,8 +81,7 @@
       <div class="col-md-6">
         <div class="form-group">
           <label>Cidade Id</label>
-          <input type="text" class="form-control" [(ngModel)]="pessoa.endereco.cidade.id"
-           name="cidade.id" />
+          <input type="text" class="form-control" formControlName="cidadeId" mask="0*" />
         </div>
       </div>
     </div>
@@ -81,7 +93,7 @@
     <div class="row">
 
       <div class="col-md-3">
-        <button type="submit" class="btn btn-success" [disabled]="pessoaForm.invalid">
+        <button type="submit" class="btn btn-success">
           <i class="fa fa-save"></i> Salvar
         </button>
 
