@@ -1,3 +1,4 @@
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { CpfValidator } from './../../shared/validators/cpf.validator';
 import { GenericValidator } from './../../shared/validators/generic.validator';
 import { Pessoa } from './../model/pessoa';
@@ -71,8 +72,12 @@ function validarDia(valor) {
 @Component({
   selector: 'app-pessoas-form-create',
   templateUrl: './pessoas-form-create.component.html',
-  styleUrls: ['./pessoas-form-create.component.css']
+  styleUrls: ['./pessoas-form-create.component.css'],
+  providers: [{ provide: NgbDateParserFormatter, useClass: FormataData },
+  { provide: NgbDateAdapter, useClass: FormatDateAdapter }]
 })
+
+
 export class PessoasFormCreateComponent implements OnInit {
 
   pessoa: Pessoa;
@@ -82,75 +87,80 @@ export class PessoasFormCreateComponent implements OnInit {
   form: FormGroup;
   submitted = false;
 
-  constructor(
-    private service: PessoasService ,
-    private router: Router,
-    private activatedRoute : ActivatedRoute,
-    private formBuilder: FormBuilder) {
-      this.pessoa = new Pessoa();
-     }
 
-  ngOnInit(): void {
-   this.criarFormulario();
+  constructor(
+    private service: PessoasService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private formBuilder: FormBuilder) {
+    this.pessoa = new Pessoa();
   }
 
-  criarFormulario(){
+  ngOnInit(): void {
+    this.criarFormulario();
+  }
+
+  criarFormulario() {
 
     this.form = this.formBuilder.group({
       nome: ['', [Validators.required]],
-      email: ['', [ Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
-     /** password: ['', [Validators.required, Validators.minLength(6)]]*/
-      cpf: ['',[ CpfValidator ]],
+      email: ['', [Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
+      /** password: ['', [Validators.required, Validators.minLength(6)]]*/
+      cpf: ['', [GenericValidator.isValidCpf()]],
       identidade: [''],
+      dataNascimento: [''],
       cep: [''],
       cidadeId: ['']
     })
   }
 
-  voltarParaListagem(){
+  voltarParaListagem() {
     this.router.navigate(['pessoas/list'])
   }
 
-      // convenience getter for easy access to form fields
-      get f() { return this.form.controls; }
+  // convenience getter for easy access to form fields
+  get f() { return this.form.controls; }
 
 
-  onSubmit(){
+  onSubmit() {
     this.submitted = true;
 
     // stop here if form is invalid
     if (this.form.invalid) {
-        return;
+      return;
     }
 
-    //alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.form.value))
+     alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.form.value))
 
     this.pessoa.nome = this.form.value.nome;
     this.pessoa.email = this.form.value.email;
-    this.pessoa.cpf = this.form.value.cpf;
+    if (this.form.value.cpf) {
+      this.pessoa.cpf = this.form.value.cpf;
+    }
     this.pessoa.identidade = this.form.value.identidade;
+    this.pessoa.dataNascimento = this.form.value.dataNascimento;
     this.pessoa.endereco.cep = this.form.value.cep;
     this.pessoa.endereco.cidade.id = this.form.value.cidadeId;
 
 
+    alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.pessoa))
 
 
 
 
+    console.log("OPA" + JSON.stringify(this.pessoa));
+    this.service
+      .salvar(this.pessoa)
+      .subscribe(response => {
+        this.success = true;
+        this.errors = null;
+        this.pessoa = response;
+      }, errorResponse => {
+        this.success = false;
+        this.errors = errorResponse.error.errors;
+      })
 
-      console.log("OPA"+ JSON.stringify(this.pessoa));
-      this.service
-        .salvar(this.pessoa)
-          .subscribe( response => {
-            this.success = true;
-            this.errors = null;
-            this.pessoa = response;
-          } , errorResponse => {
-            this.success = false;
-            this.errors = errorResponse.error.errors;
-          })
-
-        }
+  }
 
 
 }
