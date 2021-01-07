@@ -1,9 +1,8 @@
 <ol class="breadcrumb mb-4">
- <!--<li class="breadcrumb-item active">Listagem de Pessoas</li>-->
+  <!--<li class="breadcrumb-item active">Listagem de Pessoas</li>-->
   <li class="breadcrumb-item active">
     <div class="btn-group" role="group">
-      <button class="btn btn-success btn-sm"
-        routerLink="/pessoas/form">
+      <button class="btn btn-success btn-sm" routerLink="/pessoas/form">
         <i class="fa fa-user-o"></i> Cadastrar pessoa
       </button>
     </div>
@@ -18,30 +17,33 @@
           <tr>
             <th>E/D</th>
             <th>Nome</th>
-            <th>Grupos</th>
-            <th>Email</th>
+            <th>CPF</th>
+      <!--      <th>Grupos</th>-->
             <th>Cidade</th>
             <th>Bairro</th>
-            <th>Data Nascimento</th>
+       <!--     <th>Data Nascimento</th>
             <th>Usuário email</th>
-            <th>Id</th>
+            <th>Id</th>-->
+            <th>Email</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let p of lista">
             <td>
-             <!-- <div class="btn-group" role="group">-->
-                <button class="btn btn-primary btn-sm" routerLink="/pessoas/form/{{ p.id }}"  placement="top" ngbTooltip="Editar">
+              <div class="btn-group" role="group">
+                <button class="btn btn-primary btn-sm" routerLink="/pessoas/form/{{ p.id }}" placement="top"
+                  ngbTooltip="Editar">
                   <i class="fa fa-edit"></i>
                 </button>
                 <button class="btn btn-danger btn-sm" (click)="preparaDelecao(p)" data-toggle="modal"
-                  data-target="#modalDelecao"  placement="top" ngbTooltip="Apagar">
+                  data-target="#modalDelecao" placement="top" ngbTooltip="Apagar">
                   <i class="fa fa-trash"></i>
                 </button>
-            <!--  </div>-->
+              </div>
             </td>
             <td>{{ p.nome }} </td>
-            <td>
+            <td>{{p.cpf}}</td>
+       <!--     <td>
               <table *ngIf="(p.grupos)[0]" class="table">
                 <tr *ngFor="let g of p.grupos">
                   <td>{{g.nome}}</td>
@@ -49,15 +51,13 @@
                 </tr>
               </table>
             </td>
-            <td>{{ p.email }}</td>
+          -->
             <td><span *ngIf="p.endereco">{{ p.endereco.cidade.nome }}</span></td>
             <td><span *ngIf="p.endereco">{{ p.endereco.bairro }}</span></td>
-            <td>{{ p.dataNascimento}}</td>
-            <!--<td>{{ p.dataCadastro | date:'dd/MM/yyy'}}</td>
-            <td>{{ p.dataAtualizacao | date:'dd/MM/yyy' }}</td>-->
+      <!--      <td>{{ p.dataNascimento}}</td>
             <td><span *ngIf="p.usuario">{{ p.usuario.username }}</span></td>
-            <td>{{ p.id }}</td>
-
+            <td>{{ p.id }}</td>-->
+            <td>{{ p.email }}</td>
           </tr>
         </tbody>
       </table>

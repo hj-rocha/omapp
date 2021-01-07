@@ -17,8 +17,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: '', component: LayoutComponent, children: [
     {path:'nao_tem_permissao', component: NaoTemPermissaoComponent},
-    { path : 'home', component: HomeComponent, canActivate : [AuthGuard],
-    data: { roles: ['LISTAR_PESSOAS'] } },
+    { path : 'home', component: HomeComponent },
     { path: '' , redirectTo: '/home', pathMatch: 'full' }
   ]},
   { path: '', component: LayoutComponent, children: [

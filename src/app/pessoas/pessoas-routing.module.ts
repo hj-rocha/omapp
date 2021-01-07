@@ -1,3 +1,4 @@
+import { GruposFormComponent } from './grupos-form/grupos-form.component';
 import { PessoasFormCreate2Component } from './pessoas-form-create2/pessoas-form-create2.component';
 import { PessoasFormCreateComponent } from './pessoas-form-create/pessoas-form-create.component';
 import { GruposListComponent } from './grupos-list/grupos-list.component';
@@ -16,16 +17,18 @@ const routes: Routes = [
 
   { path: '', component: LayoutComponent,
   canActivate: [AuthGuard],
-  data: { roles: ['LISTAR_PESSOAS'] }, children:[
+  data: { roles: ['CONSULTAR_PESSOAS'] }, children:[
     { path: '', component: PainelComponent, children:[
 
     {path:'list', component: PessoasListComponent},
     {path:'form', component: PessoasFormCreateComponent, canActivate: [AuthGuard], data: { roles: ['EDITAR_PESSOAS'] }},
-    {path:'form2', component: PessoasFormCreate2Component, canActivate: [AuthGuard], data: { roles: ['EDITAR_PESSOAS'] }},
     {path: 'form/:id', component: PessoasFormComponent, canActivate: [AuthGuard], data: { roles: ['EDITAR_PESSOAS'] }},
 
     {path:'usuarios/list', component: UsuariosListComponent},
-    {path: 'grupos/list', component: GruposListComponent, canActivate: [AuthGuard], data: { roles: ['EDITAR_PESSOAS'] }},
+
+    {path: 'grupos/list', component: GruposListComponent, canActivate: [AuthGuard], data: { roles: ['CONSULTAR_GRUPOS_PERMISSOES'] }},
+    {path: 'grupos/form', component: GruposFormComponent, canActivate: [AuthGuard], data: { roles: ['EDITAR_GRUPOS_PERMISSOES'] }},
+    {path: 'grupos/form/:id', component: GruposFormComponent, canActivate: [AuthGuard], data: { roles: ['EDITAR_GRUPOS_PERMISSOES'] }},
 
     {path: ':pessoa_id/:pessoa_nome/grupos-list', component: PessoasGruposListComponent},
 

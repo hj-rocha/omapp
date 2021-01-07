@@ -13,12 +13,13 @@ import { PessoasGruposListComponent } from './pessoas-grupos-list/pessoas-grupos
 import { GruposListComponent } from './grupos-list/grupos-list.component';
 import { PessoasFormCreateComponent } from './pessoas-form-create/pessoas-form-create.component';
 import { PessoasFormCreate2Component } from './pessoas-form-create2/pessoas-form-create2.component';
-import { NgxMaskModule, IConfig } from 'ngx-mask'
+import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { GruposFormComponent } from './grupos-form/grupos-form.component'
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
 @NgModule({
-  declarations: [ PessoasFormComponent, PessoasListComponent, PainelComponent, UsuariosListComponent, PessoasGruposListComponent, GruposListComponent, PessoasFormCreateComponent, PessoasFormCreate2Component],
+  declarations: [ PessoasFormComponent, PessoasListComponent, PainelComponent, UsuariosListComponent, PessoasGruposListComponent, GruposListComponent, PessoasFormCreateComponent, PessoasFormCreate2Component, GruposFormComponent],
   imports: [
     CommonModule,
     PessoasRoutingModule,

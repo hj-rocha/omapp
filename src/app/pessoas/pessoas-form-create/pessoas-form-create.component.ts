@@ -1,9 +1,9 @@
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { CpfValidator } from './../../shared/validators/cpf.validator';
-import { GenericValidator } from './../../shared/validators/generic.validator';
-import { Pessoa } from './../model/pessoa';
+import { CpfValidator } from '../../shared/validators/cpf.validator';
+import { GenericValidator } from '../../shared/validators/generic.validator';
+import { Pessoa } from '../model/pessoa';
 import { Router, ActivatedRoute } from '@angular/router';
-import { PessoasService } from './../service/pessoas.service';
+import { PessoasService } from '../service/pessoas.service';
 import { Component, OnInit, Injectable } from '@angular/core';
 import { NgbDateAdapter, NgbDateStruct, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { Endereco } from '../model/endereco';
@@ -130,7 +130,7 @@ export class PessoasFormCreateComponent implements OnInit {
       return;
     }
 
-     alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.form.value))
+    // alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.form.value))
 
     this.pessoa.nome = this.form.value.nome;
     this.pessoa.email = this.form.value.email;
@@ -143,12 +143,12 @@ export class PessoasFormCreateComponent implements OnInit {
     this.pessoa.endereco.cidade.id = this.form.value.cidadeId;
 
 
-    alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.pessoa))
+    //alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.pessoa))
 
 
 
 
-    console.log("OPA" + JSON.stringify(this.pessoa));
+    //console.log("OPA" + JSON.stringify(this.pessoa));
     this.service
       .salvar(this.pessoa)
       .subscribe(response => {
