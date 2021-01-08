@@ -13,6 +13,8 @@ export class GruposListComponent implements OnInit {
   grupoSelecionado: Grupo;
   mensagemSucesso: string;
   mensagemErro: string;
+  success: boolean;
+  errors: String[];
 
 
   constructor(private service: GruposService) { }
@@ -33,10 +35,16 @@ export class GruposListComponent implements OnInit {
       .deletar(this.grupoSelecionado)
       .subscribe(
         response => {
+          this.success = true;
+          this.errors = null;
           this.mensagemSucesso = 'Grupo deletado com sucesso!'
           this.ngOnInit();
-        },
-        erro => this.mensagemErro = 'Ocorreu um erro ao deletar o grupo.'
+        }, errorResponse => {
+          this.success = false;
+          this.mensagemErro = errorResponse.error.message;
+          this.errors = errorResponse.error.errors;
+        }
+       // erro => this.mensagemErro = 'Ocorreu um erro ao deletar o grupo.'
       )
   }
 

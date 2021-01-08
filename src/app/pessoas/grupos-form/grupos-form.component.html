@@ -3,13 +3,12 @@
   <li class="breadcrumb-item active"><a routerLink="/pessoas/grupos/list" >Voltar para listagem</a></li>
 </ol>
 <div class="container">
-<!--
-  <form #grupoForm="ngForm" (ngSubmit)="onSubmit()">
-
+<!--  <form #grupoForm="ngForm" (ngSubmit)="onSubmit()">
+-->
     <div class="row">
       <div class="col-md-12">
         <div class="alert alert-success" role="alert" *ngIf="success == true">
-          Grupo salvo/atualizado com sucesso!
+          Permissões atualizadas com sucesso!
         </div>
         <div class="alert alert-danger" role="alert" *ngFor="let erro of errors">
           {{ erro }}
@@ -17,7 +16,7 @@
       </div>
     </div>
 
-    <div class="row">
+<!--    <div class="row">
       <div class="col-md-6">
         <div class="form-group">
           <label>ID</label>

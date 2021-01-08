@@ -9,6 +9,7 @@ import { NgbDateAdapter, NgbDateStruct, NgbDateParserFormatter } from '@ng-boots
 import { Endereco } from '../model/endereco';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+
 @Injectable()
 export class FormatDateAdapter extends NgbDateAdapter<string> {
 
@@ -127,6 +128,8 @@ export class PessoasFormCreateComponent implements OnInit {
 
     // stop here if form is invalid
     if (this.form.invalid) {
+
+      console.log(this.form.root)
       return;
     }
 
@@ -138,7 +141,9 @@ export class PessoasFormCreateComponent implements OnInit {
       this.pessoa.cpf = this.form.value.cpf;
     }
     this.pessoa.identidade = this.form.value.identidade;
-    this.pessoa.dataNascimento = this.form.value.dataNascimento;
+    //if (this.form.value.dataNascimento) {
+      this.pessoa.dataNascimento = this.form.value.dataNascimento;
+    //}
     this.pessoa.endereco.cep = this.form.value.cep;
     this.pessoa.endereco.cidade.id = this.form.value.cidadeId;
 
