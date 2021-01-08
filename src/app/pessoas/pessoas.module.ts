@@ -19,6 +19,7 @@ import { GruposFormCreateComponent } from './grupos-form-create/grupos-form-crea
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
+
 @NgModule({
   declarations: [ PessoasFormComponent, PessoasListComponent, PainelComponent, UsuariosListComponent, PessoasGruposListComponent, GruposListComponent, PessoasFormCreateComponent, PessoasFormCreate2Component, GruposFormComponent, GruposFormCreateComponent],
   imports: [

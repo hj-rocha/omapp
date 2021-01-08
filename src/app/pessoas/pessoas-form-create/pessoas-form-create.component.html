@@ -68,13 +68,24 @@
       <div class="col-md-6">
         <div class="form-group">
           <label>Data Nascimento:</label>
+          <input type="date" class="form-control" formControlName="dataNascimento" >
+        </div>
+      </div>
+    </div>
+
+    <!--
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Data Nascimento:</label>
           <div class="input-group">
 
             <input class="form-control" type="text" placeholder="dd/mm/yyyy" name="dataNascimento"
-            formControlName="dataNascimento" ngbDatepicker #dataNascimento="ngbDatepicker" id="dataNascimento">
+            formControlName="dataNascimento" ngbDatepicker #dataNascimento="ngbDatepicker" id="dataNascimento"
+            >
 
             <div class="input-group-append">
-              <button class="btn btn-outline-primary calendar" (click)="dataNascimento.toggle()" type="button">
+              <button class="btn btn-outline-primary" (click)="dataNascimento.toggle()" type="button">
                 <i class="fa fa-calendar fa-fw"></i>
               </button>
             </div>
@@ -82,7 +93,7 @@
         </div>
       </div>
     </div>
-
+  -->
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
@@ -128,3 +139,4 @@
 
   </form>
 </div>
+

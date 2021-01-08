@@ -1,12 +1,9 @@
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { CpfValidator } from '../../shared/validators/cpf.validator';
 import { GenericValidator } from '../../shared/validators/generic.validator';
 import { Pessoa } from '../model/pessoa';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PessoasService } from '../service/pessoas.service';
 import { Component, OnInit, Injectable } from '@angular/core';
 import { NgbDateAdapter, NgbDateStruct, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import { Endereco } from '../model/endereco';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
@@ -133,7 +130,7 @@ export class PessoasFormCreateComponent implements OnInit {
       return;
     }
 
-    // alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.form.value))
+     //alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.form.value))
 
     this.pessoa.nome = this.form.value.nome;
     this.pessoa.email = this.form.value.email;
@@ -142,7 +139,7 @@ export class PessoasFormCreateComponent implements OnInit {
     }
     this.pessoa.identidade = this.form.value.identidade;
     //if (this.form.value.dataNascimento) {
-      this.pessoa.dataNascimento = this.form.value.dataNascimento;
+      this.pessoa.dataNascimento = this.toDate(this.form.value.dataNascimento);
     //}
     this.pessoa.endereco.cep = this.form.value.cep;
     this.pessoa.endereco.cidade.id = this.form.value.cidadeId;
@@ -166,6 +163,9 @@ export class PessoasFormCreateComponent implements OnInit {
       })
 
   }
-
+  toDate(dateStr: any) {
+    var parts = dateStr.split("-");
+    return parts[2]+"/"+parts[1]+"/"+parts[0];
+}
 
 }
