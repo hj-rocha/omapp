@@ -14,6 +14,7 @@ export class GruposListComponent implements OnInit {
   mensagemSucesso: string;
   mensagemErro: string;
 
+
   constructor(private service: GruposService) { }
   ngOnInit(): void {
     this.service
@@ -27,7 +28,7 @@ export class GruposListComponent implements OnInit {
     this.grupoSelecionado = grupo;
   }
 
-  deletarPessoa(){
+  deletarGrupo(){
     this.service
       .deletar(this.grupoSelecionado)
       .subscribe(

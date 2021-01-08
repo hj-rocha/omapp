@@ -7,7 +7,6 @@
          <i class="fa fa-user-plus"></i> Cadastrar grupo
        </button>
      </div>
-
    </li>
  </ol>
  <div class="container">
@@ -48,12 +47,12 @@
            <h4>Confirmação</h4>
          </div>
 
-         <div class="modal-body" *ngIf="pessoaSelecionada">
-           Confirma a deleção da Pessoa {{ pessoaSelecionada.nome }}?
+         <div class="modal-body" *ngIf="grupoSelecionado">
+           Confirma a deleção do Grupo{{ grupoSelecionado.nome }}?
          </div>
 
          <div class="modal-footer">
-           <button class="btn btn-success" (click)="deletarPessoa()" data-dismiss="modal">Confirmar</button>
+           <button class="btn btn-success" (click)="deletarGrupo()" data-dismiss="modal">Confirmar</button>
            <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
          </div>
        </div>

@@ -8,33 +8,53 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class GruposService {
-  apiURL: string = environment.apiURLBase + "/grupos"
+  apiURL: string = environment.apiURLBase + "/grupos";
+  apiURLPermissoes: string = environment.apiURLBase + "/grupos/permissoes";
 
-  constructor(private http: HttpClient) {}
+  url:string;
 
-    listar():Observable<Grupo[]>{
+  constructor(private http: HttpClient) { }
 
-      const httpParams = new HttpParams();
+  listar(): Observable<Grupo[]> {
 
-      const url = this.apiURL;
+    const httpParams = new HttpParams();
 
-      return this.http.get<Grupo[]>(url);
-    }
+    const url = this.apiURL;
 
-    deletar(grupo: Grupo) : Observable<any> {
-      return this.http.delete<any>(`${this.apiURL}/${grupo.id}`);
-    }
+    return this.http.get<Grupo[]>(url);
+  }
 
-    getGrupoById(id: number) : Observable<Grupo> {
-      return this.http.get<any>(`${this.apiURL}/${id}`);
-    }
+  deletar(grupo: Grupo): Observable<any> {
+    return this.http.delete<any>(`${this.apiURL}/${grupo.id}`);
+  }
+
+  getGrupoById(id: number): Observable<Grupo> {
+    return this.http.get<any>(`${this.apiURL}/${id}`);
+  }
 
 
-    salvar( grupo: Grupo ) : Observable<Grupo> {
-      return this.http.post<Grupo>( `${this.apiURL}` , grupo);
-    }
+  salvar(grupo: Grupo): Observable<Grupo> {
+    return this.http.post<Grupo>(`${this.apiURL}`, grupo);
+  }
 
-    atualizar( grupo: Grupo ) : Observable<any> {
-      return this.http.put<Grupo>(`${this.apiURL}/${grupo.id}` , grupo);
-    }
+  atualizar(grupo: Grupo): Observable<any> {
+    return this.http.put<Grupo>(`${this.apiURL}/${grupo.id}`, grupo);
+  }
+
+  getPermissoes(): Observable<any> {
+    return this.http.get<any>(`${this.apiURLPermissoes}`)
+  }
+
+  associarPermissaoAoGrupo(grupo_id: number, permissao_id: number): Observable<Grupo> {
+    return this.http.put<any>(`${this.apiURL}/${grupo_id}/permissoes/${permissao_id}`,"");
+  }
+
+  desassociarPermissaoAoGrupo(grupo_id : number, permissao_id : number): Observable<any>  {
+    return this.http.delete<any>(`${this.apiURL}/${grupo_id}/permissoes/${permissao_id}`)
+  }
+
+  getPermissoesInput(grupo_id: number){
+    return this.http.get<any>(`${this.apiURL}/${grupo_id}/permissoes_input`);
+
+  }
 }
