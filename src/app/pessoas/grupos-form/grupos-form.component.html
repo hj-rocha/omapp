@@ -2,7 +2,7 @@
   <li class="breadcrumb-item active">{{ id ? 'Editando as permissões do grupo: ' : 'Cadastrar grupo' }}</li>
   <li class="breadcrumb-item active"><a routerLink="/pessoas/grupos/list" >Voltar para listagem</a></li>
 </ol>
-<div class="container">
+
 <!--  <form #grupoForm="ngForm" (ngSubmit)="onSubmit()">
 -->
     <div class="row">
@@ -10,8 +10,8 @@
         <div class="alert alert-success" role="alert" *ngIf="success == true">
           Permissões atualizadas com sucesso!
         </div>
-        <div class="alert alert-danger" role="alert" *ngFor="let erro of errors">
-          {{ erro }}
+        <div class="alert alert-danger" role="alert" *ngIf="success == false">
+          {{ mensagemErro}}
         </div>
       </div>
     </div>
@@ -87,14 +87,6 @@
                   {{p.id}}
                 </td>
                 <td>
-                  {{p.nome}}
-                </td>
-                <td>
-                  <span *ngIf="p.pertence">
-                Associada
-                  </span>
-                </td>
-                <td>
                   <span *ngIf="p.pertence">
                     <button class="btn btn-danger btn-sm" type="button" (click)="desassociarPermissaoAoGrupo(p.id,i)"
                     placement="top" ngbTooltip="Desassociar">
@@ -108,7 +100,14 @@
                   </button>
                   </span>
                 </td>
-
+                <td>
+                  {{p.nome}}
+                </td>
+                <td>
+                  <span *ngIf="p.pertence">
+                Associada
+                  </span>
+                </td>
 
               </tr>
             </table>
@@ -116,6 +115,3 @@
         </div>
       </div>
     </div>
-
-
-</div>

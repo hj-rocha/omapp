@@ -14,11 +14,13 @@ export class GruposFormComponent implements OnInit {
 
 
 
-  success: boolean = false;
+  success: boolean;
   errors: String[];
   id: number;
   grupoNome: String;
   permissoesInput: PermissaoInput[] = [];
+
+  mensagemErro: string;
 
 
   constructor(private service: GruposService,
@@ -78,6 +80,7 @@ export class GruposFormComponent implements OnInit {
       }, errorResponse => {
         this.success = false;
         this.errors = errorResponse.error.errors;
+        this.mensagemErro = errorResponse.error.message;
       })
   }
 

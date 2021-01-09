@@ -1,7 +1,7 @@
 <ol class="breadcrumb mb-4">
   <li class="breadcrumb-item active">Grupos de uma pessoa</li>
-  <li class="breadcrumb-item active"><a routerLink="/pessoas/form/{{ pessoaId }}" >Voltar para: {{pessoaNome}}</a></li>
- <!-- <li class="breadcrumb-item active">{{ gruposPessoa ? 'Edição' : 'Cadastro' }}</li>-->
+  <li class="breadcrumb-item active"><a routerLink="/pessoas/form/{{ pessoaId }}">Voltar para: {{pessoaNome}}</a></li>
+  <!-- <li class="breadcrumb-item active">{{ gruposPessoa ? 'Edição' : 'Cadastro' }}</li>-->
 </ol>
 <div class="container">
 
@@ -18,6 +18,7 @@
           <div class="dropdown">
             <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false">
+              <i class="fa fa-floppy-o" aria-hidden="true"></i>
               Associar um grupo
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -35,7 +36,7 @@
       </div>
     </div>
 
-    <div class="card-group"  *ngIf="gruposPessoa[0]">
+    <div class="card-group" *ngIf="gruposPessoa[0]">
       <div class="card text-white bg-primary mb-3">
         <div class="card-body">
           <div class="card-header">
@@ -48,13 +49,17 @@
               <td>
                 <div class="card-group">
                   <div class="card">
-                    <input type="button" class="btn btn-info btn-block" (click)="trocarGrupo(i)"
-                      value="{{grupo.nome}}" />
+                    <button type="button" class="btn btn-info btn-block" (click)="trocarGrupo(i)">
+                      <i class="fa fa-universal-access" aria-hidden="true"></i> {{grupo.nome}}
+                    </button>
                   </div>
                   <div class="card">
-                    <input type="button" class="btn btn-danger btn-block" data-toggle="modal"
+                    <button type="button" class="btn btn-danger btn-block" data-toggle="modal"
                       *ngIf="grupo.nome!='Gestor'" data-target="#modalDelecao"
-                      (click)="preparaDelecao(grupo.id, grupo.nome,i)" value="Desassociar" />
+                      (click)="preparaDelecao(grupo.id, grupo.nome,i)">
+                      <i class="fa fa-trash-o" aria-hidden="true"></i> Desassociar
+                    </button>
+
                   </div>
                 </div>
               </td>
@@ -91,8 +96,10 @@
         </div>
 
         <div class="modal-footer">
-          <button class="btn btn-success" (click)="deassociarGrupoAPessoa(grupoId)"
-            data-dismiss="modal">Confirmar</button>
+          <button class="btn btn-success" (click)="deassociarGrupoAPessoa(grupoId)" data-dismiss="modal">
+            <i class="fa fa-floppy-o" aria-hidden="true"></i>
+            Confirmar
+          </button>
           <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
         </div>
       </div>

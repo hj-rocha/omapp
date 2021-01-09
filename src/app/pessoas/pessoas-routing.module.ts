@@ -1,3 +1,4 @@
+import { TypeaheadComponent } from './typeahead/typeahead.component';
 import { GruposFormCreateComponent } from './grupos-form-create/grupos-form-create.component';
 import { GruposFormComponent } from './grupos-form/grupos-form.component';
 import { PessoasFormCreate2Component } from './pessoas-form-create2/pessoas-form-create2.component';
@@ -32,6 +33,9 @@ const routes: Routes = [
     {path: 'grupos/form/:id', component: GruposFormComponent, canActivate: [AuthGuard], data: { roles: ['EDITAR_GRUPOS_PERMISSOES'] }},
 
     {path: ':pessoa_id/:pessoa_nome/grupos-list', component: PessoasGruposListComponent},
+
+    {path: 'typeahead', component: TypeaheadComponent},
+
 
     { path: '', redirectTo : '/pessoas', pathMatch: 'full' }
     ]}

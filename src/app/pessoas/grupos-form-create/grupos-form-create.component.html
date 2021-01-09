@@ -9,6 +9,9 @@
       <div class="col-md-12">
         <div class="alert alert-success" role="alert" *ngIf="success == true">
           Operação realizada com sucesso com sucesso!
+          <button class="btn btn-success" routerLink="/pessoas/grupos/form/{{grupo.id}}">
+            <i class="fa fa-universal-access"></i> Permissões do grupo
+          </button>
         </div>
         <div class="alert alert-danger" role="alert" *ngIf="success == false">
           {{mensagemErro}}
@@ -29,34 +32,33 @@
 
     <div class="row">
       <div class="col-md-6">
-          <div class="form-group">
-              <label>Nome: *</label>
-              <input type="text" class="form-control"
-                     [(ngModel)]="grupo.nome" name="nome"   />
-          </div>
+        <div class="form-group">
+          <label>Nome: *</label>
+          <input type="text" class="form-control" [(ngModel)]="grupo.nome" name="nome" />
+        </div>
       </div>
     </div>
 
 
-      <div class="row">
-        <div class="col-md-3">
-          <button type="submit" class="btn btn-success" *ngIf="!grupo.id">
-            <i class="fa fa-floppy-o"></i> Salvar
-          </button>
+    <div class="row">
+      <div class="col-md-3">
+        <button type="submit" class="btn btn-success" *ngIf="!grupo.id">
+          <i class="fa fa-floppy-o"></i> Salvar
+        </button>
 
-          <button type="submit" class="btn btn-primary" *ngIf="grupo.id">
-            <i class="fa fa-sync-alt"></i> Atualizar
-          </button>
+        <button type="submit" class="btn btn-primary" *ngIf="grupo.id">
+          <i class="fa fa-sync-alt"></i> Atualizar
+        </button>
 
-          <button type="button" class="btn btn-danger ml-1" (click)="voltarParaListagem()">
-            <i class="fa fa-arrow-left"></i> Voltar
-          </button>
-        </div>
-
+        <button type="button" class="btn btn-danger ml-1" (click)="voltarParaListagem()">
+          <i class="fa fa-arrow-left"></i> Voltar
+        </button>
       </div>
+
+    </div>
 
   </form>
 
-  <hr/>
+  <hr />
 
 </div>
