@@ -18,7 +18,7 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <label>Nome: *</label>
+          <label>Nome *</label>
           <input type="text" class="form-control" formControlName="nome"
             [ngClass]="{ 'is-invalid': submitted && f.nome.errors }" />
           <div *ngIf="submitted && f.nome.errors" class="invalid-feedback">
@@ -45,7 +45,7 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <label>CPF:</label>
+          <label>CPF</label>
           <input type="text" class="form-control" formControlName="cpf" mask="000.000.000-00"
             [ngClass]="{ 'is-invalid': submitted && f.cpf.errors }" />
           <div class="invalid-feedback">
@@ -58,7 +58,7 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <label>Identidade:</label>
+          <label>Identidade</label>
           <input type="text" class="form-control" formControlName="identidade" />
         </div>
       </div>
@@ -67,8 +67,37 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <label>Data Nascimento:</label>
-          <input type="date" class="form-control" formControlName="dataNascimento" >
+          <label>Data Nascimento</label>
+          <input type="date" class="form-control" formControlName="dataNascimento">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Telefone</label>
+          <input type="text" name="telefone" id="telefone" class="form-control" formControlName="telefone"
+          mask="(00) 0000-0000||(00) 0 0000-0000" />
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Telefone Comercial</label>
+          <input type="text" class="form-control" formControlName="telefoneComercial"
+          mask="(00) 0000-0000||(00) 0 0000-0000" />
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Anotações</label>
+          <input type="text" class="form-control" formControlName="anotacoes" />
         </div>
       </div>
     </div>
@@ -94,10 +123,13 @@
       </div>
     </div>
   -->
+
+
+
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <label>CEP:</label>
+          <label>CEP</label>
           <input type="text" class="form-control" formControlName="cep" mask="00.000-000"
             [ngClass]="{ 'is-invalid': submitted && f.cep.errors }" />
           <div class="invalid-feedback">
@@ -107,8 +139,46 @@
       </div>
     </div>
 
+    <div class="row">
+      <div class="col-md-3">
+        <div class="form-group">
+          <label>Estado</label>
+          <select class="form-control" formControlName="estado" (change)="onSelect($event.target.value)" id="estadoId">
+            <option value="0">Selecione</option>
+            <option *ngFor="let sigla of siglas" value="{{sigla}}">{{sigla}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="alert alert-danger" role="alert" *ngIf="success == false">
+      Está havendo algum problema no servidor. Contate o administrador.
+    </div>
 
+    <div class="row">
+      <div class="col-md-3">
+        <div class="form-group">
+          <label>Cidade</label>
+          <select class="form-control" formControlName="cidade" id="cidade">
+            <option value="0">Selecione</option>
+            <option *ngFor="let cidade of cidades" value="{{cidade.id}}">{{cidade.nome}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
 
+    <!--
+   <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Cidade</label>
+          <input type="text" class="form-control" formControlName="cidade"
+           [ngbTypeahead]="search" [inputFormatter]="formatter"
+           [resultFormatter]="formatter" />
+        </div>
+      </div>
+    </div>
+  -->
+    <!--
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
@@ -117,10 +187,7 @@
         </div>
       </div>
     </div>
-
-
-
-
+  -->
 
     <div class="row">
 
@@ -138,5 +205,8 @@
     </div>
 
   </form>
+  <!--
+  {{estadoId}}
+  {{cidades}}
+-->
 </div>
-

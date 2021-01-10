@@ -20,6 +20,7 @@ import { AuthService } from './auth.service';
 import { TokenInterceptor } from './token.interceptor';
 import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada/pagina-nao-encontrada.component';
 import { NaoTemPermissaoComponent } from './nao-tem-permissao/nao-tem-permissao.component';
+import { GeografiaModule } from './geografia/geografia.module';
 
 
 
@@ -41,7 +42,8 @@ import { NaoTemPermissaoComponent } from './nao-tem-permissao/nao-tem-permissao.
     ClientesModule,
     ServicoPrestadoModule,
     VeiculosModule,
-    PessoasModule
+    PessoasModule,
+    GeografiaModule
   ],
   providers: [
     ClientesService,

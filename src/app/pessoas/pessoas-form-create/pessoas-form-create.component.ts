@@ -1,9 +1,13 @@
+import { Cidade } from './../model/cidade';
+import { debounceTime, distinctUntilChanged, filter, map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { EnderecosService } from './../../geografia/service/enderecos.service';
 import { GenericValidator } from '../../shared/validators/generic.validator';
 import { Pessoa } from '../model/pessoa';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PessoasService } from '../service/pessoas.service';
 import { Component, OnInit, Injectable } from '@angular/core';
-import { NgbDateAdapter, NgbDateStruct, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateAdapter, NgbDateStruct, NgbDateParserFormatter, NgbTypeaheadConfig } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
@@ -67,32 +71,58 @@ function validarDia(valor) {
   }
 }
 
+
 @Component({
   selector: 'app-pessoas-form-create',
   templateUrl: './pessoas-form-create.component.html',
   styleUrls: ['./pessoas-form-create.component.css'],
   providers: [{ provide: NgbDateParserFormatter, useClass: FormataData },
-  { provide: NgbDateAdapter, useClass: FormatDateAdapter }]
+  { provide: NgbDateAdapter, useClass: FormatDateAdapter },
+  { provide: NgbTypeaheadConfig }]
 })
 
 
 export class PessoasFormCreateComponent implements OnInit {
 
   pessoa: Pessoa;
-  success: boolean = false;
+  success: boolean;
   errors: String[];
+  mensagemErro: string = "Cidades não encontradas";
 
   form: FormGroup;
   submitted = false;
 
+  public model: any;
+  //cidade: Cidade = new Cidade();
+  cidades: Cidade[];
+  siglas = [
+    'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB',
+    'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO', 'NC'];
+
 
   constructor(
     private service: PessoasService,
+    private serviceEndereco: EnderecosService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    config: NgbTypeaheadConfig) {
     this.pessoa = new Pessoa();
+    config.showHint = true;
+    //this.cidades = [this.cidade];
+
+
   }
+
+
+  formatter = (cidade: Cidade) => cidade.nome;
+
+  search = (text$: Observable<string>) => text$.pipe(
+    debounceTime(200),
+    distinctUntilChanged(),
+    filter(term => term.length >= 2),
+    map(term => this.cidades.filter(cidade => new RegExp(term, 'mi').test(cidade.nome)).slice(0, 10))
+  )
 
   ngOnInit(): void {
     this.criarFormulario();
@@ -108,7 +138,17 @@ export class PessoasFormCreateComponent implements OnInit {
       identidade: [''],
       dataNascimento: [''],
       cep: [''],
-      cidadeId: ['']
+      estado: [''],
+      cidade: [''],
+      bairro: [''],
+      logradouro: [''],
+      numero: [''],
+      complemento: [''],
+      telefone: [''],
+      tefoneComerical: [''],
+      anotacoes: ['']
+
+
     })
   }
 
@@ -130,7 +170,7 @@ export class PessoasFormCreateComponent implements OnInit {
       return;
     }
 
-     //alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.form.value))
+    //alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.form.value))
 
     this.pessoa.nome = this.form.value.nome;
     this.pessoa.email = this.form.value.email;
@@ -138,11 +178,11 @@ export class PessoasFormCreateComponent implements OnInit {
       this.pessoa.cpf = this.form.value.cpf;
     }
     this.pessoa.identidade = this.form.value.identidade;
-    //if (this.form.value.dataNascimento) {
+    if (this.form.value.dataNascimento) {
       this.pessoa.dataNascimento = this.toDate(this.form.value.dataNascimento);
-    //}
+    }
     this.pessoa.endereco.cep = this.form.value.cep;
-    this.pessoa.endereco.cidade.id = this.form.value.cidadeId;
+    this.pessoa.endereco.cidade.id = this.form.value.cidade;
 
 
     //alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.pessoa))
@@ -165,7 +205,23 @@ export class PessoasFormCreateComponent implements OnInit {
   }
   toDate(dateStr: any) {
     var parts = dateStr.split("-");
-    return parts[2]+"/"+parts[1]+"/"+parts[0];
-}
+    return parts[2] + "/" + parts[1] + "/" + parts[0];
+  }
+
+
+
+  onSelect(sigla) {
+    //this.cidades = this._dataService.getCidades().filter((item)=> item.paisid == id);
+    this.serviceEndereco
+      .getCidadesPorEstado(sigla)
+      .subscribe(response => {
+        this.success = null;
+        this.errors = null;
+        this.cidades = response;
+      }, errorResponse => {
+        this.success = false;
+        this.mensagemErro = errorResponse.error.message;
+      })
+  }
 
 }

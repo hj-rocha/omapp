@@ -19,7 +19,13 @@ export class PessoasGruposListComponent implements OnInit {
   grupoPermissao: number = 0;
   grupoSelecionado: string;
   grupoId: number;
-  indice:number;
+  indice: number;
+
+  mensagemSucesso: string;
+  mensagemErro: string;
+  success: boolean;
+  errors: String[];
+
 
 
   constructor(private service: PessoaGruposService,
@@ -30,10 +36,10 @@ export class PessoasGruposListComponent implements OnInit {
     let params: Observable<Params> = this.activatedRoute.params;
 
     this.service
-    .listarGrupos()
-    .subscribe(
-      response => (this.grupos = response)
-    );
+      .listarGrupos()
+      .subscribe(
+        response => (this.grupos = response)
+      );
 
     params.subscribe(urlParams => {
       this.pessoaId = urlParams['pessoa_id'];
@@ -44,43 +50,56 @@ export class PessoasGruposListComponent implements OnInit {
           .subscribe(
             response => (this.gruposPessoa = response)
           )
-        }
+      }
     });
   }
 
 
-  onSubmit(){
+  onSubmit() {
   }
 
-  trocarGrupo(id: number){
-    this.grupoPermissao=id;
+  trocarGrupo(id: number) {
+    this.grupoPermissao = id;
   }
 
-  associarGrupoAPessoa(idPessoa: number, idGrupo: number){
+  associarGrupoAPessoa(idPessoa: number, idGrupo: number) {
     this.service
-    .associarPessoaAGrupo(idPessoa, idGrupo)
-    .subscribe(
-      response => (this.service
-        .listar(this.pessoaId)
-        .subscribe(
-          response => (this.gruposPessoa = response)
-        )
-      )
-    );
+      .associarPessoaAGrupo(idPessoa, idGrupo)
+      .subscribe(
+        response => {
+          this.success = true;
+          this.errors = null;
+          this.service
+          .listar(this.pessoaId)
+          .subscribe(
+            response => (this.gruposPessoa = response)
+          )
+          }, errorResponse => {
+            this.success = false;
+            this.mensagemErro = errorResponse.error.message;
+            this.errors = errorResponse.error.errors;
+          }
+      );
   }
 
 
-  deassociarGrupoAPessoa(idGrupo: number){
+  deassociarGrupoAPessoa(idGrupo: number) {
     this.service
-    .deassociarPessoaAGrupo(this.pessoaId, idGrupo)
-    .subscribe(
-      response => (
-        this.gruposPessoa.splice(this.indice, 1)
-      )
-    );
+      .deassociarPessoaAGrupo(this.pessoaId, idGrupo)
+      .subscribe(
+        response => {
+          this.success = true;
+          this.errors = null;
+          this.gruposPessoa.splice(this.indice, 1);
+        }, errorResponse => {
+          this.success = false;
+          this.mensagemErro = errorResponse.error.message;
+          this.errors = errorResponse.error.errors;
+        }
+      );
   }
 
-    preparaDelecao( grupoId: number,  grupoNome: string, i: number){
+  preparaDelecao(grupoId: number, grupoNome: string, i: number) {
     this.grupoSelecionado = grupoNome;
     this.grupoId = grupoId;
     this.indice = i;

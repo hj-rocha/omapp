@@ -6,6 +6,16 @@
 <div class="container">
 
 
+    <div class="col-md-12">
+      <div class="alert alert-success" role="alert" *ngIf="success == true">
+        Operação realizada com sucesso com sucesso!
+      </div>
+      <div class="alert alert-danger" role="alert" *ngIf="success == false">
+         {{mensagemErro}}
+      </div>
+    </div>
+
+
   <div>
     <div class="card-group">
       <div class="card text-white bg-primary mb-3">

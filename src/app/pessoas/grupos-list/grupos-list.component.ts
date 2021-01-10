@@ -37,7 +37,7 @@ export class GruposListComponent implements OnInit {
         response => {
           this.success = true;
           this.errors = null;
-          this.mensagemSucesso = 'Grupo deletado com sucesso!'
+          this.mensagemSucesso = 'Grupo deletado com sucesso!';
           this.ngOnInit();
         }, errorResponse => {
           this.success = false;

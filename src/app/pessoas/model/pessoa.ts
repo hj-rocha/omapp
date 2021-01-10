@@ -1,4 +1,4 @@
-import { Endereco } from './endereco';
+import { Endereco } from './../../geografia/models/endereco';
 import { Grupo } from './grupo';
 import { Usuario } from "./usuario";
 
@@ -9,6 +9,9 @@ export class Pessoa {
   identidade: string;
   cpf: string;
   dataNascimento: string;
+  telefone: string;
+  telefoneComercial: string;
+  anotacoes: string;
  // dataCadastro: string;
  // dataAtualizacao: string;
   usuario: Usuario ;

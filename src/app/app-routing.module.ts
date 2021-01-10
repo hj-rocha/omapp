@@ -10,9 +10,14 @@ import { AuthGuard } from './auth.guard'
 import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada/pagina-nao-encontrada.component';
 
 const routes: Routes = [
-  { path: 'pessoas', loadChildren: () => import('./pessoas/pessoas.module').then(m => m.PessoasModule) },
+
   { path: 'clientes', loadChildren: () => import('./clientes/clientes.module').then(m => m.ClientesModule) },
 
+  { path: 'pessoas', loadChildren: () => import('./pessoas/pessoas.module').then(m => m.PessoasModule),
+  canActivate: [AuthGuard], data: { roles: ['CONSULTAR_PESSOAS'] }},
+
+  { path: 'geografia', loadChildren: () => import('./geografia/geografia.module').then(m => m.GeografiaModule),
+  canActivate: [AuthGuard], data: { roles: ['CONSULTAR_GEOGRAFIA'] } },
 
   { path: 'login', component: LoginComponent },
   { path: '', component: LayoutComponent, children: [
@@ -22,7 +27,9 @@ const routes: Routes = [
   ]},
   { path: '', component: LayoutComponent, children: [
   {path: '**', component: PaginaNaoEncontradaComponent, canActivate : [AuthGuard]}
-  ]}
+  ]},
+
+  { path: 'geografia', loadChildren: () => import('./geografia/geografia.module').then(m => m.GeografiaModule) }
 ];
 
 @NgModule({
