@@ -5,17 +5,6 @@
   <form #pessoaForm="ngForm" (ngSubmit)="onSubmit()">
 
     <div class="row">
-      <div class="col-md-12">
-        <div class="alert alert-success" role="alert" *ngIf="success == true">
-          Pessoa salva/atualizado com sucesso!
-        </div>
-        <div class="alert alert-danger" role="alert" *ngFor="let erro of errors">
-          {{ erro }}
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
       <div class="col-md-6">
         <div class="form-group">
           <label>ID:</label>
@@ -60,7 +49,7 @@
       </div>
     </div>
 
- <!--   <div class="row" *ngIf="pessoa.dataCadastro">
+    <!--   <div class="row" *ngIf="pessoa.dataCadastro">
       <div class="col-md-6">
         <div class="form-group">
           <label>Data Cadastro</label>
@@ -99,7 +88,27 @@
       </div>
     </div>
 
-<!--
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Telefone</label>
+          <input type="text" name="telefone" id="telefone" class="form-control" [(ngModel)]="pessoa.telefone"
+            mask="(00) 0 0000-0000" />
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Telefone Comercial</label>
+          <input type="text" class="form-control"  name="telefoneComercial" id="telefoneComercial"
+          [(ngModel)]="pessoa.telefoneComercial"   mask="(00) 0 0000-0000" />
+        </div>
+      </div>
+    </div>
+
+    <!--
     <div *ngIf="pessoa.usuario && pessoa.id">
       <div class="col-md-6">
         <div class="form-group">
@@ -143,116 +152,153 @@
     </div>
 
     <div class="row">
-      <div class="col-md-6">
-        <div class="form-group">
-          <label>Logradouro</label>
-          <input type="text" class="form-control" [(ngModel)]="pessoa.endereco.logradouro" name="logradouro" />
-        </div>
-      </div>
-    </div>
 
-    <div class="row">
-      <div class="col-md-6">
-        <div class="form-group">
-          <label>Número</label>
-          <input type="text" class="form-control" [(ngModel)]="pessoa.endereco.numero" name="numero" />
-        </div>
-      </div>
-    </div>
 
-    <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-2">
         <div class="form-group">
-          <label>Complemento</label>
-          <input type="text" class="form-control" [(ngModel)]="pessoa.endereco.complemento"
-            name="complemento" />
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-6">
-        <div class="form-group">
-          <label>Bairro</label>
-          <input type="text" class="form-control" [(ngModel)]="pessoa.endereco.bairro"
-           name="bairro" />
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-6">
-        <div class="form-group">
-          <label>Cidade Id</label>
-          <input type="text" class="form-control" [(ngModel)]="pessoa.endereco.cidade.id"
-           name="cidade.id" />
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-6">
-        <div class="form-group">
-          <label>Cidade</label>
-          <input type="text" class="form-control" [(ngModel)]="pessoa.endereco.cidade.nome"
-           name="cidade.nome" />
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-6">
-        <div class="form-group">
-          <label>Estado</label>
-          <input type="text" class="form-control" [(ngModel)]="pessoa.endereco.cidade.estado.sigla"
+          <label>Estado Cadastrado</label>
+          <input type="text" class="form-control" [ngModel]="pessoa.endereco.cidade.estado.sigla"
             name="estado.sigla" />
         </div>
       </div>
+
+
+      <div class="col-md-2">
+        <div class="form-group">
+          <label>Alterar estado para</label>
+          <select class="form-control" (change)="onSelect($event.target.value)" id="estadoId">
+            <option value="0">Selecione</option>
+            <option *ngFor="let sigla of siglas" value="{{sigla}}">{{sigla}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="alert alert-danger" role="alert" *ngIf="success == false">
+      Está havendo algum problema no servidor. Contate o administrador.
     </div>
 
     <div class="row">
 
       <div class="col-md-3">
-        <div class="btn-group">
-        <button type="submit" class="btn btn-success"  *ngIf="!pessoa.id">
-          <i class="fa fa-floppy-o"></i> Salvar
-        </button>
-
-        <button type="submit" class="btn btn-primary" >
-          <i class="fa fa-floppy-o"></i> Atualizar
-        </button>
-
-        <button type="button" class="btn btn-danger ml-1" (click)="voltarParaListagem()">
-          <i class="fa fa-arrow-left"></i> Voltar
-        </button>
+        <div class="form-group">
+          <label>Cidade Cadastrada</label>
+          <input type="text" class="form-control" [ngModel]="pessoa.endereco.cidade.nome" name="cidade.nome"/>
         </div>
+      </div>
+
+      <div class="col-md-3">
+      <div class="form-group">
+        <label>Alterar cidade para</label>
+        <select class="form-control" [(ngModel)]="pessoa.endereco.cidade.id" name="cidade.id"  id="cidade.id">
+          <option value="0" selected>Selecione o estado primeiro</option>
+          <option *ngFor="let cidade of cidades" [value]="cidade.id" >{{cidade.nome}}</option>
+        </select>
       </div>
     </div>
 
-  </form>
-  <hr/>
-  <div class="col-md-6" *ngIf="pessoa.id">
+</div>
 
-      <div class="card text-white bg-primary mb-3">
-        <div class="card-body">
-          <div class="card-header">
-            <h5 class="card-title">Grupos de: {{pessoa.nome}}</h5>
-          </div>
-          <table *ngIf=pessoa.grupos class="table">
-            <tr *ngFor="let g of pessoa.grupos">
-              <td>{{g.nome}}</td>
-            </tr>
-          </table>
-          <div class="card-footer">
-            <div class="btn-group" role="group">
-              <button class="btn btn-warning btn-sm"
-                routerLink="/pessoas/{{ pessoa.id }}/{{pessoa.nome}}/grupos-list">
-                <i class="fa fa-edit"></i>Editar grupos
-              </button>
-            </div>
-          </div>
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group">
+      <label>Bairro</label>
+      <input type="text" class="form-control" [(ngModel)]="pessoa.endereco.bairro" name="bairro" />
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group">
+      <label>Logradouro</label>
+      <input type="text" class="form-control" [(ngModel)]="pessoa.endereco.logradouro" name="logradouro" />
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group">
+      <label>Número</label>
+      <input type="text" class="form-control" [(ngModel)]="pessoa.endereco.numero" name="numero" />
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group">
+      <label>Complemento</label>
+      <input type="text" class="form-control" [(ngModel)]="pessoa.endereco.complemento" name="complemento" />
+    </div>
+  </div>
+</div>
+<!--
+  <div class="row">
+  <div class="col-md-6">
+    <div class="form-group">
+      <label>Cidade Id</label>
+      <input type="text" class="form-control" [(ngModel)]="pessoa.endereco.cidade.id" name="cidade.id" />
+    </div>
+  </div>
+</div>
+-->
+
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="alert alert-success" role="alert" *ngIf="success == true">
+      Cadastro de {{pessoa.nome}} atualizado com sucesso!
+    </div>
+    <div class="alert alert-danger" role="alert" *ngFor="let erro of errors">
+      {{ erro }}
+    </div>
+  </div>
+</div>
+
+
+<div class="row">
+
+  <div class="col-md-3">
+    <div class="btn-group">
+      <button type="submit" class="btn btn-success" *ngIf="!pessoa.id">
+        <i class="fa fa-floppy-o"></i> Salvar
+      </button>
+
+      <button type="submit" class="btn btn-primary">
+        <i class="fa fa-floppy-o"></i> Atualizar
+      </button>
+
+      <button type="button" class="btn btn-danger ml-1" (click)="voltarParaListagem()">
+        <i class="fa fa-arrow-left"></i> Voltar
+      </button>
+    </div>
+  </div>
+</div>
+
+</form>
+<hr />
+<div class="col-md-6" *ngIf="pessoa.id">
+
+  <div class="card text-white bg-primary mb-3">
+    <div class="card-body">
+      <div class="card-header">
+        <h5 class="card-title">Grupos de: {{pessoa.nome}}</h5>
+      </div>
+      <table *ngIf=pessoa.grupos class="table">
+        <tr *ngFor="let g of pessoa.grupos">
+          <td>{{g.nome}}</td>
+        </tr>
+      </table>
+      <div class="card-footer">
+        <div class="btn-group" role="group">
+          <button class="btn btn-warning btn-sm" routerLink="/pessoas/{{ pessoa.id }}/{{pessoa.nome}}/grupos-list">
+            <i class="fa fa-edit"></i>Editar grupos
+          </button>
         </div>
       </div>
     </div>
+  </div>
+</div>
 
 </div>

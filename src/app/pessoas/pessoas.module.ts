@@ -12,17 +12,19 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PessoasGruposListComponent } from './pessoas-grupos-list/pessoas-grupos-list.component';
 import { GruposListComponent } from './grupos-list/grupos-list.component';
 import { PessoasFormCreateComponent } from './pessoas-form-create/pessoas-form-create.component';
-import { PessoasFormCreate2Component } from './pessoas-form-create2/pessoas-form-create2.component';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { GruposFormComponent } from './grupos-form/grupos-form.component';
 import { GruposFormCreateComponent } from './grupos-form-create/grupos-form-create.component';
-import { TypeaheadComponent } from './typeahead/typeahead.component'
+import { TypeaheadComponent } from './typeahead/typeahead.component';
+import { PessoasForm2Component } from './pessoas-form2/pessoas-form2.component'
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
 
 @NgModule({
-  declarations: [ PessoasFormComponent, PessoasListComponent, PainelComponent, UsuariosListComponent, PessoasGruposListComponent, GruposListComponent, PessoasFormCreateComponent, PessoasFormCreate2Component, GruposFormComponent, GruposFormCreateComponent, TypeaheadComponent],
+  declarations: [ PessoasFormComponent, PessoasListComponent, PainelComponent, UsuariosListComponent,
+     PessoasGruposListComponent, GruposListComponent, PessoasFormCreateComponent,
+      GruposFormComponent, GruposFormCreateComponent, TypeaheadComponent, PessoasForm2Component],
   imports: [
     CommonModule,
     PessoasRoutingModule,

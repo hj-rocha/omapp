@@ -1,7 +1,8 @@
+import { PessoasForm2Component } from './pessoas-form2/pessoas-form2.component';
 import { TypeaheadComponent } from './typeahead/typeahead.component';
 import { GruposFormCreateComponent } from './grupos-form-create/grupos-form-create.component';
 import { GruposFormComponent } from './grupos-form/grupos-form.component';
-import { PessoasFormCreate2Component } from './pessoas-form-create2/pessoas-form-create2.component';
+
 import { PessoasFormCreateComponent } from './pessoas-form-create/pessoas-form-create.component';
 import { GruposListComponent } from './grupos-list/grupos-list.component';
 import { UsuariosListComponent } from './usuarios-list/usuarios-list.component';

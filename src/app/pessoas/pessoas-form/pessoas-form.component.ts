@@ -1,3 +1,4 @@
+import { EnderecosService } from './../../geografia/service/enderecos.service';
 import { environment } from './../../../environments/environment';
 import { Cidade } from './../model/cidade';
 import { NgbDateStruct, NgbCalendar, NgbDate, NgbDateParserFormatter, NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap';
@@ -81,14 +82,21 @@ export class PessoasFormComponent implements OnInit {
 
 
   pessoa: Pessoa;
-  success: boolean = false;
+  success: boolean;
   errors: String[];
   id: number;
+
+  mensagemErro: string = "Cidades não encontradas";
+  cidades: Cidade[];
+  siglas = [
+    'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB',
+    'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO', 'NC'];
 
   constructor(
     private service: PessoasService,
     private router: Router,
-    private activatedRoute: ActivatedRoute) {
+    private activatedRoute: ActivatedRoute,
+    private serviceEndereco: EnderecosService) {
     //this.pessoa = new Pessoa()
   }
 
@@ -139,5 +147,21 @@ export class PessoasFormComponent implements OnInit {
     }
 
   }
+
+  onSelect(sigla) {
+    //this.cidades = this._dataService.getCidades().filter((item)=> item.paisid == id);
+    this.serviceEndereco
+      .getCidadesPorEstado(sigla)
+      .subscribe(response => {
+        this.success = null;
+        this.errors = null;
+        this.cidades = response;
+      }, errorResponse => {
+        this.success = false;
+        this.mensagemErro = errorResponse.error.message;
+      })
+  }
+
+
 
 }

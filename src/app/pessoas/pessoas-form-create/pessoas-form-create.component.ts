@@ -131,12 +131,15 @@ export class PessoasFormCreateComponent implements OnInit {
   criarFormulario() {
 
     this.form = this.formBuilder.group({
+
       nome: ['', [Validators.required]],
       email: ['', [Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
       /** password: ['', [Validators.required, Validators.minLength(6)]]*/
       cpf: ['', [GenericValidator.isValidCpf()]],
       identidade: [''],
       dataNascimento: [''],
+      telefone: [''],
+      tefoneComerical: [''],
       cep: [''],
       estado: [''],
       cidade: [''],
@@ -144,9 +147,7 @@ export class PessoasFormCreateComponent implements OnInit {
       logradouro: [''],
       numero: [''],
       complemento: [''],
-      telefone: [''],
-      tefoneComerical: [''],
-      anotacoes: ['']
+       anotacoes: ['']
 
 
     })
@@ -183,7 +184,13 @@ export class PessoasFormCreateComponent implements OnInit {
     }
     this.pessoa.endereco.cep = this.form.value.cep;
     this.pessoa.endereco.cidade.id = this.form.value.cidade;
-
+    this.pessoa.endereco.bairro = this.form.value.bairro;
+    this.pessoa.endereco.logradouro = this.form.value.logradouro;
+    this.pessoa.endereco.numero = this.form.value.numero;
+    this.pessoa.endereco.complemento = this.form.value.complemento;
+    this.pessoa.telefone = this.form.value.telefore;
+    this.pessoa.telefoneComercial = this.form.value.telefoneComercial;
+    this.pessoa.anotacoes = this.form.value.anotacoes;
 
     //alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.pessoa))
 
