@@ -1,1 +1,27 @@
-<p>usuarios-list works!</p>
+<ol class="breadcrumb mb-4">
+  <!--<li class="breadcrumb-item active">Listagem de Pessoas</li>-->
+  <li class="breadcrumb-item active">
+
+  </li>
+</ol>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Email</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of lista">
+            <td>{{ p.id }} </td>
+            <td>{{ p.username }} </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+

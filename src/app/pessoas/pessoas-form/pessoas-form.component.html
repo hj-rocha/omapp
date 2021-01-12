@@ -158,7 +158,7 @@
         <div class="form-group">
           <label>Estado Cadastrado</label>
           <input type="text" class="form-control" [ngModel]="pessoa.endereco.cidade.estado.sigla"
-            name="estado.sigla" />
+            name="estado.sigla" readonly="true" />
         </div>
       </div>
 
@@ -182,7 +182,7 @@
       <div class="col-md-3">
         <div class="form-group">
           <label>Cidade Cadastrada</label>
-          <input type="text" class="form-control" [ngModel]="pessoa.endereco.cidade.nome" name="cidade.nome"/>
+          <input type="text" class="form-control" [ngModel]="pessoa.endereco.cidade.nome" name="cidade.nome"  readonly="true"/>
         </div>
       </div>
 
