@@ -1,3 +1,4 @@
+import { ProdutosModule } from './produtos/produtos.module';
 import { PessoasModule } from './pessoas/pessoas.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -43,7 +44,8 @@ import { GeografiaModule } from './geografia/geografia.module';
     ServicoPrestadoModule,
     VeiculosModule,
     PessoasModule,
-    GeografiaModule
+    GeografiaModule,
+    ProdutosModule
   ],
   providers: [
     ClientesService,

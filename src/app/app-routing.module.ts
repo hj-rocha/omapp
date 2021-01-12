@@ -13,6 +13,9 @@ const routes: Routes = [
 
   { path: 'clientes', loadChildren: () => import('./clientes/clientes.module').then(m => m.ClientesModule) },
 
+  { path: 'produtos', loadChildren: () => import('./produtos/produtos.module').then(m => m.ProdutosModule) ,
+  canActivate: [AuthGuard], data: { roles: ['CONSULTAR_PRODUTOS'] }},
+
   { path: 'pessoas', loadChildren: () => import('./pessoas/pessoas.module').then(m => m.PessoasModule),
   canActivate: [AuthGuard], data: { roles: ['CONSULTAR_PESSOAS'] }},
 
@@ -29,7 +32,7 @@ const routes: Routes = [
   {path: '**', component: PaginaNaoEncontradaComponent, canActivate : [AuthGuard]}
   ]},
 
-  { path: 'geografia', loadChildren: () => import('./geografia/geografia.module').then(m => m.GeografiaModule) }
+  { path: 'geografia', loadChildren: () => import('./geografia/geografia.module').then(m => m.GeografiaModule) },
 ];
 
 @NgModule({

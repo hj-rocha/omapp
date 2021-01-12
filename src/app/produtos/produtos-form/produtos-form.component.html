@@ -1,0 +1,87 @@
+<ol class="breadcrumb mb-4">
+  <li class="breadcrumb-item active">{{ id ? 'Editando  ' : 'Cadastraando' }}</li>
+  <li class="breadcrumb-item active"><a routerLink="/produtos/list">Voltar para listagem</a></li>
+</ol>
+<div class="container">
+  <form #produtoForm="ngForm" (ngSubmit)="onSubmit()">
+
+    <div class="row" *ngIf="produto.id">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>ID:</label>
+          <input type="text" [(ngModel)]="produto.id" name="id" class="form-control" disabled="true" />
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Nome *</label>
+          <input type="text" class="form-control" [(ngModel)]="produto.nome" name="nome" />
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Descrição</label>
+          <textarea type="text" class="form-control" [(ngModel)]="produto.descricao" name="descricao" cols="2" rows="5"></textarea>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Data Cadastro</label>
+          <input type="text" class="form-control" [(ngModel)]="produto.dataCadastro" name="dataCadastro"  readonly/>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Última Atualização</label>
+          <input type="text" class="form-control" [(ngModel)]="produto.dataAtualizacao" name="dataAtualizacao" readonly />
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="alert alert-success" role="alert" *ngIf="success == true">
+          Operação realizada com sucesso com sucesso!
+        </div>
+        <div class="alert alert-danger" role="alert" *ngIf="success == false">
+          {{mensagemErro}}
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3">
+        <button type="submit" class="btn btn-success" *ngIf="!produto.id">
+          <i class="fa fa-floppy-o"></i> Salvar
+        </button>
+
+        <button type="submit" class="btn btn-primary" *ngIf="produto.id">
+          <i class="fa fa-sync-alt"></i> Atualizar
+        </button>
+
+        <button type="button" class="btn btn-danger ml-1" (click)="voltarParaListagem()">
+          <i class="fa fa-arrow-left"></i> Voltar
+        </button>
+      </div>
+
+    </div>
+
+  </form>
+
+  <hr />
+
+</div>

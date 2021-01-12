@@ -1,7 +1,7 @@
 <div id="layoutSidenav_nav">
   <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
     <div class="sb-sidenav-footer">
-      <div class="small" >{{ usuarioLogado }}</div>
+      <div class="small">{{ usuarioLogado }}</div>
 
     </div>
     <div class="sb-sidenav-menu">
@@ -23,7 +23,7 @@
           </a>
         </div>
 
-        <div class="sb-sidenav-menu-heading">Cadastros</div>
+        <!--<div class="sb-sidenav-menu-heading">Cadastros</div>-->
 
         <a class="nav-link collapsed" routerLink="/pessoas" data-toggle="collapse" data-target="#collapseLayouts"
           aria-expanded="false" aria-controls="collapseLayouts">
@@ -109,6 +109,12 @@
           aria-expanded="false" aria-controls="collapseLayouts">
           <div class="sb-nav-link-icon"><i class="fa fa-address-book"></i></div>
           Clientes
+        </a>
+
+        <a class="nav-link collapsed" routerLink="/produtos" data-toggle="collapse" data-target="#collapseLayouts"
+          aria-expanded="false" aria-controls="collapseLayouts">
+          <div class="sb-nav-link-icon"><i class="fa fa-cube"></i></div>
+          Produtos
         </a>
         <!--
         <div class="sb-sidenav-menu-heading">Outros</div>
