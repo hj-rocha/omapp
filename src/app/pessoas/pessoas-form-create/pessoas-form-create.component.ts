@@ -139,7 +139,7 @@ export class PessoasFormCreateComponent implements OnInit {
       identidade: [''],
       dataNascimento: [''],
       telefone: [''],
-      tefoneComerical: [''],
+      telefoneComercial: [''],
       cep: [''],
       estado: [''],
       cidade: [''],
@@ -188,7 +188,7 @@ export class PessoasFormCreateComponent implements OnInit {
     this.pessoa.endereco.logradouro = this.form.value.logradouro;
     this.pessoa.endereco.numero = this.form.value.numero;
     this.pessoa.endereco.complemento = this.form.value.complemento;
-    this.pessoa.telefone = this.form.value.telefore;
+    this.pessoa.telefone = this.form.value.telefone;
     this.pessoa.telefoneComercial = this.form.value.telefoneComercial;
     this.pessoa.anotacoes = this.form.value.anotacoes;
 

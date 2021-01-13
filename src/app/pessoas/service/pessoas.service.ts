@@ -10,7 +10,7 @@ import { Injectable } from '@angular/core';
 })
 export class PessoasService {
 
-  apiURL: string = environment.apiURLBase + "/pessoas"
+  apiURL: string = environment.apiURLBase + "/pessoas_fisicas"
 
   constructor(private http: HttpClient) {}
 
