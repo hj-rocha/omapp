@@ -1,3 +1,7 @@
+import { PessoasJuridicasFormComponent } from './pessoas-juridicas-form/pessoas-juridicas-form.component';
+import { PessoasJuridicasListComponent } from './pessoas-juridicas-list/pessoas-juridicas-list.component';
+import { PessoasJuridicasFormCreateComponent } from './pessoas-juridicas-form-create/pessoas-juridicas-form-create.component';
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -24,7 +28,8 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 @NgModule({
   declarations: [ PessoasFormComponent, PessoasListComponent, PainelComponent, UsuariosListComponent,
      PessoasGruposListComponent, GruposListComponent, PessoasFormCreateComponent,
-      GruposFormComponent, GruposFormCreateComponent, TypeaheadComponent, PessoasForm2Component],
+      GruposFormComponent, GruposFormCreateComponent, TypeaheadComponent, PessoasForm2Component,
+    PessoasJuridicasFormCreateComponent, PessoasJuridicasListComponent, PessoasJuridicasFormComponent],
   imports: [
     CommonModule,
     PessoasRoutingModule,

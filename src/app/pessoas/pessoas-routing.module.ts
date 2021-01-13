@@ -1,3 +1,4 @@
+import { PessoasJuridicasFormComponent } from './pessoas-juridicas-form/pessoas-juridicas-form.component';
 import { PessoasForm2Component } from './pessoas-form2/pessoas-form2.component';
 import { TypeaheadComponent } from './typeahead/typeahead.component';
 import { GruposFormCreateComponent } from './grupos-form-create/grupos-form-create.component';
@@ -15,6 +16,8 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { LayoutComponent } from '../layout/layout.component';
 import { AuthGuard } from '../auth.guard'
+import { PessoasJuridicasListComponent } from './pessoas-juridicas-list/pessoas-juridicas-list.component';
+import { PessoasJuridicasFormCreateComponent } from './pessoas-juridicas-form-create/pessoas-juridicas-form-create.component';
 
 const routes: Routes = [
 
@@ -22,6 +25,11 @@ const routes: Routes = [
   canActivate: [AuthGuard],
   data: { roles: ['CONSULTAR_PESSOAS'] }, children:[
     { path: '', component: PainelComponent, children:[
+
+      {path:'juridicas/list', component: PessoasJuridicasListComponent},
+      {path:'juridicas/form', component: PessoasJuridicasFormCreateComponent, canActivate: [AuthGuard], data: { roles: ['EDITAR_PESSOAS'] }},
+      {path: 'juridicas/form/:id', component: PessoasJuridicasFormComponent, canActivate: [AuthGuard], data: { roles: ['EDITAR_PESSOAS'] }},
+
 
     {path:'list', component: PessoasListComponent},
     {path:'form', component: PessoasFormCreateComponent, canActivate: [AuthGuard], data: { roles: ['EDITAR_PESSOAS'] }},
