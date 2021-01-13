@@ -35,6 +35,26 @@
     </div>
 
     <div class="row">
+      <div class="col-md-2">
+        <div class="form-group">
+          <label>Custo</label>
+          <input type="text" class="form-control" currencyMask
+          [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" [(ngModel)]="produto.custo" name="custo" />
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2">
+        <div class="form-group">
+          <label>Venda</label>
+          <input type="text" class="form-control" currencyMask
+          [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" [(ngModel)]="produto.venda" name="venda" />
+        </div>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="id!=null">
       <div class="col-md-6">
         <div class="form-group">
           <label>Data Cadastro</label>
@@ -43,11 +63,11 @@
       </div>
     </div>
 
-    <div class="row">
+    <div class="row" *ngIf="id!=null">
       <div class="col-md-6">
         <div class="form-group">
           <label>Última Atualização</label>
-          <input type="text" class="form-control" [(ngModel)]="produto.dataAtualizacao" name="dataAtualizacao" readonly />
+          <input  type="text" class="form-control" [(ngModel)]="produto.dataAtualizacao" name="dataAtualizacao" readonly />
         </div>
       </div>
     </div>

@@ -3,7 +3,7 @@
   <li class="breadcrumb-item active">
     <div class="btn-group" role="group">
       <button class="btn btn-success btn-sm" routerLink="/produtos/form">
-        <i class="fa fa-user-o"></i> Cadastrar produto
+        <i class="fa fa-cube"></i> Cadastrar produto
       </button>
     </div>
 
@@ -19,7 +19,8 @@
             <th>E/D</th>
             <th>Id</th>
             <th>Nome</th>
-           </tr>
+            <th>Venda</th>
+          </tr>
         </thead>
         <tbody>
           <tr *ngFor="let p of lista">
@@ -37,6 +38,12 @@
             </td>
             <td>{{ p.id }} </td>
             <td>{{ p.nome }} </td>
+            <td>
+              <div class="col-md-4">
+                <input type="text" class="form-control" [(ngModel)]="p.venda" name="custo" currencyMask
+                  [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" />
+              </div>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -62,4 +69,3 @@
   </div>
 
 </div>
-

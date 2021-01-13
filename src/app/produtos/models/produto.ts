@@ -3,8 +3,10 @@ export class Produto{
   id: number;
   nome: string;
   descricao: string;
+  custo:number;
+  venda:number;
   dataCadastro: Date;
   dataAtualizacao: Date;
-  fornecedor: Pessoa;
+  fornecedor: Pessoa = new Pessoa();
 
 }
