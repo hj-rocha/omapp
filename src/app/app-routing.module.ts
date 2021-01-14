@@ -13,6 +13,9 @@ const routes: Routes = [
 
   { path: 'clientes', loadChildren: () => import('./clientes/clientes.module').then(m => m.ClientesModule) },
 
+  { path: 'veiculos', loadChildren: () => import('./veiculos/veiculos.module').then(m => m.VeiculosModule) ,
+  canActivate: [AuthGuard], data: { roles: ['CONSULTAR_PRODUTOS'] }},
+
   { path: 'produtos', loadChildren: () => import('./produtos/produtos.module').then(m => m.ProdutosModule) ,
   canActivate: [AuthGuard], data: { roles: ['CONSULTAR_PRODUTOS'] }},
 

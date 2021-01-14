@@ -1,0 +1,72 @@
+<ol class="breadcrumb mb-4">
+
+  <li class="breadcrumb-item active">
+    <div class="btn-group" role="group">
+      <button class="btn btn-success btn-sm" routerLink="/veiculos/form">
+        <i class="fa fa-motorcycle"></i> Cadastrar veículo
+      </button>
+    </div>
+
+  </li>
+</ol>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>E/D</th>
+            <th>Id</th>
+            <th>Nome</th>
+            <th>Venda</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of lista">
+            <td>
+              <div class="btn-group" role="group">
+                <button class="btn btn-primary btn-sm" routerLink="/veiculos/form/{{ p.id }}" placement="top"
+                  ngbTooltip="Editar">
+                  <i class="fa fa-edit"></i>
+                </button>
+                <button class="btn btn-danger btn-sm" (click)="preparaDelecao(p)" data-toggle="modal"
+                  data-target="#modalDelecao" placement="top" ngbTooltip="Apagar">
+                  <i class="fa fa-trash"></i>
+                </button>
+              </div>
+            </td>
+            <td>{{ p.id }} </td>
+            <td>{{ p.nome }} </td>
+            <td>
+              <div class="col-md-4">
+                <input type="text" class="form-control" [(ngModel)]="p.venda" name="custo" currencyMask
+                  [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" />
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div id="modalDelecao" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4>Confirmação</h4>
+        </div>
+
+        <div class="modal-body" *ngIf="itemSelecionado">
+          Confirma a deleção do Veículo {{ itemSelecionado.nome }}?
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn btn-success" (click)="deletar()" data-dismiss="modal">Confirmar</button>
+          <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
