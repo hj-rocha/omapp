@@ -13,6 +13,9 @@ const routes: Routes = [
 
   { path: 'clientes', loadChildren: () => import('./clientes/clientes.module').then(m => m.ClientesModule) },
 
+  { path: 'pecas', loadChildren: () => import('./pecas/pecas.module').then(m => m.PecasModule),
+  canActivate: [AuthGuard], data: { roles: ['CONSULTAR_PRODUTOS'] } },
+
   { path: 'veiculos', loadChildren: () => import('./veiculos/veiculos.module').then(m => m.VeiculosModule) ,
   canActivate: [AuthGuard], data: { roles: ['CONSULTAR_PRODUTOS'] }},
 
@@ -36,6 +39,7 @@ const routes: Routes = [
   ]},
 
   { path: 'geografia', loadChildren: () => import('./geografia/geografia.module').then(m => m.GeografiaModule) },
+
 ];
 
 @NgModule({

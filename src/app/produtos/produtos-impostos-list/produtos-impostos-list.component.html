@@ -1,0 +1,114 @@
+<ol class="breadcrumb mb-4">
+  <li class="breadcrumb-item active">Impostos de uma produto</li>
+  <li class="breadcrumb-item active"><a routerLink="/produtos/form/{{ produtoId }}">Voltar para: {{produtoNome}}</a></li>
+  <!-- <li class="breadcrumb-item active">{{ impostosProduto ? 'Edição' : 'Cadastro' }}</li>-->
+</ol>
+<div class="container">
+
+
+    <div class="col-md-12">
+      <div class="alert alert-success" role="alert" *ngIf="success == true">
+        Operação realizada com sucesso com sucesso!
+      </div>
+      <div class="alert alert-danger" role="alert" *ngIf="success == false">
+         {{mensagemErro}}
+      </div>
+    </div>
+
+
+  <div>
+    <div class="card-group">
+      <div class="card text-white bg-primary mb-3">
+        <div class="card-body">
+          <div class="card-header">
+            <h5 class="card-title">Adicionar impostos para a produto: {{produtoNome}}</h5>
+            <h6 class="card-subtitle mb-2">Selecione um imposto</h6>
+          </div>
+
+          <div class="dropdown">
+            <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              <i class="fa fa-floppy-o" aria-hidden="true"></i>
+              Associar um imposto
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <!--  <a *ngFor="let impostoL of impostos; let i=index; first as isFirst" class="dropdown-item"
+              (click)="trocarImposto(impostoL.id)">-->
+              <!--  {{i}}/{{impostos.length}}. {{impostoL.nome}} <span *ngIf="isFirst">default</span>-->
+              <!--{{impostoL.nome}}
+            </a>-->
+              <a type="button" *ngFor="let impostoL of impostos; let i=index; first as isFirst" class="dropdown-item"
+                (click)="associarImpostoAProduto(produtoId ,impostoL.id)">{{impostoL.nome}}</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="card-group" *ngIf="impostosProduto[0]">
+      <div class="card text-white bg-primary mb-3">
+        <div class="card-body">
+          <div class="card-header">
+            <h5 class="card-title">Impostos</h5>
+            <h6 class="card-subtitle mb-2">Selecione um imposto</h6>
+          </div>
+
+          <table class="table">
+            <tr *ngFor="let imposto of impostosProduto; let i=index">
+              <td>
+                <div class="card-group">
+                  <div class="card">
+                    <button type="button" class="btn btn-info btn-block" (click)="trocarImposto(i)">
+                      <i class="fa fa-universal-access" aria-hidden="true"></i> {{imposto.nome}}
+                    </button>
+                  </div>
+                  <div class="card">
+                    <button type="button" class="btn btn-danger btn-block" data-toggle="modal"
+                      *ngIf="imposto.nome!='Gestor'" data-target="#modalDelecao"
+                      (click)="preparaDelecao(imposto.id, imposto.nome,i)">
+                      <i class="fa fa-trash-o" aria-hidden="true"></i> Desassociar
+                    </button>
+
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="card text-white bg-info mb-3">
+        <div class="card-body">
+          <div class="card-header">
+            <h5 class="card-title">{{(impostosProduto[impostoPermissao]).nome}}</h5>
+            <h6 class="card-subtitle mb-2">
+              Taxa do imposto {{(impostosProduto[impostoPermissao]).nome}}: {{(impostosProduto[impostoPermissao]).percentual}}%</h6>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="modalDelecao" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4>Confirmação</h4>
+        </div>
+
+        <div class="modal-body" *ngIf="impostoSelecionado">
+          Confirma a desassociação da produto {{ produtoNome }} ao imposto {{impostoSelecionado}}?
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn btn-success" (click)="deassociarImpostoAProduto(impostoId)" data-dismiss="modal">
+            <i class="fa fa-floppy-o" aria-hidden="true"></i>
+            Confirmar
+          </button>
+          <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

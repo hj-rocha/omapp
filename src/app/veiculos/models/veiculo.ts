@@ -1,3 +1,4 @@
+import { Imposto } from './../../produtos/models/imposto';
 import { CTBCategoria } from './CTBCategoria';
 import { CTBEspecie } from './CTBEspecie';
 import { Combustivel } from './combustivel';
@@ -8,6 +9,7 @@ export class Veiculo{
   nome: String;
   descricao: string;
   custo: number;
+  impostos: Imposto[] = [];
   venda: number;
   dataCadastro: number;
   dataAtualizacao: number;

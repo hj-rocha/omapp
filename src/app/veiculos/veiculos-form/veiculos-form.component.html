@@ -5,351 +5,377 @@
 <div class="container">
   <form #veiculoForm="ngForm" (ngSubmit)="onSubmit()">
 
-    <div class="card text-white bg-primary mb-3">
-      <div class="card-body">
-        <div class="card-header">
-          <h5 class="card-title">Produto</h5>
-        </div>
 
-        <div class="row" *ngIf="veiculo.id">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>ID:</label>
-              <input type="text" [(ngModel)]="veiculo.id" name="id" class="form-control" disabled="true" />
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>Nome *</label>
-              <input type="text" class="form-control" [(ngModel)]="veiculo.nome" name="veiculo.nome" />
-            </div>
-          </div>
-        </div>
-
-
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>Descrição</label>
-              <textarea type="text" class="form-control" [(ngModel)]="veiculo.descricao" name="descricao" cols="2"
-                rows="5"></textarea>
-
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-2">
-            <div class="form-group">
-              <label>Custo</label>
-              <input type="text" class="form-control" currencyMask
-                [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" [(ngModel)]="veiculo.custo" name="custo" />
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-2">
-            <div class="form-group">
-              <label>Venda</label>
-              <input type="text" class="form-control" currencyMask
-                [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" [(ngModel)]="veiculo.venda" name="venda" />
-            </div>
-          </div>
-        </div>
-
-        <div class="row" *ngIf="id!=null">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>Data Cadastro</label>
-              <input type="text" class="form-control" [(ngModel)]="veiculo.dataCadastro" name="dataCadastro" readonly />
-            </div>
-          </div>
-        </div>
-
-        <div class="row" *ngIf="id!=null">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>Última Atualização</label>
-              <input type="text" class="form-control" [(ngModel)]="veiculo.dataAtualizacao" name="dataAtualizacao"
-                readonly />
-            </div>
-          </div>
-        </div>
-
-        <div class="card text-white bg-info mb-3">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card text-white bg-primary mb-3">
           <div class="card-body">
             <div class="card-header">
-              <h6 class="card-title">Fornecedor</h6>
+              <h5 class="card-title">Produto</h5>
             </div>
 
-            <div class="row">
-              <div class="col-md-6">
+            <div class="row" *ngIf="veiculo.id">
+              <div class="col-md-12">
                 <div class="form-group">
-                  <label>Fornecedeor Atual</label>
-                  <input id="fornecedor" name="fornecedor" type="text" class="form-control" [(ngModel)]="fornecedor"
-                    [ngbTypeahead]="search" placeholder="Digite as iniciais no nome" [inputFormatter]="formatter"
-                    [resultFormatter]="formatter">
-                  <input type="text" readonly class="form-control text-white bg-success mb-3"
-                    *ngIf="fornecedor.cpf!=null" value="CPF: {{fornecedor.cpf}}">
+                  <label>ID:</label>
+                  <input type="text" [(ngModel)]="veiculo.id" name="id" class="form-control" disabled="true" />
                 </div>
               </div>
             </div>
 
             <div class="row">
-              <div class="col-md-6">
+              <div class="col-md-12">
                 <div class="form-group">
-                  <label>Fonecedores Antigos</label>
-                  <div *ngFor="let item of veiculo.fornecedores">
-                    <input type="text" class="form-control" name="produto.fornecedor.id" value={{item.nome}} />
+                  <label>Nome *</label>
+                  <input type="text" class="form-control" [(ngModel)]="veiculo.nome" name="veiculo.nome" />
+                </div>
+              </div>
+            </div>
+
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Descrição</label>
+                  <textarea type="text" class="form-control" [(ngModel)]="veiculo.descricao" name="descricao" cols="2"
+                    rows="5"></textarea>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Custo</label>
+                  <input type="text" class="form-control" currencyMask
+                    [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" [(ngModel)]="veiculo.custo"
+                    name="custo" />
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Impostos</label>
+                  <div *ngFor="let item of veiculo.impostos">
+
+                    <input type="text" class="form-control" name="produto.fornecedor.id"
+                      value="{{item.nome}} {{item.percentual}}%" readonly />
                   </div>
                 </div>
               </div>
             </div>
 
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Venda</label>
+                  <input type="text" class="form-control" currencyMask
+                    [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" [(ngModel)]="veiculo.venda"
+                    name="venda" />
+                </div>
+              </div>
+            </div>
+
+            <div class="row" *ngIf="id!=null">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Data Cadastro</label>
+                  <input type="text" class="form-control" [(ngModel)]="veiculo.dataCadastro" name="dataCadastro"
+                    readonly />
+                </div>
+              </div>
+            </div>
+
+            <div class="row" *ngIf="id!=null">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Última Atualização</label>
+                  <input type="text" class="form-control" [(ngModel)]="veiculo.dataAtualizacao" name="dataAtualizacao"
+                    readonly />
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card bg-info mb-3">
+                  <div class="card-body">
+
+                    <div class="card-header">
+                      <h6 class="card-title">Fornecedor</h6>
+                    </div>
+
+                    <div class="form-group">
+                      <label>Fornecedeor Atual</label>
+                      <input id="fornecedor" name="fornecedor" type="text" class="form-control" [(ngModel)]="fornecedor"
+                        [ngbTypeahead]="search" placeholder="Digite as iniciais no nome" [inputFormatter]="formatter"
+                        [resultFormatter]="formatter">
+                      <input type="text" readonly class="form-control text-white bg-success mb-3"
+                        *ngIf="fornecedor.cpf!=null" value="CPF: {{fornecedor.cpf}}">
+                    </div>
+
+                    <div class="form-group">
+                      <label>Fonecedores Antigos</label>
+                      <div *ngFor="let item of veiculo.fornecedores">
+                        <input type="text" class="form-control" name="produto.fornecedor.id" value={{item.nome}} />
+                      </div>
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
           </div>
         </div>
-
 
       </div>
     </div>
 
     <br>
-
-    <div class="card text-white bg-primary mb-3">
-      <div class="card-body">
-        <div class="card-header">
-          <h5 class="card-title">Veículo</h5>
-        </div>
-
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>Renavam</label>
-              <input type="text" mask="00000000000" class="form-control" [(ngModel)]="veiculo.renavam"
-                name="veiculo.renavam" />
-            </div>
-          </div>
-        </div>
-
-        <div class="card text-white bg-info mb-3">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card text-white bg-primary mb-3">
           <div class="card-body">
             <div class="card-header">
-              <h6 class="card-title">Proprietário</h6>
+              <h5 class="card-title">Veículo</h5>
             </div>
+
             <div class="row">
-              <div class="col-md-6">
+              <div class="col-md-12">
                 <div class="form-group">
-                  <label>Proprietário Atual</label>
-                  <input id="proprietario" name="proprietario" type="text" class="form-control"
-                    [(ngModel)]="proprietario" [ngbTypeahead]="search" placeholder="Digite as iniciais no nome"
-                    [inputFormatter]="formatter" [resultFormatter]="formatter">
-                  <input type="text" class="form-control text-white bg-success mb-3" *ngIf="proprietario.cpf!=null"
-                    value="CPF: {{proprietario.cpf}}">
+                  <label>Renavam</label>
+                  <input type="text" mask="00000000000" class="form-control" [(ngModel)]="veiculo.renavam"
+                    name="veiculo.renavam" />
                 </div>
               </div>
             </div>
 
             <div class="row">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label>Proprietários Antigos</label>
-                  <div *ngFor="let proprietario of veiculo.proprietarios">
-                    <input type="text" class="form-control" name="produto.proprietario.id"
-                      value="{{proprietario.nome}}">
+              <div class="col-md-12">
+
+                <div class="card bg-info mb-3">
+                  <div class="card-body">
+                    <div class="card-header">
+                      <h6 class="card-title">Proprietário</h6>
+                    </div>
+                    <div class="form-group">
+                      <label>Proprietário Atual</label>
+                      <input id="proprietario" name="proprietario" type="text" class="form-control"
+                        [(ngModel)]="proprietario" [ngbTypeahead]="search" placeholder="Digite as iniciais no nome"
+                        [inputFormatter]="formatter" [resultFormatter]="formatter">
+                      <input type="text" class="form-control text-white bg-success mb-3" *ngIf="proprietario.cpf!=null"
+                        value="CPF: {{proprietario.cpf}}">
+                    </div>
+
+                    <div class="form-group">
+                      <label>Proprietários Antigos</label>
+                      <div *ngFor="let proprietario of veiculo.proprietarios">
+                        <input type="text" class="form-control" name="produto.proprietario.id"
+                          value="{{proprietario.nome}}">
+                      </div>
+                    </div>
                   </div>
                 </div>
+
               </div>
             </div>
 
-          </div>
-        </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Placa</label>
+                  <input type="text" mask="AAAAAAA" class="form-control" [(ngModel)]="veiculo.placa"
+                    name="veiculo.placa" />
+                </div>
+              </div>
+            </div>
 
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>Palaca</label>
-              <input type="text" mask="AAAAAAA" class="form-control" [(ngModel)]="veiculo.placa" name="veiculo.placa" />
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Placa Anterior</label>
+                  <input type="text" mask="AAAAAAA" class="form-control" [(ngModel)]="veiculo.placaAnterior"
+                    name="veiculo.placaAnterior" />
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Chassi</label>
+                  <input type="text" mask="AA.AAAAAA.AA.AAAAAA" class="form-control" [(ngModel)]="veiculo.chassi"
+                    name="veiculo.chassi" />
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Espécie</label>
+                  <select class="form-control" [(ngModel)]="veiculo.especie" name="veiculo.especie"
+                    id="veiculo.especie">
+                    <option *ngFor="let esp of especies" value="{{esp.codigo}}">
+                      {{esp.descricao}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Tipo</label>
+                  <input type="text" class="form-control" [(ngModel)]="veiculo.tipo" name="veiculo.tipo" />
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Combustíveis</label>
+                  <select class="form-control" [(ngModel)]="veiculo.combustivel" name="veiculo.combustivel"
+                    id="veiculo.combustivel">
+
+                    <option *ngFor="let comb of combustiveis" value="{{comb.codigo}}">{{comb.descricao}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Marca</label>
+                  <input type="text" class="form-control" [(ngModel)]="veiculo.marca" name="veiculo.marca" />
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Modelo</label>
+                  <input type="text" class="form-control" [(ngModel)]="veiculo.modelo" name="veiculo.modelo" />
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Ano Fabricação</label>
+                  <input type="text" mask="0000" class="form-control" [(ngModel)]="veiculo.anoFabricacao"
+                    name="veiculo.anoFabricacao" />
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Ano Modelo</label>
+                  <input type="text" mask="0000" class="form-control" [(ngModel)]="veiculo.anoModelo"
+                    name="veiculo.anoModelo" />
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Capacidade</label>
+                  <input type="text" class="form-control" [(ngModel)]="veiculo.capacidade" name="veiculo.capacidade" />
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Potência</label>
+                  <input type="text" class="form-control" [(ngModel)]="veiculo.potencia" name="veiculo.potencia" />
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Cilindradas</label>
+                  <input type="text" class="form-control" [(ngModel)]="veiculo.cilindradas"
+                    name="veiculo.cilindradas" />
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Categoria</label>
+                  <select class="form-control" [(ngModel)]="veiculo.categoria" name="veiculo.categoria"
+                    id="veiculo.categoria">
+
+                    <option *ngFor="let cat of categorias" value="{{cat.codigo}}">{{cat.descricao}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Cor predominante</label>
+                  <input type="text" class="form-control" [(ngModel)]="veiculo.corPredominante"
+                    name="veiculo.corPredominante" />
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>RNTRC</label>
+                  <input type="text" class="form-control" [(ngModel)]="veiculo.rntrc" name="veiculo.rntrc" />
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="alert alert-success" role="alert" *ngIf="success == true">
+                  Operação realizada com sucesso com sucesso!
+                </div>
+                <div class="alert alert-danger" role="alert" *ngIf="success == false">
+                  {{mensagemErro}}
+                </div>
+              </div>
             </div>
           </div>
         </div>
-
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>Placa Anterior</label>
-              <input type="text" mask="AAAAAAA" class="form-control" [(ngModel)]="veiculo.placaAnterior"
-                name="veiculo.placaAnterior" />
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>Chassi</label>
-              <input type="text" mask="AA.AAAAAA.AA.AAAAAA" class="form-control" [(ngModel)]="veiculo.chassi"
-                name="veiculo.chassi" />
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>Espécie</label>
-              <select class="form-control" [(ngModel)]="veiculo.especie" name="veiculo.especie" id="veiculo.especie">
-                <option *ngFor="let esp of especies" value="{{esp.codigo}}">
-                  {{esp.descricao}}</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>Tipo</label>
-              <input type="text" class="form-control" [(ngModel)]="veiculo.tipo" name="veiculo.tipo" />
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>Combustíveis</label>
-              <select class="form-control" [(ngModel)]="veiculo.combustivel" name="veiculo.combustivel"
-                id="veiculo.combustivel">
-
-                <option *ngFor="let comb of combustiveis" value="{{comb.codigo}}">{{comb.descricao}}</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>Marca</label>
-              <input type="text" class="form-control" [(ngModel)]="veiculo.marca" name="veiculo.marca" />
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>Modelo</label>
-              <input type="text" class="form-control" [(ngModel)]="veiculo.modelo" name="veiculo.modelo" />
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>Ano Fabricação</label>
-              <input type="text" mask="0000" class="form-control" [(ngModel)]="veiculo.anoFabricacao"
-                name="veiculo.anoFabricacao" />
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>Ano Modelo</label>
-              <input type="text" mask="0000" class="form-control" [(ngModel)]="veiculo.anoModelo"
-                name="veiculo.anoModelo" />
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>Capacidade</label>
-              <input type="text" class="form-control" [(ngModel)]="veiculo.capacidade" name="veiculo.capacidade" />
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>Potência</label>
-              <input type="text" class="form-control" [(ngModel)]="veiculo.potencia" name="veiculo.potencia" />
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>Cilindradas</label>
-              <input type="text" class="form-control" [(ngModel)]="veiculo.cilindradas" name="veiculo.cilindradas" />
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>Categoria</label>
-              <select class="form-control" [(ngModel)]="veiculo.categoria" name="veiculo.categoria"
-                id="veiculo.categoria">
-
-                <option *ngFor="let cat of categorias" value="{{cat.codigo}}">{{cat.descricao}}</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>Cor predominante</label>
-              <input type="text" class="form-control" [(ngModel)]="veiculo.corPredominante"
-                name="veiculo.corPredominante" />
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>RNTRC</label>
-              <input type="text" class="form-control" [(ngModel)]="veiculo.rntrc" name="veiculo.rntrc" />
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-12">
-            <div class="alert alert-success" role="alert" *ngIf="success == true">
-              Operação realizada com sucesso com sucesso!
-            </div>
-            <div class="alert alert-danger" role="alert" *ngIf="success == false">
-              {{mensagemErro}}
-            </div>
-          </div>
-        </div>
-
       </div>
     </div>
 
     <div class="row">
-      <div class="col-md-3">
+      <div class="col-md-6">
+
+        <div class="card text-white bg-primary mb-3">
+          <div class="card-body">
+
         <div class="btn-group">
           <button type="submit" class="btn btn-success" *ngIf="!veiculo.id">
             <i class="fa fa-floppy-o"></i> Salvar
           </button>
 
-          <button type="submit" class="btn btn-primary" *ngIf="veiculo.id">
+          <button type="submit" class="btn btn-warning" *ngIf="veiculo.id">
             <i class="fa fa-sync-alt"></i> Atualizar
           </button>
 
@@ -357,6 +383,9 @@
             <i class="fa fa-arrow-left"></i> Voltar
           </button>
         </div>
+        </div>
+        </div>
+
       </div>
 
     </div>

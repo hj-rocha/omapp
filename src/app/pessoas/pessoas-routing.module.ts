@@ -41,7 +41,7 @@ const routes: Routes = [
     {path: 'grupos/form', component: GruposFormCreateComponent, canActivate: [AuthGuard], data: { roles: ['EDITAR_GRUPOS_PERMISSOES'] }},
     {path: 'grupos/form/:id', component: GruposFormComponent, canActivate: [AuthGuard], data: { roles: ['EDITAR_GRUPOS_PERMISSOES'] }},
 
-    {path: ':pessoa_id/:pessoa_nome/grupos-list', component: PessoasGruposListComponent},
+    {path: ':pessoa_id/:pessoa_nome/grupos-list', component: PessoasGruposListComponent, canActivate: [AuthGuard], data: { roles: ['EDITAR_PESSOAS'] }},
 
     {path: 'typeahead', component: TypeaheadComponent},
 

@@ -103,5 +103,28 @@
   </form>
 
   <hr />
+  <div class="col-md-6" *ngIf="produto.id">
+
+    <div class="card text-white bg-primary mb-3">
+      <div class="card-body">
+        <div class="card-header">
+          <h5 class="card-title">Impostos do produto: {{produto.nome}}</h5>
+        </div>
+        <table *ngIf=produto.impostos class="table">
+          <tr *ngFor="let g of produto.impostos">
+            <td>{{g.nome}}</td>
+            <td>{{g.percentual}}%</td>
+          </tr>
+        </table>
+        <div class="card-footer">
+          <div class="btn-group" role="group">
+            <button class="btn btn-warning btn-sm" routerLink="/produtos/{{ produto.id }}/{{produto.nome}}/impostos-list">
+              <i class="fa fa-edit"></i>Editar impostos
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </div>

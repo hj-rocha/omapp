@@ -16,32 +16,28 @@
       <table class="table">
         <thead>
           <tr>
-            <th>E/D</th>
-            <th>Id</th>
             <th>Nome</th>
-            <th>Venda</th>
+            <th>Preço</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let p of lista">
             <td>
-              <div class="btn-group" role="group">
-                <button class="btn btn-primary btn-sm" routerLink="/veiculos/form/{{ p.id }}" placement="top"
-                  ngbTooltip="Editar">
-                  <i class="fa fa-edit"></i>
-                </button>
-                <button class="btn btn-danger btn-sm" (click)="preparaDelecao(p)" data-toggle="modal"
+            <!-- <div class="btn-group" role="group">-->
+                <input type="button" class="alert-primary btn-sm btn-block" routerLink="/veiculos/form/{{ p.id }}" placement="top"
+                  ngbTooltip="Editar" value="{{ p.nome }}">
+
+
+              <!--    <button class="btn btn-danger btn-sm" (click)="preparaDelecao(p)" data-toggle="modal"
                   data-target="#modalDelecao" placement="top" ngbTooltip="Apagar">
                   <i class="fa fa-trash"></i>
-                </button>
-              </div>
+                </button>-->
+           <!--   </div>-->
             </td>
-            <td>{{ p.id }} </td>
-            <td>{{ p.nome }} </td>
             <td>
-              <div class="col-md-4">
+              <div >
                 <input type="text" class="form-control" [(ngModel)]="p.venda" name="custo" currencyMask
-                  [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" />
+                  [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" readonly />
               </div>
             </td>
           </tr>
