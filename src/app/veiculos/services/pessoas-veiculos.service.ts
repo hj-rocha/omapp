@@ -1,3 +1,4 @@
+import { Imposto } from './../../produtos/models/imposto';
 import { Pessoa } from './../../pessoas/model/pessoa';
 import { Observable } from 'rxjs';
 import { Veiculo } from '../models/veiculo';
@@ -21,6 +22,11 @@ export class PessoasVeiculosService {
       const url = this.apiURL;
 
       return this.http.get<Pessoa[]>(`${this.apiURL}/nome/${nome}`);
+    }
+
+    listarImposto():Observable<Imposto[]>{
+
+      return this.http.get<Imposto[]>(`${environment.apiURLBase}/impostos`);
     }
 
 

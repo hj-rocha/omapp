@@ -1,3 +1,4 @@
+import { Imposto } from './../../produtos/models/imposto';
 import { CTBEspecie } from './../models/CTBEspecie';
 import { Combustivel } from './../models/combustivel';
 import { CTBCategoria } from './../models/CTBCategoria';
@@ -27,6 +28,7 @@ export class VeiculosFormComponent implements OnInit {
 
   pessoas: Pessoa[];
   proprietario: Pessoa = new Pessoa();
+  imposto: Imposto = new Imposto();
   fornecedor: Pessoa = new Pessoa();
   model: any;
   searching = false;
@@ -75,6 +77,8 @@ export class VeiculosFormComponent implements OnInit {
 
   formatter = (pessoa: Pessoa) => pessoa.nome;
 
+  formatterImposto = (imposto: Imposto) => imposto.nome;
+
   search = (text$: Observable<string>) =>
     text$.pipe(
       debounceTime(300),
@@ -82,6 +86,22 @@ export class VeiculosFormComponent implements OnInit {
       tap(() => this.searching = true),
       switchMap(term =>
         this.servicePessoa.listar(term).pipe(
+          tap(() => this.searchFailed = false),
+          catchError(() => {
+            this.searchFailed = true;
+            return of([]);
+          }))
+      ),
+      tap(() => this.searching = false)
+    )
+
+    searchImposto = (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      tap(() => this.searching = true),
+      switchMap(term =>
+        this.servicePessoa.listarImposto().pipe(
           tap(() => this.searchFailed = false),
           catchError(() => {
             this.searchFailed = true;
@@ -119,6 +139,9 @@ export class VeiculosFormComponent implements OnInit {
 
   onSubmit() {
 
+    if (this.imposto.id != null) {
+      this.veiculo.impostos[this.veiculo.impostos.length+1] = this.imposto;
+    }
 
     if (this.proprietario.id != null) {
       this.veiculo.proprietarios[this.veiculo.proprietarios.length+1] = this.proprietario;
