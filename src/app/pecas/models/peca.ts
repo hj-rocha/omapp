@@ -1,7 +1,7 @@
 import { Produto } from './../../produtos/models/produto';
-export class peca extends Produto{
+export class Peca extends Produto{
 
   codigoInterno: string;
-  codigoBarra: string;
+  codigoDeBarras: string;
 
 }

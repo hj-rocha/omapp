@@ -1,4 +1,4 @@
-import { PecasFormComponent } from './painel/pecas-form/pecas-form.component';
+import { PecasFormComponent } from './pecas-form/pecas-form.component';
 import { PecasListComponent } from './pecas-list/pecas-list.component';
 import { AuthGuard } from './../auth.guard';
 

@@ -1,19 +1,12 @@
+import { Produto } from './../../produtos/models/produto';
+import { Marca } from './../../produtos/models/marca';
 import { Imposto } from './../../produtos/models/imposto';
 import { CTBCategoria } from './CTBCategoria';
 import { CTBEspecie } from './CTBEspecie';
 import { Combustivel } from './combustivel';
 import { Pessoa } from './../../pessoas/model/pessoa';
-export class Veiculo{
+export class Veiculo extends Produto{
 
-  id: number;
-  nome: String;
-  descricao: string;
-  custo: number;
-  impostos: Imposto[] = [];
-  venda: number;
-  dataCadastro: number;
-  dataAtualizacao: number;
-  fornecedores: Pessoa[] = [];
   renavam: string;
   proprietarios: Pessoa[] = [];
   placa: string;
@@ -22,7 +15,6 @@ export class Veiculo{
   especie: CTBEspecie;
   tipo: string;
   combustivel: Combustivel;
-  marca: string;
   modelo: string;
   anoFabricacao: number;
   anoModelo: number;

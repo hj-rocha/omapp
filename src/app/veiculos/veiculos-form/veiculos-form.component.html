@@ -50,7 +50,7 @@
                   <label>Custo</label>
                   <input type="text" class="form-control" currencyMask
                     [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" [(ngModel)]="veiculo.custo"
-                    name="custo" />
+                    name="veiculo.custo" />
                 </div>
               </div>
             </div>
@@ -76,7 +76,7 @@
                   <label>Venda</label>
                   <input type="text" class="form-control" currencyMask
                     [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" [(ngModel)]="veiculo.venda"
-                    name="venda" />
+                    name="veiculo.venda" />
                 </div>
               </div>
             </div>
@@ -259,15 +259,30 @@
                 </div>
               </div>
             </div>
-
+<!--
             <div class="row">
               <div class="col-md-12">
                 <div class="form-group">
                   <label>Marca</label>
-                  <input type="text" class="form-control" [(ngModel)]="veiculo.marca" name="veiculo.marca" />
+                  <input type="text" class="form-control" [(ngModel)]="veiculo.marca.id" name="veiculo.marca.id" />
                 </div>
               </div>
             </div>
+          -->
+
+
+            <div class="row">
+              <div class="col-md-12">
+                    <div class="form-group">
+                      <label>Marca</label>
+                      <input id="veiculo.marca" name="veiculo.marca" type="text" class="form-control"
+                        [(ngModel)]="veiculo.marca" [ngbTypeahead]="searchMarca" placeholder="Digite as iniciais no nome"
+                        [inputFormatter]="formatterMarca" [resultFormatter]="formatterMarca">
+                    </div>
+              </div>
+            </div>
+
+
 
             <div class="row">
               <div class="col-md-12">

@@ -5,12 +5,12 @@ export class Produto{
   id: number;
   nome: string;
   descricao: string;
+  marca: Marca = new Marca();
   custo:number;
-  marcas: Marca[];
   impostos: Imposto[];
   venda:number;
   dataCadastro: Date;
   dataAtualizacao: Date;
-  fornecedor: Pessoa = new Pessoa();
+  fornecedores: Pessoa[] = [];
 
 }
