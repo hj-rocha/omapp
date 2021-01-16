@@ -1,5 +1,5 @@
 <ol class="breadcrumb mb-4">
-
+<!--
   <li class="breadcrumb-item active">
     <div class="btn-group" role="group">
       <button class="btn btn-success btn-sm" routerLink="/produtos/form">
@@ -17,7 +17,7 @@
     </div>
 
   </li>
-
+-->
 </ol>
 
 <div class="container">
@@ -42,10 +42,10 @@
 
             <td>
               <div class="btn-group btn-block" role="group">
-                <button class="btn btn-danger btn-sm" (click)="preparaDelecao(p)" data-toggle="modal"
+            <!--   <button class="btn btn-danger btn-sm" (click)="preparaDelecao(p)" data-toggle="modal"
                   data-target="#modalDelecao" placement="top" ngbTooltip="Apagar">
                   <i class="fa fa-trash"></i>
-                </button>
+                </button>-->
                 <input type="button" class="alert-primary btn-sm btn-block" routerLink="/produtos/form/{{ p.id }}"
                   placement="top" ngbTooltip="Editar" value="{{ p.nome }}">
               </div>

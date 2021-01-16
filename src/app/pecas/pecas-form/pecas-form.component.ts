@@ -1,3 +1,4 @@
+import { ImpostoService } from './../services/imposto.service';
 import { MarcasVeiculosService } from './../services/marcas-veiculos.service';
 import { Marca } from './../../produtos/models/marca';
 import { Observable, of } from 'rxjs';
@@ -24,7 +25,7 @@ export class PecasFormComponent implements OnInit {
   id: number;
 
   pessoas: Pessoa[];
-  proprietario: Pessoa = new Pessoa();
+  //proprietario: Pessoa = new Pessoa();
   imposto: Imposto = new Imposto();
   fornecedor: Pessoa = new Pessoa();
   model: any;
@@ -35,6 +36,7 @@ export class PecasFormComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private servicePessoa: PessoasPecasService,
+    private serviceImpostos: ImpostoService,
     private serviceMarcas: MarcasVeiculosService) {
     this.peca = new Peca();
   }
@@ -67,7 +69,7 @@ export class PecasFormComponent implements OnInit {
       distinctUntilChanged(),
       tap(() => this.searching = true),
       switchMap(term =>
-        this.servicePessoa.listarImposto().pipe(
+        this.serviceImpostos.listar().pipe(
           tap(() => this.searchFailed = false),
           catchError(() => {
             this.searchFailed = true;

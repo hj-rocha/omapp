@@ -13,6 +13,10 @@ const routes: Routes = [
 
   { path: 'clientes', loadChildren: () => import('./clientes/clientes.module').then(m => m.ClientesModule) },
 
+  { path: 'servicos', loadChildren: () => import('./servicos/servicos.module').then(m => m.ServicosModule) },
+
+  { path: 'manutencoes', loadChildren: () => import('./manutencoes/manutencoes.module').then(m => m.ManutencoesModule) },
+
   { path: 'pecas', loadChildren: () => import('./pecas/pecas.module').then(m => m.PecasModule),
   canActivate: [AuthGuard], data: { roles: ['CONSULTAR_PRODUTOS'] } },
 
@@ -39,6 +43,7 @@ const routes: Routes = [
   ]},
 
   { path: 'geografia', loadChildren: () => import('./geografia/geografia.module').then(m => m.GeografiaModule) },
+
 
 ];
 

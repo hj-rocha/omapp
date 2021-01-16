@@ -1,0 +1,263 @@
+<ol class="breadcrumb mb-4">
+  <li class="breadcrumb-item active">{{ id ? 'Editando ' : 'Cadastrando' }}</li>
+  <li class="breadcrumb-item active"><a routerLink="/servicos/list">Voltar para listagem</a></li>
+</ol>
+<div class="container">
+  <form #servicoForm="ngForm" (ngSubmit)="onSubmit()">
+
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card text-white bg-primary mb-3">
+          <div class="card-body">
+            <div class="card-header">
+              <h5 class="card-title">Produto</h5>
+            </div>
+
+            <div class="row" *ngIf="servico.id">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>ID:</label>
+                  <input type="text" [(ngModel)]="servico.id" name="id" class="form-control" disabled="true" />
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Nome *</label>
+                  <input type="text" class="form-control" [(ngModel)]="servico.nome" name="servico.nome" />
+                </div>
+              </div>
+            </div>
+
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Descrição</label>
+                  <textarea type="text" class="form-control" [(ngModel)]="servico.descricao" name="descricao" cols="2"
+                    rows="5"></textarea>
+                </div>
+              </div>
+            </div>
+
+            <!--     <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Marca</label>
+                  <input type="text" class="form-control" [(ngModel)]="servico.marca" name="servico.marca" />
+                </div>
+              </div>
+            </div>
+          -->
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Marca</label>
+                  <input id="servico.marca" name="servico.marca" type="text" class="form-control" [(ngModel)]="servico.marca"
+                    [ngbTypeahead]="searchMarca" placeholder="Digite as iniciais no nome"
+                    [inputFormatter]="formatterMarca" [resultFormatter]="formatterMarca">
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Custo</label>
+                  <input type="text" class="form-control" currencyMask
+                    [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" [(ngModel)]="servico.custo" name="custo" />
+                </div>
+              </div>
+            </div>
+
+            <!--
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Impostos</label>
+                  <div *ngFor="let item of servico.impostos">
+
+                    <input type="text" class="form-control" name="produto.fornecedor.id"
+                      value="{{item.nome}} {{item.percentual}}%" readonly />
+                  </div>
+                </div>
+              </div>
+            </div>
+          -->
+
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Venda</label>
+                  <input type="text" class="form-control" currencyMask
+                    [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" [(ngModel)]="servico.venda" name="venda" />
+                </div>
+              </div>
+            </div>
+
+            <div class="row" *ngIf="id!=null">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Data Cadastro</label>
+                  <input type="text" class="form-control" [(ngModel)]="servico.dataCadastro" name="dataCadastro"
+                    readonly />
+                </div>
+              </div>
+            </div>
+
+            <div class="row" *ngIf="id!=null">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Última Atualização</label>
+                  <input type="text" class="form-control" [(ngModel)]="servico.dataAtualizacao" name="dataAtualizacao"
+                    readonly />
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card bg-info mb-3">
+                  <div class="card-body">
+
+                    <div class="card-header">
+                      <h5 class="card-title">Fornecedores</h5>
+                    </div>
+
+                    <div class="form-group">
+                      <label>Adicionar Fornecedor</label>
+                      <input id="fornecedor" name="fornecedor" type="text" class="form-control" [(ngModel)]="fornecedor"
+                        [ngbTypeahead]="search" placeholder="Digite as iniciais no nome" [inputFormatter]="formatter"
+                        [resultFormatter]="formatter">
+                      <input type="text" readonly class="form-control text-white bg-success mb-3"
+                        *ngIf="fornecedor.cpf!=null" value="CPF: {{fornecedor.cpf}}">
+                    </div>
+
+                    <div class="form-group">
+                      <label>Fornecedores Antigos</label>
+                      <div *ngFor="let item of servico.fornecedores">
+                        <input type="text" class="form-control" name="produto.fornecedor.id" value={{item.nome}} />
+                      </div>
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card bg-info mb-3">
+                  <div class="card-body">
+
+                    <div class="card-header">
+                      <h5 class="card-title">Impostos</h5>
+                    </div>
+
+                    <div class="form-group">
+                      <label>Adicionar Imposto</label>
+                      <input id="imposto" name="imposto" type="text" class="form-control" [(ngModel)]="imposto"
+                        [ngbTypeahead]="searchImposto" placeholder="Digite as iniciais no nome"
+                        [inputFormatter]="formatterImposto" [resultFormatter]="formatterImposto">
+                      <input type="text" readonly class="form-control text-white bg-success mb-3"
+                        *ngIf="imposto.id!=null" value="Imposto: {{imposto.nome}} => {{imposto.percentual}}">
+                    </div>
+
+                    <div class="form-group">
+                      <label>Todos os impostos</label>
+                      <div *ngFor="let item of servico.impostos">
+                        <input type="text" class="form-control" name="produto.fornecedor.id"
+                          value="{{item.nome}} => {{item.percentual}}%" />
+                      </div>
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card text-white bg-primary mb-3">
+          <div class="card-body">
+            <div class="card-header">
+              <h5 class="card-title">Serviço</h5>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Tempo de Execução (min)</label>
+                  <input type="text" class="form-control" [(ngModel)]="servico.tempoDeExecucao" name="servico.tempoDeExecucao" />
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+      <div class="col-md-6">
+
+        <div class="card text-white bg-primary mb-3">
+          <div class="card-body">
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="alert alert-success" role="alert" *ngIf="success == true">
+                  Operação realizada com sucesso com sucesso!
+                </div>
+                <div class="alert alert-danger" role="alert" *ngIf="success == false">
+                  {{mensagemErro}}
+                </div>
+              </div>
+            </div>
+
+            <div class="btn-group">
+              <button type="submit" class="btn btn-success" *ngIf="!servico.id">
+                <i class="fa fa-floppy-o"></i> Salvar
+              </button>
+
+              <button type="submit" class="btn btn-warning" *ngIf="servico.id">
+                <i class="fa fa-sync-alt"></i> Atualizar
+              </button>
+
+              <button type="button" class="btn btn-danger ml-1" (click)="voltarParaListagem()">
+                <i class="fa fa-arrow-left"></i> Voltar
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </form>
+
+  <hr />
+
+</div>
