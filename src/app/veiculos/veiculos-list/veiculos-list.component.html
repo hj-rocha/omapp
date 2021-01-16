@@ -1,12 +1,12 @@
-<ol class="breadcrumb mb-4">
+<ol class="breadcrumb mb-12">
 
   <li class="breadcrumb-item active">
     <div class="btn-group" role="group">
-      <button class="btn btn-success btn-sm" routerLink="/veiculos/form">
+      <button class="btn btn-success form-control" routerLink="/veiculos/form">
         <i class="fa fa-motorcycle"></i> Cadastrar veículo
       </button>
+      <input type="text" class="form-control"  placeholder="Buscar veículo : Placa">
     </div>
-
   </li>
 </ol>
 
@@ -19,29 +19,38 @@
             <th>Nome</th>
             <th>Ano</th>
             <th>Preço</th>
+            <th>Placa</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let p of lista">
             <td>
-            <!-- <div class="btn-group" role="group">-->
-                <input type="button" class="alert-primary btn-sm btn-block" routerLink="/veiculos/form/{{ p.id }}" placement="top"
-                  ngbTooltip="Editar" value="{{ p.nome }}">
+              <!-- <div class="btn-group" role="group">-->
+              <div class="btn-group btn-block" role="group">
+                <button class="btn btn-danger btn-sm" (click)="preparaDelecao(p)" data-toggle="modal"
+                  data-target="#modalDelecao" placement="top" ngbTooltip="Apagar">
+                  <i class="fa fa-trash"></i>
+                </button>
+                <input type="button" class="alert-primary btn-sm btn-block" routerLink="/veiculos/form/{{ p.id }}"
+                  placement="top" ngbTooltip="Editar" value="{{ p.nome }}">
+              </div>
 
 
               <!--    <button class="btn btn-danger btn-sm" (click)="preparaDelecao(p)" data-toggle="modal"
                   data-target="#modalDelecao" placement="top" ngbTooltip="Apagar">
                   <i class="fa fa-trash"></i>
                 </button>-->
-           <!--   </div>-->
+              <!--   </div>-->
             </td>
             <td>{{p.anoFabricacao}}</td>
             <td>
-              <div >
-                <input type="text" class="form-control" [(ngModel)]="p.venda" name="venda" currencyMask
-                  [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" readonly />
-              </div>
+
+               <!--'' <input type="text" class="form-control" [(ngModel)]="p.venda" name="venda" currencyMask
+                  [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" readonly />-->
+                 {{ p.venda | currency:'BRL' }}
+
             </td>
+            <td>{{p.placa}}</td>
           </tr>
         </tbody>
       </table>
@@ -67,4 +76,3 @@
   </div>
 
 </div>
-

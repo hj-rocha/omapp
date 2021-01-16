@@ -32,7 +32,6 @@
             <th>Venda</th>
   -->
             <th>Produto</th>
-            <th>Ano</th>
             <th>Venda</th>
 
           </tr>
@@ -40,9 +39,16 @@
         <tbody>
           <tr *ngFor="let p of lista">
 
+
             <td>
-              <input type="button" class="alert-primary btn-sm btn-block" routerLink="/produtos/form/{{ p.id }}"
-                placement="top" ngbTooltip="Editar" value="{{ p.nome }}">
+              <div class="btn-group btn-block" role="group">
+                <button class="btn btn-danger btn-sm" (click)="preparaDelecao(p)" data-toggle="modal"
+                  data-target="#modalDelecao" placement="top" ngbTooltip="Apagar">
+                  <i class="fa fa-trash"></i>
+                </button>
+                <input type="button" class="alert-primary btn-sm btn-block" routerLink="/produtos/form/{{ p.id }}"
+                  placement="top" ngbTooltip="Editar" value="{{ p.nome }}">
+              </div>
             </td>
 
             <!--  <td>
@@ -61,10 +67,7 @@
             <td>{{ p.nome }} </td>
           -->
             <td>
-              <div class="col-md-4">
-                <input type="text" class="form-control" [(ngModel)]="p.venda" name="custo" currencyMask
-                  [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" />
-              </div>
+              {{ p.venda | currency:'BRL' }}
             </td>
 
           </tr>

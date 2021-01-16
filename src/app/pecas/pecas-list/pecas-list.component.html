@@ -2,13 +2,17 @@
 
   <li class="breadcrumb-item active">
     <div class="btn-group" role="group">
-      <button class="btn btn-success btn-sm" routerLink="/pecas/form">
-        <i class="fa fa-motorcycle"></i> Cadastrar peça
-      </button>
+      <div class="btn-group" role="group">
+        <button class="btn btn-success form-control" routerLink="/pecas/form">
+          <i class="fa fa-motorcycle"></i> Cadastrar peça
+        </button>
+        <input type="text" class="form-control" placeholder="Buscar peça : Nome">
+      </div>
     </div>
 
   </li>
 </ol>
+
 
 <div class="container">
   <div class="row">
@@ -24,24 +28,27 @@
         <tbody>
           <tr *ngFor="let p of lista">
             <td>
-            <!-- <div class="btn-group" role="group">-->
-                <input type="button" class="alert-primary btn-sm btn-block" routerLink="/pecas/form/{{ p.id }}" placement="top"
-                  ngbTooltip="Editar" value="{{ p.nome }}">
+              <!-- <div class="btn-group" role="group">-->
+              <div class="btn-group btn-block" role="group">
+                <button class="btn btn-danger btn-sm" (click)="preparaDelecao(p)" data-toggle="modal"
+                  data-target="#modalDelecao" placement="top" ngbTooltip="Apagar">
+                  <i class="fa fa-trash"></i>
+                </button>
+                <input type="button" class="alert-primary btn-sm btn-block" routerLink="/pecas/form/{{ p.id }}"
+                  placement="top" ngbTooltip="Editar" value="{{ p.nome }}">
+              </div>
 
 
               <!--    <button class="btn btn-danger btn-sm" (click)="preparaDelecao(p)" data-toggle="modal"
                   data-target="#modalDelecao" placement="top" ngbTooltip="Apagar">
                   <i class="fa fa-trash"></i>
                 </button>-->
-           <!--   </div>-->
+              <!--   </div>-->
             </td>
             <td>{{p.codigoInterno}}</td>
 
             <td>
-              <div >
-                <input type="text" class="form-control" [value]="p.venda" name="venda" currencyMask
-                  [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" readonly />
-              </div>
+              {{ p.venda | currency:'BRL' }}
             </td>
           </tr>
         </tbody>
@@ -68,5 +75,3 @@
   </div>
 
 </div>
-
-
