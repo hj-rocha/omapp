@@ -8,23 +8,23 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="alert alert-success" role="alert" *ngIf="success == true">
-                    Serviço Prestado salvo com sucesso!    
+                    Serviço Prestado salvo com sucesso!
                 </div>
                 <div class="alert alert-danger" role="alert" *ngFor="let erro of errors">
-                    {{ erro  }}    
+                    {{ erro  }}
                 </div>
             </div>
         </div>
-        
+
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group">
                     <label>Cliente: </label>
-                    <select class="form-control" 
+                    <select class="form-control"
                             [ngModelOptions]="{standalone: true}"
-                            [(ngModel)]="servico.idCliente">
+                            [(ngModel)]="servico.responsavel">
                         <option value="">Selecione...</option>
-                        <option *ngFor="let cliente of clientes" 
+                        <option *ngFor="let cliente of clientes"
                                 [ngValue]="cliente.id">
                             {{ cliente.nome }}
                         </option>
@@ -37,8 +37,8 @@
             <div class="col-md-12">
                 <div class="form-group">
                     <label>Descrição:</label>
-                    <input class="form-control" 
-                            [(ngModel)]="servico.descricao" type="text" 
+                    <input class="form-control"
+                            [(ngModel)]="servico.descricao" type="text"
                             name="descricao" id="inputDescricao">
                 </div>
             </div>
@@ -48,16 +48,16 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label>Data:</label>
-                    <input class="form-control" 
-                            [(ngModel)]="servico.data" type="text" 
+                    <input class="form-control"
+                            [(ngModel)]="servico.descricao" type="text"
                             name="data" id="inputData">
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label>Preço:</label>
-                    <input class="form-control" 
-                            [(ngModel)]="servico.preco" type="text" 
+                    <input class="form-control"
+                            [(ngModel)]="servico.preco" type="text"
                             name="preco" id="inputPreco">
                 </div>
             </div>
@@ -70,7 +70,7 @@
                     Salvar
                 </button>
 
-                <button type="button" routerLink="/servicos-prestados/lista" 
+                <button type="button" routerLink="/servicos-prestados/lista"
                         class="btn btn-danger ml-1" >
                     <i class="fa fa-arrow-alt-circle-left" ></i> Voltar
                 </button>

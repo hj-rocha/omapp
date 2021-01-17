@@ -128,14 +128,19 @@
         <div class="card-header">
           <h5 class="card-title">Serviços Prestados</h5>
         </div>
-        <button (click)="carregarServicosPrestados(manutencao.id)">Atualizar</button>
+
+
+            <input id="responsavelPelaDespesa" name="responsavelPelaDespesa" type="text"
+              class="form-control" [(ngModel)]="responsavelPelaDespesa" [ngbTypeahead]="search"
+              placeholder="Digite o seu nome" [inputFormatter]="formatter" [resultFormatter]="formatter">
+
 
         <div class="btn-group btn-block" role="group">
           <input id="servico" name="servico" type="text" class="form-control" [(ngModel)]="servico"
             [ngbTypeahead]="searchServico" placeholder="Digite o nome do serviço" [inputFormatter]="formatterServico"
             [resultFormatter]="formatterServico">
 
-          <button type="button" class="btn btn-success" (click)="this.adicionarServicoPrestado()">
+          <button type="button" class="btn btn-success" (click)="adicionarServicoPrestado()">
             Add
           </button>
         </div>
@@ -147,17 +152,22 @@
             <table class="table">
               <thead>
                 <tr>
-
+                  <th>D</th>
                   <th>Data</th>
                   <th>Descrição</th>
-                  <th>Cliente</th>
+                  <th>Responsável</th>
                 </tr>
               </thead>
               <tbody>
                 <tr *ngFor="let item of servicosPrestados">
-                  <td>{{item.data}}a</td>
-                  <td>{{item.descricao}}b</td>
-                  <td>{{item.idCliente}}c</td>
+                  <td>
+                    <button type="button" class="btn btn-danger" (click)="removerServicoPrestado(item.id)">
+                      {{item.id}}
+                    </button>
+                  </td>
+                  <td>{{item.data}}</td>
+                  <td>{{item.servico.nome}}</td>
+                  <td>{{item.responsavel.nome}}</td>
 
 
                 </tr>

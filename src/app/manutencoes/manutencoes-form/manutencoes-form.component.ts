@@ -32,6 +32,7 @@ export class ManutencoesFormComponent implements OnInit {
   searchFailed = false;
 
   servico: Servico = new Servico();
+  responsavelPelaDespesa: Pessoa = new Pessoa();
   servicosPrestados: ServicoPrestado[] = [];
 
 
@@ -118,6 +119,7 @@ export class ManutencoesFormComponent implements OnInit {
             response => {
               this.errors = null;
               this.manutencao = response;
+              this.carregarServicosPrestados();
             }, errorResponse => {
               this.mensagemErro = errorResponse.error.message;
               this.errors = errorResponse.error.errors;
@@ -144,14 +146,28 @@ export class ManutencoesFormComponent implements OnInit {
   }
 
   adicionarServicoPrestado() {
+    let sP: ServicoPrestado = new ServicoPrestado();
+    sP.responsavel = this.responsavelPelaDespesa;
+    sP.servico = this.servico;
+    sP.manutencao = this.manutencao;
+    this.serviceServicosPrestados.adicionarServicoPrestado(sP)
+      .subscribe( response => {
+        this.carregarServicosPrestados();
 
+      });
   }
 
-  carregarServicosPrestados(manutencaoId: number) {
-    this.serviceServicosPrestados.listarPorManutencao(manutencaoId)
-    .subscribe(response => {
-      this.servicosPrestados = response;
-    });
+  removerServicoPrestado(id: number) {
+    this.serviceServicosPrestados.removerServicoPrestado(id)
+      .subscribe(response =>
+        this.carregarServicosPrestados());
+  }
+
+  carregarServicosPrestados() {
+    this.serviceServicosPrestados.listarPorManutencao(this.manutencao.id)
+      .subscribe(response => {
+        this.servicosPrestados = response;
+      });
   }
 
 }
