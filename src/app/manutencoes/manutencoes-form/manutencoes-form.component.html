@@ -1,1 +1,202 @@
-<p>manutencoes-form works!</p>
+<ol class="breadcrumb mb-4">
+  <li class="breadcrumb-item active">{{ id ? 'Editando ' : 'Cadastrando' }}</li>
+  <li class="breadcrumb-item active"><a routerLink="/manutencoes/list">Voltar para listagem</a></li>
+</ol>
+
+<form #manutencaoForm="ngForm" (ngSubmit)="onSubmit()">
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card text-white bg-primary mb-3">
+        <div class="card-body">
+
+          <div class="card-header">
+            <h5 class="card-title">Manutenção</h5>
+
+          </div>
+
+          <div class="row" *ngIf="manutencao.id">
+            <div class="col-md-1">
+              <div class="form-group">
+                <label>ID:</label>
+                <input type="text" [(ngModel)]="manutencao.id" name="manutencao.id" class="form-control"
+                  disabled="true" />
+              </div>
+            </div>
+
+            <div class="col-md-5">
+              <div class="form-group">
+                <label>Responsável</label>
+                <input id="manutencao.responsavelManutencao" name="manutencao.responsavelManutencao" type="text"
+                  class="form-control" [(ngModel)]="manutencao.responsavelManutencao" [ngbTypeahead]="search"
+                  placeholder="Digite as iniciais no nome" [inputFormatter]="formatter" [resultFormatter]="formatter">
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <div class="form-group">
+                <label>Veículo</label>
+                <input id="manutencao.veiculo" name="manutencao.veiculo" type="text" class="form-control"
+                  [(ngModel)]="manutencao.veiculo" [ngbTypeahead]="searchVeiculo" placeholder="Digite a placa"
+                  [inputFormatter]="formatterVeiculo" [resultFormatter]="formatterVeiculo">
+              </div>
+            </div>
+
+            <div class="col-md-2" *ngIf="manutencao.id">
+              <div class="form-group">
+                <label>Data Entrada</label>
+                <input type="text" class="form-control" [(ngModel)]="manutencao.dataEntrada" name="dataEntrada"
+                  readonly>
+              </div>
+            </div>
+
+            <div class="col-md-2" *ngIf="!manutencao.ativa && manutencao.ativa!=null">
+              <div class="form-group">
+                <label>Data Término</label>
+                <input type="text" class="form-control" [(ngModel)]="manutencao.dataTermino" name="dataTermino"
+                  readonly>
+              </div>
+            </div>
+
+          </div>
+
+
+          <!--
+            <div class="row">
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Placa Veículo</label>
+                  <input type="text" class="form-control" [(ngModel)]="manutencao.veiculo.placa" name="veiculo.placa">
+                </div>
+              </div>
+            </div>
+          -->
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-md-12">
+
+      <div class="card text-white bg-primary mb-3">
+        <div class="card-body">
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="alert alert-success" role="alert" *ngIf="success == true">
+                Operação realizada com sucesso com sucesso!
+              </div>
+              <div class="alert alert-danger" role="alert" *ngIf="success == false">
+                {{mensagemErro}}
+              </div>
+            </div>
+          </div>
+
+          <div class="btn-group">
+            <button type="submit" class="btn btn-success" *ngIf="!manutencao.id">
+              <i class="fa fa-floppy-o"></i> Salvar
+            </button>
+
+            <button type="submit" class="btn btn-warning" *ngIf="manutencao.id">
+              <i class="fa fa-sync-alt"></i> Atualizar
+            </button>
+
+            <button type="button" class="btn btn-danger ml-1" routerLink="/manutencoes/list">
+              <i class="fa fa-arrow-left"></i> Voltar
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</form>
+
+<hr />
+
+<div class="row">
+
+  <div class="col-md-4">
+    <div class="card text-white bg-primary mb-3">
+      <div class="card-body">
+
+        <div class="card-header">
+          <h5 class="card-title">Serviços Prestados</h5>
+        </div>
+        <button (click)="carregarServicosPrestados(manutencao.id)">Atualizar</button>
+
+        <div class="btn-group btn-block" role="group">
+          <input id="servico" name="servico" type="text" class="form-control" [(ngModel)]="servico"
+            [ngbTypeahead]="searchServico" placeholder="Digite o nome do serviço" [inputFormatter]="formatterServico"
+            [resultFormatter]="formatterServico">
+
+          <button type="button" class="btn btn-success" (click)="this.adicionarServicoPrestado()">
+            Add
+          </button>
+        </div>
+
+
+
+        <div class="row">
+          <div class="col-md-12">
+            <table class="table">
+              <thead>
+                <tr>
+
+                  <th>Data</th>
+                  <th>Descrição</th>
+                  <th>Cliente</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of servicosPrestados">
+                  <td>{{item.data}}a</td>
+                  <td>{{item.descricao}}b</td>
+                  <td>{{item.idCliente}}c</td>
+
+
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+
+
+
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card text-white bg-primary mb-3">
+      <div class="card-body">
+
+        <div class="card-header">
+          <h5 class="card-title">Peças Utilizadas</h5>
+        </div>
+
+        ...
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card text-white bg-primary mb-3">
+      <div class="card-body">
+
+        <div class="card-header">
+          <h5 class="card-title">Outras Despesas</h5>
+        </div>
+
+        ...
+      </div>
+    </div>
+  </div>
+
+</div>

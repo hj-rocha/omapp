@@ -5,7 +5,7 @@
       <button class="btn btn-success form-control" routerLink="/veiculos/form">
         <i class="fa fa-motorcycle"></i> Cadastrar veículo
       </button>
-      <input type="text" class="form-control"  placeholder="Buscar veículo : Placa">
+      <input type="text" class="form-control" placeholder="Buscar veículo : Placa">
     </div>
   </li>
 </ol>
@@ -45,9 +45,9 @@
             <td>{{p.anoFabricacao}}</td>
             <td>
 
-               <!--'' <input type="text" class="form-control" [(ngModel)]="p.venda" name="venda" currencyMask
+              <!--'' <input type="text" class="form-control" [(ngModel)]="p.venda" name="venda" currencyMask
                   [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" readonly />-->
-                 {{ p.venda | currency:'BRL' }}
+              {{ p.venda | currency:'BRL' }}
 
             </td>
             <td>{{p.placa}}</td>

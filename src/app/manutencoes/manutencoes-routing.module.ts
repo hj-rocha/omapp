@@ -17,7 +17,7 @@ const routes: Routes = [
 
     {path:'list', component:ManutencoesListComponent },
     {path:'form', component: ManutencoesFormComponent, canActivate: [AuthGuard], data: { roles: ['EDITAR_MANUTENCOES'] }},
-    {path:'form/:id', component: ManutencoesFormComponent, canActivate: [AuthGuard], data: { roles: ['EDITAR_,MANUTENCOES'] }},
+    {path:'form/:id', component: ManutencoesFormComponent, canActivate: [AuthGuard], data: { roles: ['EDITAR_MANUTENCOES'] }},
 
     { path: '', redirectTo : '/manutencoes', pathMatch: 'full' }
   ]}

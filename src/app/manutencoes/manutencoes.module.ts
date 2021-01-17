@@ -1,3 +1,7 @@
+import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgxMaskModule } from 'ngx-mask';
+import { NgxCurrencyModule } from 'ngx-currency';
+import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -12,7 +16,11 @@ import { ManutencoesListComponent } from './manutencoes-list/manutencoes-list.co
   declarations: [PainelComponent, ManutencoesFormComponent, ManutencoesListComponent],
   imports: [
     CommonModule,
-    ManutencoesRoutingModule
+    ManutencoesRoutingModule,
+    NgxCurrencyModule,
+    NgxMaskModule,
+    NgbTypeaheadModule,
+    FormsModule
   ]
 })
 export class ManutencoesModule { }

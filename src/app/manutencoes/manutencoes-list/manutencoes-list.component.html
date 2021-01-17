@@ -1,1 +1,68 @@
-<p>manutencoes-list works!</p>
+<ol class="breadcrumb mb-12">
+
+  <li class="breadcrumb-item active">
+    <div class="btn-group" role="group">
+      <button class="btn btn-success form-control" routerLink="/manutencoes/form">
+        <i class="fa fa-list-alt"></i> Cadastrar
+      </button>
+      <input type="text" class="form-control" placeholder="Buscar">
+    </div>
+  </li>
+
+</ol>
+
+
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Ativo</th>
+            <th>Veículo</th>
+            <th>placa</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of lista">
+            <td>{{p.id}}</td>
+            <td>{{p.ativa}}</td>
+            <td>
+              <!-- <div class="btn-group" role="group">-->
+              <div class="btn-group btn-block" role="group">
+                <button class="btn btn-danger btn-sm" (click)="preparaDelecao(p)" data-toggle="modal"
+                  data-target="#modalDelecao" placement="top" ngbTooltip="Apagar">
+                  <i class="fa fa-trash"></i>
+                </button>
+                <input type="button" class="alert-primary btn-sm btn-block" routerLink="/manutencoes/form/{{ p.id }}"
+                  placement="top" ngbTooltip="Editar" value="{{ p.veiculo.nome }}">
+              </div>
+            </td>
+            <td><span *ngIf="p.veiculo.placa != null">
+              {{p.veiculo.placa}}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div id="modalDelecao" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4>Confirmação</h4>
+        </div>
+
+        <div class="modal-body" *ngIf="itemSelecionado">
+          Confirma a deleção da manutenção {{ itemSelecionado.veiculo.placa }}?
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn btn-success" (click)="deletar()" data-dismiss="modal">Confirmar</button>
+          <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
