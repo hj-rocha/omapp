@@ -3,7 +3,7 @@ import { Pessoa } from './../../pessoas/model/pessoa';
 export class Despesa{
 
   id: number;
-  data: Date;
+  data: string;
   nome: string;
   responsavel: Pessoa;
   manutencao: Manutencao;

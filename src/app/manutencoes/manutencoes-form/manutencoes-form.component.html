@@ -1,8 +1,9 @@
+<!--
 <ol class="breadcrumb mb-4">
   <li class="breadcrumb-item active">{{ id ? 'Editando ' : 'Cadastrando' }}</li>
   <li class="breadcrumb-item active"><a routerLink="/manutencoes/list">Voltar para listagem</a></li>
 </ol>
-
+-->
 <form #manutencaoForm="ngForm" (ngSubmit)="onSubmit()">
 
   <div class="row">
@@ -15,8 +16,8 @@
 
           </div>
 
-          <div class="row" *ngIf="manutencao.id">
-            <div class="col-md-1">
+          <div class="row">
+            <div class="col-md-1" *ngIf="manutencao.id">
               <div class="form-group">
                 <label>ID:</label>
                 <input type="text" [(ngModel)]="manutencao.id" name="manutencao.id" class="form-control"
@@ -141,7 +142,7 @@
             [resultFormatter]="formatterServico">
 
           <button type="button" class="btn btn-success" (click)="adicionarServicoPrestado()">
-            Add
+            Adicionar
           </button>
         </div>
 
@@ -149,10 +150,10 @@
 
         <div class="row">
           <div class="col-md-12">
-            <table class="table">
+            <table class="table-responsive">
               <thead>
                 <tr>
-                  <th>D</th>
+
                   <th>Data</th>
                   <th>Descrição</th>
                   <th>Responsável</th>
@@ -162,10 +163,9 @@
                 <tr *ngFor="let item of servicosPrestados">
                   <td>
                     <button type="button" class="btn btn-danger" (click)="removerServicoPrestado(item.id)">
-                      {{item.id}}
+                      {{item.data}}
                     </button>
                   </td>
-                  <td>{{item.data}}</td>
                   <td>{{item.servico.nome}}</td>
                   <td>{{item.responsavel.nome}}</td>
 
@@ -210,3 +210,4 @@
   </div>
 
 </div>
+

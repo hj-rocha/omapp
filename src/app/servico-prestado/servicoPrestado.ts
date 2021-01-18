@@ -5,7 +5,7 @@ export class ServicoPrestado {
   id: number;
   descricao: string;
   preco: string;
-  data: string;
+  data: Date;
   servico: Servico;
   responsavel: Pessoa;
   manutencao: Manutencao;
