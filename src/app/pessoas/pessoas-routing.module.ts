@@ -46,7 +46,7 @@ const routes: Routes = [
     {path: 'typeahead', component: TypeaheadComponent},
 
 
-    { path: '', redirectTo : '/pessoas', pathMatch: 'full' }
+    { path: '', redirectTo : '/pessoas/list', pathMatch: 'full' }
     ]}
    ]}
 

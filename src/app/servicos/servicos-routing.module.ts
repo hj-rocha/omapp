@@ -19,7 +19,7 @@ const routes: Routes = [
     {path:'form', component: ServicosFormComponent, canActivate: [AuthGuard], data: { roles: ['EDITAR_PRODUTOS'] }},
     {path:'form/:id', component: ServicosFormComponent, canActivate: [AuthGuard], data: { roles: ['EDITAR_PRODUTOS'] }},
 
-    { path: '', redirectTo : '/servicos', pathMatch: 'full' }
+    { path: '', redirectTo : '/servicos/list', pathMatch: 'full' }
   ]}
 ]}
 

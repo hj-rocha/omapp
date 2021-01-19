@@ -13,6 +13,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ManutencaoService } from './../services/manutencao.service';
 import { Component, OnInit } from '@angular/core';
 import { Manutencao } from '../models/manutencao';
+import { typeWithParameters } from '@angular/compiler/src/render3/util';
 
 @Component({
   selector: 'app-manutencoes-form',
@@ -34,6 +35,16 @@ export class ManutencoesFormComponent implements OnInit {
   servico: Servico = new Servico();
   responsavelPelaDespesa: Pessoa = new Pessoa();
   servicosPrestados: ServicoPrestado[] = [];
+
+  servicoPrestadoSelecionado: ServicoPrestado;
+  msgSucessoServicoPrestadoRemovido: string;
+  msgSucessoServicoPrestadoRemovidoStatus: boolean;
+
+  msgSucessoServicoPrestadoAdicionado: string;
+  msgSucessoServicoPrestadoAdicionadoStatus: boolean;
+
+  entregue: boolean;
+  msgEntrega: string;
 
 
   constructor(private service: ManutencaoService,
@@ -151,16 +162,27 @@ export class ManutencoesFormComponent implements OnInit {
     sP.servico = this.servico;
     sP.manutencao = this.manutencao;
     this.serviceServicosPrestados.adicionarServicoPrestado(sP)
-      .subscribe( response => {
+      .subscribe(response => {
         this.carregarServicosPrestados();
-
+        this.msgSucessoServicoPrestadoAdicionado = "Serviço adicionado com sucesso."
+        this.msgSucessoServicoPrestadoAdicionadoStatus = true;
+      }, errorResponse => {
+        this.msgSucessoServicoPrestadoAdicionado = 'Erro ao adicionar serviço!';
+        this.msgSucessoServicoPrestadoAdicionadoStatus = false;
       });
   }
 
-  removerServicoPrestado(id: number) {
-    this.serviceServicosPrestados.removerServicoPrestado(id)
-      .subscribe(response =>
-        this.carregarServicosPrestados());
+  removerServicoPrestado() {
+    this.serviceServicosPrestados.removerServicoPrestado(this.servicoPrestadoSelecionado.id)
+      .subscribe(response => {
+        this.carregarServicosPrestados()
+        this.msgSucessoServicoPrestadoRemovido = 'Serviço removido com sucesso!';
+        this.msgSucessoServicoPrestadoRemovidoStatus = true;
+      }, errorResponse => {
+        this.msgSucessoServicoPrestadoRemovido = 'Erro ao remover serviço!';
+        this.msgSucessoServicoPrestadoRemovidoStatus = false;
+      }
+      );
   }
 
   carregarServicosPrestados() {
@@ -168,6 +190,34 @@ export class ManutencoesFormComponent implements OnInit {
       .subscribe(response => {
         this.servicosPrestados = response;
       });
+  }
+
+  preparaDelecao(item: ServicoPrestado) {
+    this.servicoPrestadoSelecionado = item;
+  }
+
+  limparMensagens() {
+    this.msgSucessoServicoPrestadoAdicionadoStatus = null;
+    this.msgSucessoServicoPrestadoRemovidoStatus = null;
+    this.mensagemErro = null;
+    this.success = null;
+  }
+
+  preparaEntrega(item) {
+    this.servicoPrestadoSelecionado = item;
+  }
+
+  entregarServicoPrestado() {
+    this.serviceServicosPrestados.entregarServicoPrestado(this.servicoPrestadoSelecionado.id)
+      .subscribe(response => {
+        //this.servicoPrestadoSelecionado = response;
+        this.carregarServicosPrestados();
+        this.entregue = true;
+        this.msgEntrega = "O serviço foi concluído por você";
+      },errorResponse => {
+        this.entregue = false;
+        this.msgEntrega = "Ocorreu um erro na entrega do serviço";
+      })
   }
 
 }

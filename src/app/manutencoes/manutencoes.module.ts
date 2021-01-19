@@ -1,9 +1,11 @@
 import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxMaskModule } from 'ngx-mask';
 import { NgxCurrencyModule } from 'ngx-currency';
-import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { ManutencoesRoutingModule } from './manutencoes-routing.module';
 import { PainelComponent } from './painel/painel.component';
@@ -20,7 +22,9 @@ import { ManutencoesListComponent } from './manutencoes-list/manutencoes-list.co
     NgxCurrencyModule,
     NgxMaskModule,
     NgbTypeaheadModule,
-    FormsModule
+    FormsModule,
+
+    NgbModule
   ]
 })
 export class ManutencoesModule { }

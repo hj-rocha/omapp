@@ -1,97 +1,99 @@
-<h3 class="mt-4">Home</h3>
+<!--<h3 class="mt-4">Home</h3>-->
 
-<hr/>
-<div class="container">
-<div class="card-group">
-    <div class="card">
-      <button routerLink="/pessoas" class="btn" style="background-color: #6610f2; color: #fff;">
-        <p class="fa fa-users fa-2x" aria-hidden="true"></p>
-        <p>Pessoas</p>
-      </button>
-    </div>
-    <div class="card">
-      <button class="btn" style="background-color: #20c997; color: #fff;">
-        <p class="fa fa-cart-plus fa-2x" aria-hidden="true"></p>
-        <p>Compras</p>
-      </button>
+<hr />
+
+  <div class="row">
+
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="btn-group" role="group">
+          <button routerLink="/pessoas" class="btn" style="background-color: #fd7e14; color: #fff;">
+            <i class="fa fa-users fa-2x" aria-hidden="true"></i>
+            <p>Pessoas</p>
+          </button>
+
+          <button routerLink="/compras" class="btn" style="background-color: #6c757d; color: #fff;">
+            <i class="fa fa-cart-plus fa-2x" aria-hidden="true"></i>
+            <p>Compras</p>
+          </button>
+
+          <button routerLink="/vendas" class="btn" style="background-color: #fd7e14; color: #fff;">
+            <i class="fa fa-shopping-basket fa-2x" aria-hidden="true"></i>
+            <p>Vendas</p>
+          </button>
+        </div>
+
+      </div>
     </div>
 
-    <div class="card">
-      <button class="btn" style="background-color: #6610f2; color: #fff;">
-        <p class="fa fa-shopping-basket fa-2x" aria-hidden="true"></p>
-        <p>Vendas</p>
-      </button>
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="btn-group" role="group">
+
+          <button routerLink="/estoque" class="btn" style="background-color: #6c757d; color: #fff;">
+            <i class="fa fa-cubes fa-2x" aria-hidden="true"></i>
+            <p>Estoque</p>
+          </button>
+
+          <button routerLink="/produtos" class="btn" style="background-color: #fd7e14; color: #fff;">
+            <i class="fa fa-cube fa-2x" aria-hidden="true"></i>
+            <p>Produtos</p>
+          </button>
+
+          <button routerLink="/veiculos" class="btn" style="background-color: #6c757d; color: #fff;">
+            <i class="fa fa-motorcycle fa-2x" aria-hidden="true"></i>
+            <p>Motos</p>
+          </button>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="btn-group" role="group">
+
+          <button routerLink="/manutencoes" class="btn" style="background-color: #fd7e14; color: #fff;">
+            <i class="fa fa-list-alt fa-2x" aria-hidden="true"></i>
+            <p>Manutenções</p>
+          </button>
+
+          <button routerLink="/servicos" class="btn" style="background-color: #6c757d; color: #fff;">
+            <i class="fa fa-cogs fa-2x" aria-hidden="true"></i>
+            <p>Serviços</p>
+          </button>
+
+          <button routerLink="/pecas" class="btn" style="background-color: #fd7e14; color: #fff;">
+            <i class="fa fa-tags fa-2x" aria-hidden="true"></i>
+            <p>Peças</p>
+          </button>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="btn-group" role="group">
+
+          <button routerLink="/comissoes" class="btn" style="background-color: #6c757d; color: #fff;">
+            <i class="fa fa-usd fa-2x" aria-hidden="true"></i>
+            <p>Comissões</p>
+          </button>
+
+          <button routerLink="/fornecedores" class="btn" style="background-color: #fd7e14; color: #fff;">
+            <i class="fa fa-address-book-o fa-2x" aria-hidden="true"></i>
+            <p>Fornecedores</p>
+          </button>
+
+          <button routerLink="/clientes" class="btn" style="background-color: #6c757d; color: #fff;">
+            <i class="fa fa-address-book fa-2x" aria-hidden="true"></i>
+            <p>Clientes</p>
+          </button>
+
+        </div>
+      </div>
     </div>
 
   </div>
 
-  <div class="card-group">
-    <div class="card">
-      <button class="btn" style="background-color: #20c997; color: #fff;">
-        <p class="fa fa-cubes fa-2x" aria-hidden="true"></p>
-        <p>Estoque</p>
-      </button>
-    </div>
-
-    <div class="card">
-      <button routerLink="/produtos" class="btn" style="background-color: #6610f2; color: #fff;">
-        <p class="fa fa-cube fa-2x" aria-hidden="true"></p>
-        <p>Produtos</p>
-      </button>
-    </div>
-
-    <div class="card">
-      <button class="btn" style="background-color: #20c997; color: #fff;">
-        <p class="fa fa-motorcycle fa-2x" aria-hidden="true" routerLink="/veiculos"></p>
-        <p>Motos</p>
-      </button>
-    </div>
-
-  </div>
-
-  <div class="card-group">
-    <div class="card">
-      <button class="btn" style="background-color: #6610f2; color: #fff;">
-        <p class="fa fa-list-alt fa-2x" aria-hidden="true"  routerLink="/manutencoes"></p>
-        <p>Manutenções</p>
-      </button>
-    </div>
-    <div class="card">
-      <button class="btn" style="background-color: #20c997; color: #fff;">
-        <p class="fa fa-cogs fa-2x" aria-hidden="true"  routerLink="/servicos"></p>
-        <p>Serviços</p>
-      </button>
-    </div>
-
-    <div class="card">
-      <button class="btn" style="background-color: #6610f2; color: #fff;">
-        <p class="fa fa-tags fa-2x" aria-hidden="true"  routerLink="/pecas"></p>
-        <p>Peças</p>
-      </button>
-    </div>
-
-  </div>
-
-  <div class="card-group">
-    <div class="card">
-      <button class="btn" style="background-color: #20c997; color: #fff;">
-        <p class="fa fa-usd fa-2x" aria-hidden="true"></p>
-        <p>Comissões</p>
-      </button>
-    </div>
-    <div class="card">
-      <button class="btn" style="background-color: #6610f2; color: #fff;">
-        <p class="fa fa-address-book-o fa-2x" aria-hidden="true"></p>
-        <p>Fornecedores</p>
-      </button>
-    </div>
-
-    <div class="card">
-      <button class="btn" style="background-color: #20c997; color: #fff;">
-        <p class="fa fa-address-book fa-2x" aria-hidden="true"></p>
-        <p>Clientes</p>
-      </button>
-    </div>
-
-  </div>
-</div>

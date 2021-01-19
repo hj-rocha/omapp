@@ -19,7 +19,7 @@ const routes: Routes = [
     {path:'form', component: PecasFormComponent, canActivate: [AuthGuard], data: { roles: ['EDITAR_PRODUTOS'] }},
     {path:'form/:id', component: PecasFormComponent, canActivate: [AuthGuard], data: { roles: ['EDITAR_PRODUTOS'] }},
 
-    { path: '', redirectTo : '/pecas', pathMatch: 'full' }
+    { path: '', redirectTo : '/pecas/list', pathMatch: 'full' }
   ]}
 ]}
 

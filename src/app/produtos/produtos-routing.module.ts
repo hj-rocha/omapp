@@ -27,7 +27,7 @@ const routes: Routes = [
 
     {path: ':produto_id/:produto_nome/impostos-list', component: ProdutosImpostosListComponent, canActivate: [AuthGuard], data: { roles: ['EDITAR_PRODUTOS'] }},
 
-    { path: '', redirectTo : '/produtos', pathMatch: 'full' }
+    { path: '', redirectTo : '/produtos/list', pathMatch: 'full' }
   ]}
 ]}
 

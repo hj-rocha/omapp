@@ -17,15 +17,52 @@
           </div>
 
           <div class="row">
-            <div class="col-md-1" *ngIf="manutencao.id">
+
+            <div class="col-md-3">
               <div class="form-group">
-                <label>ID:</label>
+                <label>Veículo Placa</label>
+                <input id="manutencao.veiculo" name="manutencao.veiculo" type="text" class="form-control"
+                  [(ngModel)]="manutencao.veiculo" [ngbTypeahead]="searchVeiculo" placeholder="Digite a placa"
+                  [inputFormatter]="formatterVeiculo" [resultFormatter]="formatterVeiculo">
+              </div>
+            </div>
+
+            <div class="col-md-5" *ngIf="manutencao.id">
+              <div class="form-group">
+                <label>Veículo</label>
+                <input type="text" [(ngModel)]="manutencao.veiculo.nome" name="manutencao.nome" class="form-control"
+                  readonly />
+              </div>
+            </div>
+
+            <div class="col-md-2" *ngIf="manutencao.id">
+              <div class="form-group">
+                <label>ID</label>
                 <input type="text" [(ngModel)]="manutencao.id" name="manutencao.id" class="form-control"
                   disabled="true" />
               </div>
             </div>
 
-            <div class="col-md-5">
+            <div class="col-md-2" *ngIf="manutencao.ativa != null">
+              <div class="form-group">
+                <label>Status</label>
+
+                <input type="text" *ngIf="manutencao.ativa" class="form-control btn btn-success" placement="top"
+                  ngbTooltip="Aberta" value="Aberta" />
+                <input type="text" *ngIf="!manutencao.ativa" class="form-control btn btn-warning" placement="top"
+                  ngbTooltip="Fechada" value="Fechada" />
+                <!--
+
+                  <input type="text" [(ngModel)]="manutencao.ativa" name="manutencao.status" class="form-control"
+                    disabled="true" />-->
+              </div>
+            </div>
+
+
+          </div>
+          <div class="row">
+
+            <div class="col-md-6">
               <div class="form-group">
                 <label>Responsável</label>
                 <input id="manutencao.responsavelManutencao" name="manutencao.responsavelManutencao" type="text"
@@ -34,16 +71,7 @@
               </div>
             </div>
 
-            <div class="col-md-2">
-              <div class="form-group">
-                <label>Veículo</label>
-                <input id="manutencao.veiculo" name="manutencao.veiculo" type="text" class="form-control"
-                  [(ngModel)]="manutencao.veiculo" [ngbTypeahead]="searchVeiculo" placeholder="Digite a placa"
-                  [inputFormatter]="formatterVeiculo" [resultFormatter]="formatterVeiculo">
-              </div>
-            </div>
-
-            <div class="col-md-2" *ngIf="manutencao.id">
+            <div class="col-md-3" *ngIf="manutencao.id">
               <div class="form-group">
                 <label>Data Entrada</label>
                 <input type="text" class="form-control" [(ngModel)]="manutencao.dataEntrada" name="dataEntrada"
@@ -51,7 +79,7 @@
               </div>
             </div>
 
-            <div class="col-md-2" *ngIf="!manutencao.ativa && manutencao.ativa!=null">
+            <div class="col-md-3" *ngIf="!manutencao.ativa && manutencao.ativa!=null">
               <div class="form-group">
                 <label>Data Término</label>
                 <input type="text" class="form-control" [(ngModel)]="manutencao.dataTermino" name="dataTermino"
@@ -72,7 +100,7 @@
               </div>
             </div>
           -->
-
+          <!--
         </div>
       </div>
     </div>
@@ -84,7 +112,8 @@
 
       <div class="card text-white bg-primary mb-3">
         <div class="card-body">
-
+        -->
+          <br />
           <div class="row">
             <div class="col-md-12">
               <div class="alert alert-success" role="alert" *ngIf="success == true">
@@ -131,44 +160,155 @@
         </div>
 
 
-            <input id="responsavelPelaDespesa" name="responsavelPelaDespesa" type="text"
-              class="form-control" [(ngModel)]="responsavelPelaDespesa" [ngbTypeahead]="search"
-              placeholder="Digite o seu nome" [inputFormatter]="formatter" [resultFormatter]="formatter">
+        <div class="card text-white bg-info mb-3">
+          <div class="card-body">
+
+            <div class="row">
+              <div class="col-md-12">
+
+                <input id="servico" name="servico" type="text" class="form-control" [(ngModel)]="servico"
+                  [ngbTypeahead]="searchServico" placeholder="Digite o nome do serviço"
+                  [inputFormatter]="formatterServico" [resultFormatter]="formatterServico" placement="top"
+                  ngbTooltip="Apenas as iniciais e selecione.">
+
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+
+                <!-- <div class="btn-group btn-block" role="group"> -->
+                <input id="responsavelPelaDespesa" name="responsavelPelaDespesa" type="text" class="form-control"
+                  [(ngModel)]="responsavelPelaDespesa" [ngbTypeahead]="search" placeholder="Digite o seu nome"
+                  [inputFormatter]="formatter" [resultFormatter]="formatter">
 
 
-        <div class="btn-group btn-block" role="group">
-          <input id="servico" name="servico" type="text" class="form-control" [(ngModel)]="servico"
-            [ngbTypeahead]="searchServico" placeholder="Digite o nome do serviço" [inputFormatter]="formatterServico"
-            [resultFormatter]="formatterServico">
 
-          <button type="button" class="btn btn-success" (click)="adicionarServicoPrestado()">
-            Adicionar
-          </button>
+                <button type="button" class="btn btn-success" (click)="adicionarServicoPrestado()">
+                  Adicionar
+                </button>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+
+        <div class="card text-white bg- mb-3" *ngIf="msgSucessoServicoPrestadoAdicionadoStatus != null
+        || msgSucessoServicoPrestadoRemovidoStatus != null">
+          <div class="card-body">
+
+            <div class="row">
+              <div class="col-md-12">
+                <div *ngIf="msgSucessoServicoPrestadoAdicionadoStatus != null
+            || msgSucessoServicoPrestadoRemovidoStatus != null">
+                </div>
+              </div>
+            </div>
+
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="alert alert-success" role="alert" *ngIf="msgSucessoServicoPrestadoRemovidoStatus == true">
+
+                  {{msgSucessoServicoPrestadoRemovido}}
+                </div>
+                <div class="alert alert-danger" role="alert" *ngIf="msgSucessoServicoPrestadoRemovidoStatus == false">
+
+                  {{msgSucessoServicoPrestadoRemovido}}
+                </div>
+              </div>
+            </div>
+
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="alert alert-success" role="alert" *ngIf="msgSucessoServicoPrestadoAdicionadoStatus == true">
+                  {{msgSucessoServicoPrestadoAdicionado}}
+                </div>
+                <div class="alert alert-danger" role="alert" *ngIf="msgSucessoServicoPrestadoAdicionadoStatus == false">
+                  {{msgSucessoServicoPrestadoAdicionado}}
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div *ngIf="msgSucessoServicoPrestadoAdicionadoStatus != null
+            || msgSucessoServicoPrestadoRemovidoStatus != null">
+                  <button type="button" class="btn btn-warning" (click)="limparMensagens()">
+                    Limpar mensagens
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          </div>
         </div>
 
 
 
         <div class="row">
           <div class="col-md-12">
-            <table class="table-responsive">
+            <table class="table">
               <thead>
                 <tr>
 
-                  <th>Data</th>
+
                   <th>Descrição</th>
-                  <th>Responsável</th>
+
                 </tr>
               </thead>
               <tbody>
                 <tr *ngFor="let item of servicosPrestados">
-                  <td>
-                    <button type="button" class="btn btn-danger" (click)="removerServicoPrestado(item.id)">
-                      {{item.data}}
-                    </button>
-                  </td>
-                  <td>{{item.servico.nome}}</td>
-                  <td>{{item.responsavel.nome}}</td>
 
+                  <td>
+
+                    <div class="row">
+                      <div class="col-md-12">
+                        <button type="button" class="btn btn-danger" (click)="preparaDelecao(item)" placement="top"
+                          ngbTooltip="Apagar" data-toggle="modal" data-target="#modalDelecao">
+                          <i class="fa fa-trash"></i>
+                        </button>
+                      </div>
+                    </div>
+<br />
+                    <div class="row"  *ngIf="item.dataEntrega == null">
+                      <div class="col-md-12">
+                        <button type="button" class="btn btn-success" (click)="preparaEntrega(item)" placement="top"
+                          ngbTooltip="Entregar  serviço" data-toggle="modal" data-target="#modalEntrega">
+                          <i class="fa fa-check"></i>
+                        </button>
+                      </div>
+                    </div>
+
+                  </td>
+                  <td>
+
+                    <button class="btn btn-sm" style="text-align: left;">
+
+                      <div>Id: {{item.id}}</div>
+                      <div>Início: {{item.data}}</div>
+                      <div>Serviço: {{item.servico.nome}}</div>
+                      <div>Responsável: {{item.responsavel.nome}}</div>
+                      <div *ngIf="item.dataEntrega == null" class="btn-warning">Entrega: {{item.dataEntrega}}</div>
+                      <div *ngIf="item.dataEntrega != null" class="btn-success">Entrega: {{item.dataEntrega}}</div>
+
+                    </button>
+
+
+                    <!-- <div class="btn-group" role="group">-->
+                    <!--     <div class="btn-group btn-block" role="group">
+                        <button class="btn btn-danger btn-sm"  data-toggle="modal"
+                          data-target="#modalDelecao" placement="top" ngbTooltip="Apagar">
+                          <i class="fa fa-trash"></i>
+                        </button>
+                        <input type="button" class="alert-primary btn-sm btn-block" routerLink="/manutencoes/form/{{item.servico.id }}"
+                          placement="top" ngbTooltip="Editar" value="{{item.servico.nome }}">
+                      </div>-->
+
+                  </td>
 
                 </tr>
               </tbody>
@@ -184,7 +324,7 @@
   </div>
 
   <div class="col-md-4">
-    <div class="card text-white bg-primary mb-3">
+    <div class="card text-white bg-info mb-3">
       <div class="card-body">
 
         <div class="card-header">
@@ -197,7 +337,7 @@
   </div>
 
   <div class="col-md-4">
-    <div class="card text-white bg-primary mb-3">
+    <div class="card text-white bg-info mb-3">
       <div class="card-body">
 
         <div class="card-header">
@@ -209,5 +349,46 @@
     </div>
   </div>
 
-</div>
+  <div id="modalDelecao" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4>Confirmação</h4>
+        </div>
 
+        <div class="modal-body" *ngIf="servicoPrestadoSelecionado">
+          Confirma a deleção do serviço {{ servicoPrestadoSelecionado.servico.nome}}
+          => Data: {{servicoPrestadoSelecionado.data}}
+          => Responsável: {{servicoPrestadoSelecionado.responsavel.nome}}?
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn btn-success" (click)="removerServicoPrestado();" data-dismiss="modal">Confirmar</button>
+          <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="modalEntrega" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4>Confirmação</h4>
+        </div>
+
+        <div class="modal-body" *ngIf="servicoPrestadoSelecionado">
+          Confirma a entrega do serviço {{ servicoPrestadoSelecionado.servico.nome}}
+          => Data: {{servicoPrestadoSelecionado.data}}
+          => Responsável: {{servicoPrestadoSelecionado.responsavel.nome}}?
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn btn-success" (click)="entregarServicoPrestado();" data-dismiss="modal">Confirmar</button>
+          <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -25,4 +25,8 @@ export class ServicoPrestadoService {
   adicionarServicoPrestado(servicoPrestado: ServicoPrestado): Observable<ServicoPrestado> {
     return this.http.post<ServicoPrestado>(`${this.apiURL}`, servicoPrestado);
   }
+
+  entregarServicoPrestado(servicoPrestadoId: number): Observable<ServicoPrestado> {
+    return this.http.post<any>(`${this.apiURL}/entregar_servico/${servicoPrestadoId}`,null);
+  }
 }

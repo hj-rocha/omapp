@@ -19,7 +19,7 @@ import { VeiculosListComponent } from './veiculos-list/veiculos-list.component';
       {path:'form', component: VeiculosFormComponent, canActivate: [AuthGuard], data: { roles: ['EDITAR_PRODUTOS'] }},
       {path:'form/:id', component: VeiculosFormComponent, canActivate: [AuthGuard], data: { roles: ['EDITAR_PRODUTOS'] }},
 
-      { path: '', redirectTo : '/veiculos', pathMatch: 'full' }
+      { path: '', redirectTo : '/veiculos/list', pathMatch: 'full' }
     ]}
   ]}
 
