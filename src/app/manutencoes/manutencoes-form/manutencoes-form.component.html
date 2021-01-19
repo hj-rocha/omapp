@@ -29,7 +29,7 @@
 
             <div class="col-md-5" *ngIf="manutencao.id">
               <div class="form-group">
-                <label>Veículo</label>
+                <label>Veículo Nome</label>
                 <input type="text" [(ngModel)]="manutencao.veiculo.nome" name="manutencao.nome" class="form-control"
                   readonly />
               </div>
@@ -45,7 +45,7 @@
 
             <div class="col-md-2" *ngIf="manutencao.ativa != null">
               <div class="form-group">
-                <label>Status</label>
+                <label>Status da Manutenção</label>
 
                 <input type="text" *ngIf="manutencao.ativa" class="form-control btn btn-success" placement="top"
                   ngbTooltip="Aberta" value="Aberta" />
@@ -168,8 +168,7 @@
 
                 <input id="servico" name="servico" type="text" class="form-control" [(ngModel)]="servico"
                   [ngbTypeahead]="searchServico" placeholder="Digite o nome do serviço"
-                  [inputFormatter]="formatterServico" [resultFormatter]="formatterServico" placement="top"
-                  ngbTooltip="Apenas as iniciais e selecione.">
+                  [inputFormatter]="formatterServico" [resultFormatter]="formatterServico">
 
               </div>
             </div>
@@ -265,7 +264,7 @@
 
                   <td>
 
-                    <div class="row">
+                    <div class="row"   *ngIf="item.dataEntrega == null">
                       <div class="col-md-12">
                         <button type="button" class="btn btn-danger" (click)="preparaDelecao(item)" placement="top"
                           ngbTooltip="Apagar" data-toggle="modal" data-target="#modalDelecao">
