@@ -18,7 +18,7 @@
 
           <div class="row">
 
-            <div class="col-md-3">
+            <div class="col-md-2">
               <div class="form-group">
                 <label>Veículo Placa</label>
                 <input id="manutencao.veiculo" name="manutencao.veiculo" type="text" class="form-control"
@@ -35,7 +35,7 @@
               </div>
             </div>
 
-            <div class="col-md-2" *ngIf="manutencao.id">
+            <div class="col-md-1" *ngIf="manutencao.id">
               <div class="form-group">
                 <label>ID</label>
                 <input type="text" [(ngModel)]="manutencao.id" name="manutencao.id" class="form-control"
@@ -55,6 +55,40 @@
 
                   <input type="text" [(ngModel)]="manutencao.ativa" name="manutencao.status" class="form-control"
                     disabled="true" />-->
+              </div>
+            </div>
+
+            <div class="col-md-2" *ngIf="manutencao.id">
+              <div class="form-group">
+                <label>Alterar Status</label>
+                <div *ngIf="statusManutencao == null; then thenBlock else elseBlock"></div>
+                <ng-template #thenBlock>
+
+              <button class="form-control btn btn-danger" type="button"  *ngIf="manutencao.ativa == true" (click)="statusManutencao=false">Fechar</button>
+              <button class="form-control btn btn-danger" type="button"  *ngIf="manutencao.ativa == false" (click)="statusManutencao=true">Abrir</button>
+
+
+                </ng-template>
+
+                <ng-template #elseBlock>
+
+                  <button class="form-control btn btn-dangerr" type="button"  *ngIf="manutencao.ativa == true" (click)="statusManutencao=false">Fechar</button>
+                  <button class="form-control btn btn-dangerr" type="button"  *ngIf="manutencao.ativa == false" (click)="statusManutencao=true">Abrir</button>
+                  <div class="alert alert-danger">
+
+                    Tem certeza que deseja alterar o status da manutenção?
+                    <button class="form-control btn btn-warning" type="button" (click)="statusManutencao=null">Não alterar</button>
+                    <p></p>
+                    <button type="submit" class="btn btn-warning" *ngIf="manutencao.id" (click)="alterarStatusManutencao()">
+                      <i class="fa fa-sync-alt"></i>Sim - Atualizar
+                    </button>
+                  </div>
+                </ng-template>
+
+
+
+
+
               </div>
             </div>
 
@@ -264,7 +298,7 @@
 
                   <td>
 
-                    <div class="row"   *ngIf="item.dataEntrega == null">
+                    <div class="row" *ngIf="item.dataEntrega == null">
                       <div class="col-md-12">
                         <button type="button" class="btn btn-danger" (click)="preparaDelecao(item)" placement="top"
                           ngbTooltip="Apagar" data-toggle="modal" data-target="#modalDelecao">
@@ -272,8 +306,8 @@
                         </button>
                       </div>
                     </div>
-<br />
-                    <div class="row"  *ngIf="item.dataEntrega == null">
+                    <br />
+                    <div class="row" *ngIf="item.dataEntrega == null">
                       <div class="col-md-12">
                         <button type="button" class="btn btn-success" (click)="preparaEntrega(item)" placement="top"
                           ngbTooltip="Entregar  serviço" data-toggle="modal" data-target="#modalEntrega">
@@ -323,7 +357,7 @@
   </div>
 
   <div class="col-md-4">
-    <div class="card text-white bg-info mb-3">
+    <div class="card text-white bg-primary mb-3">
       <div class="card-body">
 
         <div class="card-header">
@@ -336,7 +370,7 @@
   </div>
 
   <div class="col-md-4">
-    <div class="card text-white bg-info mb-3">
+    <div class="card text-white bg-primary mb-3">
       <div class="card-body">
 
         <div class="card-header">

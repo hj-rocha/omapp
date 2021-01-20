@@ -22,7 +22,7 @@
                     <label>Cliente: </label>
                     <select class="form-control"
                             [ngModelOptions]="{standalone: true}"
-                            [(ngModel)]="servico.responsavel">
+                            [(ngModel)]="servico.responsavel"> <!---Isso foi add porque estamos trabalhando com o combobox. Aula Souza 80.-->
                         <option value="">Selecione...</option>
                         <option *ngFor="let cliente of clientes"
                                 [ngValue]="cliente.id">

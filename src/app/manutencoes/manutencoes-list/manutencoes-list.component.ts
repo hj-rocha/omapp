@@ -24,7 +24,7 @@ export class ManutencoesListComponent implements OnInit {
     this.service
       .listar()
       .subscribe(response => {
-        this.success = true;
+        //this.success = true;
         this.errors = null;
         this.lista = response;
       }, errorResponse => {
@@ -53,7 +53,7 @@ export class ManutencoesListComponent implements OnInit {
         errorResponse => {
           this.success = false;
           this.mensagemErro = errorResponse.error.message;
-          this.mensagemErro = 'Ocorreu um erro ao deletar a manutenção.'
+          //this.mensagemErro = 'Ocorreu um erro ao deletar a manutenção.'
         }
       )
   }

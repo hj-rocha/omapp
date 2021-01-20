@@ -13,9 +13,14 @@ const routes: Routes = [
 
   { path: 'clientes', loadChildren: () => import('./clientes/clientes.module').then(m => m.ClientesModule) },
 
-  { path: 'servicos', loadChildren: () => import('./servicos/servicos.module').then(m => m.ServicosModule) },
+  { path: 'servicos-prestados', loadChildren: () => import('./servico-prestado/servico-prestado.module').then(m => m.ServicoPrestadoModule),
+  canActivate: [AuthGuard], data: { roles: ['CONSULTAR_MANUTENCOES'] } },
 
-  { path: 'manutencoes', loadChildren: () => import('./manutencoes/manutencoes.module').then(m => m.ManutencoesModule) },
+  { path: 'servicos', loadChildren: () => import('./servicos/servicos.module').then(m => m.ServicosModule),
+  canActivate: [AuthGuard], data: { roles: ['CONSULTAR_MANUTENCOES'] } },
+
+  { path: 'manutencoes', loadChildren: () => import('./manutencoes/manutencoes.module').then(m => m.ManutencoesModule),
+  canActivate: [AuthGuard], data: { roles: ['CONSULTAR_MANUTENCOES'] }  },
 
   { path: 'pecas', loadChildren: () => import('./pecas/pecas.module').then(m => m.PecasModule),
   canActivate: [AuthGuard], data: { roles: ['CONSULTAR_PRODUTOS'] } },

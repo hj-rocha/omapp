@@ -7,9 +7,9 @@ import { AuthGuard } from '../auth.guard'
 
 
 const routes: Routes = [
-  { path: 'servicos-prestados', canActivate: [AuthGuard], component: LayoutComponent, children: [
-    { path: 'form', component: ServicoPrestadoFormComponent },
-    { path: 'lista', component: ServicoPrestadoListaComponent },
+  { path: '', canActivate: [AuthGuard], component: LayoutComponent, children: [
+    { path: 'form', component: ServicoPrestadoFormComponent, canActivate: [AuthGuard], data: { roles: ['EDITAR_MANUTENCOES'] } },
+    { path: 'list', component: ServicoPrestadoListaComponent },
     { path: '', redirectTo: '/servicos-prestados/list', pathMatch: 'full' }
 
   ]}

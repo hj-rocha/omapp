@@ -46,6 +46,9 @@ export class ManutencoesFormComponent implements OnInit {
   entregue: boolean;
   msgEntrega: string;
 
+  statusManutencao: boolean = null;
+  erroAlterarStatus: string;
+
 
   constructor(private service: ManutencaoService,
     private router: Router,
@@ -218,6 +221,17 @@ export class ManutencoesFormComponent implements OnInit {
         this.entregue = false;
         this.msgEntrega = "Ocorreu um erro na entrega do serviço";
       })
+  }
+
+  alterarStatusManutencao(){
+    this.service.alterarStatusManutencao(this.manutencao.id, this.statusManutencao)
+    .subscribe(response => {
+      this.manutencao = response;
+      this.statusManutencao = null;
+    }, errorResponse => {
+      this.erroAlterarStatus = errorResponse.error.message;
+      this.statusManutencao = null;
+    })
   }
 
 }
