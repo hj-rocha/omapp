@@ -35,7 +35,7 @@ export class ManutencaoService {
       return this.http.put<Manutencao>(`${this.apiURL}/${manutencoes.id}` , manutencoes);
     }
 
-    alterarStatusManutencao( manutencaoId: number, status: boolean ) : Observable<Manutencao> {
+    alterarStatusManutencao( manutencaoId: number, status: Boolean ) : Observable<Manutencao> {
       return this.http.post<Manutencao>( `${this.apiURL}/${manutencaoId}/status/${status}`,null);
     }
 

@@ -3,13 +3,13 @@
   <li class="breadcrumb-item active">
     <div class="btn-group" role="group">
       <button class="btn btn-success form-control" routerLink="/manutencoes/form">
-        <i class="fa fa-list-alt"></i> Cadastrar
+        <i class="fa fa-list-alt"> Cadastrar</i>
       </button>
       <input type="text" class="form-control" placeholder="Buscar">
     </div>
   </li>
 
-  <li class="breadcrumb-item active">
+  <li class="breadcrumb-item active" *ngIf="success !=null">
     <div class="row">
       <div class="col-md-12">
         <div class="alert alert-success" role="alert" *ngIf="success == true">
@@ -29,36 +29,78 @@
     <table class="table">
       <thead>
         <tr>
-          <th>placa</th>
-          <th placement="top" ngbTooltip="Status"><i class="fa fa-flag-checkered" aria-hidden="true"></i></th>
-          <th>Veículo</th>
+          <th>Veículos</th>
+          <!--  <th placement="top" ngbTooltip="Status"><i class="fa fa-flag-checkered" aria-hidden="true"></i></th>-->
+          <!-- <th>Detalhes</th>-->
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let p of lista">
 
           <td>
-            <!-- <div class="btn-group" role="group">-->
-            <div class="btn-group btn-block" role="group">
-              <button class="btn btn-danger btn-sm" (click)="preparaDelecao(p)" data-toggle="modal"
-                data-target="#modalDelecao" placement="top" ngbTooltip="Apagar">
-                <i class="fa fa-trash"></i>
-              </button>
-              <input type="button" class="alert-primary btn-sm btn-block" routerLink="/manutencoes/form/{{ p.id }}"
-                placement="top" ngbTooltip="Editar" value="{{ p.veiculo.placa }}">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-6">
+                    <!-- <div class="btn-group" role="group">-->
+                    <div class="btn-group btn-block" role="group">
+                      <button class="btn btn-danger btn-sm" (click)="preparaDelecao(p)" data-toggle="modal"
+                        data-target="#modalDelecao" placement="top" ngbTooltip="Apagar">
+                        <i class="fa fa-trash"></i>
+                      </button>
+                      <input type="button" class="alert-primary btn-sm btn-block"
+                        routerLink="/manutencoes/form/{{ p.id }}" placement="top" ngbTooltip="Editar"
+                        value="{{ p.veiculo.placa }}">
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <span *ngIf="p.veiculo.placa != null">
+                      <span class="btn-sm  alert-info">ID: {{p.id}}</span> {{p.veiculo.nome}}
+                    </span>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-1">
+                    <span *ngIf="p.ativa" class="btn-sm  btn-success fa fa-flag-checkered" placement="right"
+                      ngbTooltip="Manutenção Aberta"></span>
+                    <span *ngIf="!p.ativa" class="btn-sm  btn-warning fa fa-flag-checkered" placement="right"
+                      ngbTooltip="Manutenção Fechada"></span>
+                  </div>
+
+
+                  <div class="col-md-5">
+                    <i class="fa fa-angle-double-right" aria-hidden="true" placement="top" ngbTooltip="Entrou">
+                      {{ p.dataEntrada | date:'dd/MM/yyyy : HH:mm'}}
+                    </i>
+<br />
+                    <i *ngIf="p.dataSaida!=null" class="fa fa-angle-double-left" aria-hidden="true" placement="top"
+                      ngbTooltip="Saiu">
+                      {{ p.dataSaida | date:'dd/MM/yyyy : HH:mm'}}
+                    </i>
+                  </div>
+
+                  <div class="col-md-6">
+                   Resp.: {{p.responsavelManutencao.nome}}
+                   <br />
+                   <span *ngIf="p.veiculo.proprietarios.length > 0">
+                     Cliente: {{p.veiculo.proprietarios[p.veiculo.proprietarios.length-1].nome}}
+                    </span>
+                    </div>
+
+                </div>
+              </div>
             </div>
           </td>
-          <td>
+          <!--
             <span *ngIf="p.ativa" class="btn btn-success" placement="top" ngbTooltip="Aberta">A</span>
             <span *ngIf="!p.ativa" class="btn btn-warning" placement="top" ngbTooltip="Fechada">F</span>
+          -->
 
-          </td>
-
-
-          <td><span *ngIf="p.veiculo.placa != null">
-              {{p.veiculo.nome}}
-            </span>
-          </td>
         </tr>
       </tbody>
     </table>

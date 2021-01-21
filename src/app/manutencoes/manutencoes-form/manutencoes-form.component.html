@@ -45,7 +45,7 @@
 
             <div class="col-md-2" *ngIf="manutencao.ativa != null">
               <div class="form-group">
-                <label>Status da Manutenção</label>
+                <label>Status</label>
 
                 <input type="text" *ngIf="manutencao.ativa" class="form-control btn btn-success" placement="top"
                   ngbTooltip="Aberta" value="Aberta" />
@@ -86,9 +86,6 @@
                 </ng-template>
 
 
-
-
-
               </div>
             </div>
 
@@ -108,7 +105,7 @@
             <div class="col-md-3" *ngIf="manutencao.id">
               <div class="form-group">
                 <label>Data Entrada</label>
-                <input type="text" class="form-control" [(ngModel)]="manutencao.dataEntrada" name="dataEntrada"
+                <input type="text" class="form-control" value="{{manutencao.dataEntrada  | date:'dd/MM/yyyy : HH:mm'}}" name="dataEntrada"
                   readonly>
               </div>
             </div>
@@ -116,12 +113,26 @@
             <div class="col-md-3" *ngIf="!manutencao.ativa && manutencao.ativa!=null">
               <div class="form-group">
                 <label>Data Término</label>
-                <input type="text" class="form-control" [(ngModel)]="manutencao.dataTermino" name="dataTermino"
+                <input type="text" class="form-control" value="{{manutencao.dataSaida  | date:'dd/MM/yyyy : HH:mm'}}" name="dataTermino"
                   readonly>
               </div>
             </div>
 
           </div>
+
+
+        <div class="row" *ngIf="manutencao.veiculo.proprietarios.length > 0">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Proprietário</label>
+              <input type="text" class="form-control"
+              [(ngModel)]="manutencao.veiculo.proprietarios[manutencao.veiculo.proprietarios.length-1].nome"
+              name="manutencao.veiculo.proprietarios.nome"
+                readonly>
+            </div>
+          </div>
+        </div>
+
 
 
           <!--
@@ -288,7 +299,7 @@
               <thead>
                 <tr>
 
-
+                  <th>Entregar</th>
                   <th>Descrição</th>
 
                 </tr>
@@ -325,8 +336,8 @@
                       <div>Início: {{item.data}}</div>
                       <div>Serviço: {{item.servico.nome}}</div>
                       <div>Responsável: {{item.responsavel.nome}}</div>
-                      <div *ngIf="item.dataEntrega == null" class="btn-warning">Entrega: {{item.dataEntrega}}</div>
-                      <div *ngIf="item.dataEntrega != null" class="btn-success">Entrega: {{item.dataEntrega}}</div>
+                      <div *ngIf="item.dataEntrega == null" class="btn-warning">Entrega: {{item.dataEntrega | date:'dd/MM/yyyy : HH:mm'}}</div>
+                      <div *ngIf="item.dataEntrega != null" class="btn-success">Entrega: {{item.dataEntrega  | date:'dd/MM/yyyy : HH:mm'}}</div>
 
                     </button>
 

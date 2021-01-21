@@ -1,35 +1,38 @@
-<h3 class="mt-4">Peças</h3>
-<ul class="nav">
+<br />
 
-  <li class="nav-item">
-    <button class="btn-sm btn-primary" routerLink="/produtos/list">
-      <i class="fa fa-cubes fa-2x"></i> Produtos
-    </button>
-  </li>
+<div class="card mb-3">
+  <div class="card-body">
 
-  <li class="nav-item">
-    <button class="btn-sm btn-primary" routerLink="/veiculos/list">
-      <i class="fa fa-motorcycle fa-2x"></i> Veículos
-    </button>
-    </li>
+    <div class="card-header">
+      <h4 class="card-title">Peças</h4>
+    </div>
+    <div class="btn-group btn-block" role="group">
 
-    <li class="nav-item">
+      <button class="btn-sm btn-primary" routerLink="/veiculos/list">
+        <i class="fa fa-motorcycle fa-2x"></i> Veículos
+      </button>
+
       <button class="btn-sm btn-primary" routerLink="/pecas/list">
         <i class="fa fa-tags fa-2x"></i> Peças
       </button>
-      </li>
-      <li class="nav-item">
-        <button class="btn-sm btn-primary" routerLink="/acessorios/list">
-          <i class="fa fa-plus-square fa-2x"></i> Acessórios
-        </button>
-        </li>
-        <li class="nav-item">
-          <button class="btn-sm btn-primary" routerLink="/impostos/form">
-            <i class="fa fa-percent  fa-2x"></i> Cadastrar imposto
-          </button>
-        </li>
 
-</ul>
-<hr />
+      <button class="btn-sm btn-primary" routerLink="/acessorios/list">
+        <i class="fa fa-plus-square fa-2x"></i> Acessórios
+      </button>
+
+    </div>
+
+    <div class="btn-group btn-block" role="group">
+      <button class="btn-sm btn-primary" routerLink="/produtos/list">
+        <i class="fa fa-cubes fa-2x"></i> Produtos
+      </button>
+      <button class="btn-sm btn-primary" routerLink="/impostos/form">
+        <i class="fa fa-percent  fa-2x"></i> Cadastrar imposto
+      </button>
+    </div>
+
+  </div>
+</div>
+
 
 <router-outlet></router-outlet>

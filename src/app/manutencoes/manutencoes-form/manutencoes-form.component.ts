@@ -46,7 +46,7 @@ export class ManutencoesFormComponent implements OnInit {
   entregue: boolean;
   msgEntrega: string;
 
-  statusManutencao: boolean = null;
+  statusManutencao: Boolean = null;
   erroAlterarStatus: string;
 
 
@@ -224,7 +224,8 @@ export class ManutencoesFormComponent implements OnInit {
   }
 
   alterarStatusManutencao(){
-    this.service.alterarStatusManutencao(this.manutencao.id, this.statusManutencao)
+    let s: Boolean = this.statusManutencao;
+    this.service.alterarStatusManutencao(this.manutencao.id, s)
     .subscribe(response => {
       this.manutencao = response;
       this.statusManutencao = null;

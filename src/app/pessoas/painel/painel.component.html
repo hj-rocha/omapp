@@ -1,32 +1,33 @@
-<h3 class="mt-4">Pessoas</h3>
-<ul class="nav">
+<br />
 
-  <li class="nav-item">
+<div class="card mb-3">
+  <div class="card-body">
 
-    <button class="btn-sm btn-primary" routerLink="/pessoas/grupos/list">
-      <i class="fa fa-users fa-2x"></i> Grupos
-    </button>
-  </li>
+    <div class="card-header">
+      <h4 class="card-title">Pessoas</h4>
+    </div>
+    <div class="btn-group btn-block" role="group">
+      <button class="btn-sm btn-primary" routerLink="/pessoas/grupos/list">
+        <i class="fa fa-users fa-2x"></i> Grupos
+      </button>
 
-  <li class="nav-item">
-    <button class="btn-sm btn-primary" routerLink="/pessoas/list">
-      <i class="fa fa-user-circle fa-2x"></i> Pessoas
-    </button>
-
-    <li class="nav-item">
-      <button class="btn-sm btn-primary" routerLink="/pessoas/juridicas/list">
-        <i class="fa fa-user-circle fa-2x"></i> Pessoas Jurídicas
+      <button class="btn-sm btn-primary" routerLink="/pessoas/list">
+        <i class="fa fa-user-circle fa-2x"></i> Pessoas
       </button>
 
 
-  <li class="nav-item">
-    <button class="btn-sm btn-primary" routerLink="usuarios/list">
-      <i class="fa fa-user fa-2x"></i> Usuários
-    </button>
-  </li>
+        <button class="btn-sm btn-primary" routerLink="/pessoas/juridicas/list">
+          <i class="fa fa-user-circle fa-2x"></i> Pessoas Jurídicas
+        </button>
 
-</ul>
-<hr/>
+
+
+      <button class="btn-sm btn-primary" routerLink="usuarios/list">
+        <i class="fa fa-user fa-2x"></i> Usuários
+      </button>
+    </div>
+  </div>
+</div>
 
 
 <router-outlet></router-outlet>
