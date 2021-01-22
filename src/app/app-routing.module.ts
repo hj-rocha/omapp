@@ -40,8 +40,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: '', component: LayoutComponent, children: [
     {path:'nao_tem_permissao', component: NaoTemPermissaoComponent},
-    { path : 'home', component: HomeComponent },
-    { path: '' , redirectTo: '/home', pathMatch: 'full' }
+    { path : '', component: HomeComponent },
+    //{ path: '' , redirectTo: '/home', pathMatch: 'full' }
   ]},
   { path: '', component: LayoutComponent, children: [
   {path: '**', component: PaginaNaoEncontradaComponent, canActivate : [AuthGuard]}
