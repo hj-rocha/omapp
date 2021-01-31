@@ -5,3 +5,15 @@
 .sb-sidenav-dark .sb-sidenav-footer {
   background-color: #6c757d;
 }
+
+.sb-sidenav .sb-sidenav-menu .nav .nav-link {
+  color:#fff;
+}
+
+.sb-sidenav .sb-sidenav-menu .nav .nav-link:hover {
+  color:#aaa;
+}
+
+.sb-sidenav-dark .sb-sidenav-menu .nav-link .sb-nav-link-icon {
+  color:#fff;
+}

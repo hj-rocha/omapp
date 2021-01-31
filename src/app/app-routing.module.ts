@@ -41,7 +41,7 @@ const routes: Routes = [
   { path: '', component: LayoutComponent, children: [
     {path:'nao_tem_permissao', component: NaoTemPermissaoComponent},
     { path : '', component: HomeComponent },
-    //{ path: '' , redirectTo: '/home', pathMatch: 'full' }
+    { path: '' , redirectTo: '/home', pathMatch: 'full' }
   ]},
   { path: '', component: LayoutComponent, children: [
   {path: '**', component: PaginaNaoEncontradaComponent, canActivate : [AuthGuard]}

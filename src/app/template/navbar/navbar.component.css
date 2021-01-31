@@ -1,0 +1,7 @@
+.sb-topnav.navbar-dark #sidebarToggle {
+    color:#fff;
+}
+
+.sb-topnav.navbar-dark #sidebarToggle:hover {
+  color:#aaa;
+}
