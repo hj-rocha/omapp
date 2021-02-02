@@ -171,7 +171,7 @@ export class ManutencoesFormComponent implements OnInit {
         this.msgSucessoServicoPrestadoAdicionado = "Serviço adicionado com sucesso."
         this.msgSucessoServicoPrestadoAdicionadoStatus = true;
       }, errorResponse => {
-        this.msgSucessoServicoPrestadoAdicionado = 'Erro ao adicionar serviço!';
+        this.msgSucessoServicoPrestadoAdicionado = errorResponse.error.message;
         this.msgSucessoServicoPrestadoAdicionadoStatus = false;
       });
   }
