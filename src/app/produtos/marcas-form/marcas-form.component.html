@@ -1,0 +1,74 @@
+<ol class="breadcrumb mb-4">
+  <li class="breadcrumb-item active">{{ id ? 'Editando ' : 'Cadastrando' }}</li>
+  <li class="breadcrumb-item active"><a routerLink="/produtos/marcas/list">Voltar para listagem</a></li>
+</ol>
+
+<form #marcaForm="ngForm" (ngSubmit)="onSubmit()">
+
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card text-white bg-primary mb-3">
+        <div class="card-body">
+          <div class="card-header">
+            <h5 class="card-title">Marca</h5>
+          </div>
+
+          <div class="row" *ngIf="marca.id">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>ID:</label>
+                <input type="text" [(ngModel)]="marca.id" name="id" class="form-control" disabled="true" />
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Nome *</label>
+                <input type="text" class="form-control" [(ngModel)]="marca.nome" name="marca.nome" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-md-6">
+
+      <div class="card text-white bg-primary mb-3">
+        <div class="card-body">
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="alert alert-success" role="alert" *ngIf="success == true">
+                Operação realizada com sucesso com sucesso!
+              </div>
+              <div class="alert alert-danger" role="alert" *ngIf="success == false">
+                {{mensagemErro}}
+              </div>
+            </div>
+          </div>
+
+          <div class="btn-group">
+            <button type="submit" class="btn btn-success" *ngIf="!marca.id">
+              <i class="fa fa-floppy-o"></i> Salvar
+            </button>
+
+            <button type="submit" class="btn btn-warning" *ngIf="marca.id">
+              <i class="fa fa-sync-alt"></i> Atualizar
+            </button>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</form>

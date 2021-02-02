@@ -1,11 +1,15 @@
 <ol class="breadcrumb mb-4">
 
   <li class="breadcrumb-item active">
-    <div class="btn-group" role="group">
-      <div class="btn-group" role="group">
-        <input type="text" class="form-control" placeholder="Buscar peça : Nome">
-      </div>
-    </div>
+
+
+    <button class="btn-sm btn-success" routerLink="/produtos/marcas/form">
+      <i class="fa fa-trademark fa-2x"></i> Cadastrar
+    </button>
+  </li>
+  <li class="breadcrumb-item active">
+    <input type="text" class="form-control" placeholder="Buscar marca : Nome">
+
 
   </li>
 </ol>
@@ -16,11 +20,11 @@
     <table class="table">
       <thead>
         <tr>
-          <th>Peças</th>
+          <th>Marcas</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let p of lista">
+        <tr *ngFor="let marca of lista">
           <td>
 
             <div class="row">
@@ -28,21 +32,19 @@
                 <div class="row">
                   <div class="col-md-6">
                     <div class="btn-group btn-block" role="group">
-                      <button class="btn-danger btn-sm" (click)="preparaDelecao(p)" data-toggle="modal"
+                      <button class="btn-danger btn-sm" (click)="preparaDelecao(marca)" data-toggle="modal"
                         data-target="#modalDelecao" placement="top" ngbTooltip="Apagar">
                         <i class="fa fa-trash"></i>
                       </button>
-                      <input type="button" class="btn-primary btn-sm btn-block" routerLink="/pecas/form/{{ p.id }}"
-                        placement="top" ngbTooltip="Editar" value="{{ p.nome }}">
+                      <input type="button" class="btn-primary btn-sm btn-block" routerLink="/marcas/form/{{ marca.id }}"
+                        placement="top" ngbTooltip="Editar" value="{{ marca.nome }}">
                     </div>
                   </div>
 
 
                   <div class="col-md-6">
                     <span class="btn-sm btn-block  alert-primary">
-                      <span>ID: {{p.id }} </span>
-                      <span *ngIf="p.codigoInterno!=null" class="alert-sm  alert-info"> Cód. Int.:
-                        {{p.codigoInterno}}</span>
+                      <span>ID: {{marca.id }} </span>
                     </span>
                   </div>
                 </div>
@@ -51,9 +53,8 @@
               <div class="col-md-6">
                 <div class="row">
                   <div class="col-md-6">
-                    <span *ngIf="p.marca.id!=1 || p.venda>0" class="btn-sm btn-block  alert-primary">
-                      <span *ngIf="p.marca.id!=1">{{p.marca.nome }} </span>
-                      <span *ngIf="p.venda>0" class="alert-sm  alert-info"> Preço: {{ p.venda | currency:'BRL'}}</span>
+                    <span class="btn-sm btn-block  alert-primary">
+                      <span>{{marca.nome}} </span>
                     </span>
                   </div>
                   <div class="col-md-6">
@@ -85,7 +86,7 @@
       </div>
 
       <div class="modal-body" *ngIf="itemSelecionado">
-        Confirma a deleção da peça {{ itemSelecionado.nome }}?
+        Confirma a deleção da marca {{ itemSelecionado.nome }}?
       </div>
 
       <div class="modal-footer">

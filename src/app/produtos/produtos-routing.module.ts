@@ -1,3 +1,5 @@
+import { MarcasListComponent } from './marcas-list/marcas-list.component';
+import { MarcasFormComponent } from './marcas-form/marcas-form.component';
 import { ProdutosImpostosListComponent } from './produtos-impostos-list/produtos-impostos-list.component';
 import { PainelComponent } from './painel/painel.component';
 import { ProdutosFormComponent } from './produtos-form/produtos-form.component';
@@ -26,6 +28,9 @@ const routes: Routes = [
   //  {path: 'grupos/form/:id', component:ImpostosFormCreateComponent, canActivate: [AuthGuard], data: { roles: ['EDITAR_GRUPOS_PERMISSOES'] }},
 
     {path: ':produto_id/:produto_nome/impostos-list', component: ProdutosImpostosListComponent, canActivate: [AuthGuard], data: { roles: ['EDITAR_PRODUTOS'] }},
+
+    {path: 'marcas/list', component: MarcasListComponent},
+    {path: 'marcas/form', component: MarcasFormComponent, canActivate: [AuthGuard], data: {roles: ['EDITAR_PRODUTOS']}},
 
     { path: '', redirectTo : '/produtos/list', pathMatch: 'full' }
   ]}

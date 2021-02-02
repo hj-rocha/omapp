@@ -1,9 +1,9 @@
-<!--
+
 <ol class="breadcrumb mb-4">
   <li class="breadcrumb-item active">{{ id ? 'Editando ' : 'Cadastrando' }}</li>
   <li class="breadcrumb-item active"><a routerLink="/manutencoes/list">Voltar para listagem</a></li>
 </ol>
--->
+
 <form #manutencaoForm="ngForm" (ngSubmit)="onSubmit()">
 
   <div class="row">
@@ -13,6 +13,7 @@
 
           <div class="card-header">
             <h5 class="card-title">Manutenção <span class="badge  badge-info"> Id: {{manutencao.id}}</span></h5>
+
 
           </div>
 
@@ -229,10 +230,10 @@
             <button type="submit" class="btn btn-warning" *ngIf="manutencao.id">
               <i class="fa fa-sync-alt"></i> Atualizar
             </button>
-
+<!--
             <button type="button" class="btn btn-danger ml-1" routerLink="/manutencoes/list">
               <i class="fa fa-arrow-left"></i> Voltar
-            </button>
+            </button>-->
           </div>
         </div>
       </div>

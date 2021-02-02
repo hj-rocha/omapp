@@ -3,9 +3,6 @@
   <li class="breadcrumb-item active">
     <div class="btn-group" role="group">
       <div class="btn-group" role="group">
-        <button class="btn btn-success form-control" routerLink="/servicos/form">
-          <i class="fa fa-motorcycle"></i> Cadastrar Serviço
-        </button>
         <input type="text" class="form-control" placeholder="Buscar serviço : Nome">
       </div>
     </div>
@@ -71,7 +68,7 @@
         </div>
 
         <div class="modal-body" *ngIf="itemSelecionado">
-          Confirma a deleção do serviço {{ itemSelecionado.nome }}?
+          Confirma apagar o serviço {{ itemSelecionado.nome }}?
         </div>
 
         <div class="modal-footer">

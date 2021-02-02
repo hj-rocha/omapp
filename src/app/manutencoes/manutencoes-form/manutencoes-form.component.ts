@@ -155,7 +155,7 @@ export class ManutencoesFormComponent implements OnInit {
         this.manutencao = response;
       }, errorResponse => {
         this.success = false;
-        this.mensagemErro = errorResponse.error.message;
+        this.mensagemErro = "Deve ser informado uma placa e uma pessoa previamente cadastrados no sistema.";
       })
 
   }

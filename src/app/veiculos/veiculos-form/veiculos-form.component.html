@@ -45,10 +45,10 @@
             </div>
 
             <div class="row">
-              <div class="col-md-4">
+              <div class="col-md-6">
                 <div class="form-group">
                   <label>Custo</label>
-                  <input type="text" class="form-control" currencyMask
+                  <input type="text" style="min-width: 150px;"  class="form-control " currencyMask
                     [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" [(ngModel)]="veiculo.custo"
                     name="veiculo.custo" />
                 </div>
@@ -71,10 +71,10 @@
           -->
 
             <div class="row">
-              <div class="col-md-4">
+              <div class="col-md-6">
                 <div class="form-group">
                   <label>Venda</label>
-                  <input type="text" class="form-control" currencyMask
+                  <input type="text" style="min-width: 150px;" class="form-control" currencyMask
                     [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" [(ngModel)]="veiculo.venda"
                     name="veiculo.venda" />
                 </div>
