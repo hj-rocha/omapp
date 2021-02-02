@@ -30,7 +30,7 @@
     <table class="table">
       <thead>
         <tr>
-          <th>Veículos</th>
+          <th>Veículos em manutenção</th>
           <!--  <th placement="top" ngbTooltip="Status"><i class="fa fa-flag-checkered" aria-hidden="true"></i></th>-->
           <!-- <th>Detalhes</th>-->
         </tr>
@@ -45,11 +45,15 @@
                   <div class="col-md-6">
                     <!-- <div class="btn-group" role="group">-->
                     <div class="btn-group btn-block" role="group">
-                      <button class="btn btn-danger btn-sm" (click)="preparaDelecao(p)" data-toggle="modal"
+                      <button class="btn-danger btn-sm" (click)="preparaDelecao(p)" data-toggle="modal"
                         data-target="#modalDelecao" placement="top" ngbTooltip="Apagar">
                         <i class="fa fa-trash"></i>
                       </button>
-                      <input type="button" class="alert-primary btn-sm btn-block"
+                      <span *ngIf="p.ativa" class="badge badge-success" placement="right"
+                      ngbTooltip="Manutenção Aberta"><i class="fa fa-flag-checkered"></i></span>
+                    <span *ngIf="!p.ativa" class="badge badge-warning" placement="right"
+                      ngbTooltip="Manutenção Fechada"><i class="fa fa-flag-checkered"></i></span>
+                      <input type="button" class="btn-primary btn-sm btn-block"
                         routerLink="/manutencoes/form/{{ p.id }}" placement="top" ngbTooltip="Editar"
                         value="{{ p.veiculo.placa }}">
                     </div>
@@ -57,7 +61,9 @@
 
                   <div class="col-md-6">
                     <span *ngIf="p.veiculo.placa != null">
-                      <span class="btn-sm  alert-info">ID: {{p.id}}</span> {{p.veiculo.nome}}
+
+                      <span class="btn-sm btn-block  alert-primary">
+                        ID: {{p.id}} <span class="btn-sm  alert-info">{{p.veiculo.nome}}</span></span>
                     </span>
                   </div>
                 </div>
@@ -66,22 +72,22 @@
 
               <div class="col-md-6">
                 <div class="row">
-                  <div class="col-md-1">
+                 <!--<div class="col-md-1">
                     <span *ngIf="p.ativa" class="btn-sm  btn-success fa fa-flag-checkered" placement="right"
                       ngbTooltip="Manutenção Aberta"></span>
                     <span *ngIf="!p.ativa" class="btn-sm  btn-warning fa fa-flag-checkered" placement="right"
                       ngbTooltip="Manutenção Fechada"></span>
                   </div>
-
+                -->
 
                   <div class="col-md-5">
-                    <i class="fa fa-angle-double-right" aria-hidden="true" placement="top" ngbTooltip="Entrou">
-                      {{ p.dataEntrada | date:'dd/MM/yyyy : HH:mm'}}
-                    </i>
+                    <span class="fa fa-angle-double-right" aria-hidden="true" placement="top" ngbTooltip="Entrou">
+                      {{ p.dataEntrada | date:'dd/MM/yyyy - HH:mm'}}
+                    </span>
                     <br />
                     <i *ngIf="p.dataSaida!=null" class="fa fa-angle-double-left" aria-hidden="true" placement="top"
                       ngbTooltip="Saiu">
-                      {{ p.dataSaida | date:'dd/MM/yyyy : HH:mm'}}
+                      {{ p.dataSaida | date:'dd/MM/yyyy - HH:mm'}}
                     </i>
                   </div>
 

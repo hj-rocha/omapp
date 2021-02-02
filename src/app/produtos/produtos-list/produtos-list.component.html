@@ -1,5 +1,5 @@
 <ol class="breadcrumb mb-4">
-<!--
+  <!--
   <li class="breadcrumb-item active">
     <div class="btn-group" role="group">
       <button class="btn btn-success btn-sm" routerLink="/produtos/form">
@@ -20,7 +20,6 @@
 -->
 </ol>
 
-<div class="container">
   <div class="row">
     <div class="col-md-12">
       <table class="table">
@@ -32,23 +31,34 @@
             <th>Venda</th>
   -->
             <th>Produto</th>
-            <th>Venda</th>
+
 
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let p of lista">
-
-
             <td>
-              <div class="btn-group btn-block" role="group">
-            <!--   <button class="btn btn-danger btn-sm" (click)="preparaDelecao(p)" data-toggle="modal"
+              <div class="row">
+                <div class="col-md-6">
+
+                  <!--   <button class="btn btn-danger btn-sm" (click)="preparaDelecao(p)" data-toggle="modal"
                   data-target="#modalDelecao" placement="top" ngbTooltip="Apagar">
                   <i class="fa fa-trash"></i>
                 </button>-->
-                <input type="button" class="alert-primary btn-sm btn-block" routerLink="/produtos/form/{{ p.id }}"
-                  placement="top" ngbTooltip="Editar" value="{{ p.nome }}">
+                  <input type="button" class="btn-primary btn-sm btn-block" routerLink="/produtos/form/{{ p.id }}"
+                    placement="top" ngbTooltip="Editar" value="{{ p.nome }}">
+                </div>
+                <div class="col-md-6">
+                  <span class="btn-sm btn-block alert-primary">
+                    <span>ID: {{p.id }} </span>
+
+
+                      <span *ngIf="p.venda>0" class="alert-sm  alert-info"> Preço: {{ p.venda | currency:'BRL'}}</span>
+                  </span>
+                </div>
               </div>
+
+
             </td>
 
             <!--  <td>
@@ -66,15 +76,14 @@
             <td>{{ p.id }} </td>
             <td>{{ p.nome }} </td>
           -->
-            <td>
-              {{ p.venda | currency:'BRL' }}
-            </td>
 
           </tr>
         </tbody>
       </table>
     </div>
   </div>
+
+  <!--
   <div id="modalDelecao" class="modal fade" role="dialog">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -95,3 +104,4 @@
   </div>
 
 </div>
+-->

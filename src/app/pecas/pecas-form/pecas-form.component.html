@@ -103,7 +103,7 @@
               <div class="col-md-12">
                 <div class="form-group">
                   <label>Data Cadastro</label>
-                  <input type="text" class="form-control" [(ngModel)]="peca.dataCadastro" name="dataCadastro"
+                  <input type="text" class="form-control" value="{{peca.dataCadastro | date:'dd/MM/yyyy : HH:mm'}}" name="dataCadastro"
                     readonly />
                 </div>
               </div>
@@ -113,7 +113,7 @@
               <div class="col-md-12">
                 <div class="form-group">
                   <label>Última Atualização</label>
-                  <input type="text" class="form-control" [(ngModel)]="peca.dataAtualizacao" name="dataAtualizacao"
+                  <input type="text" class="form-control"value="{{peca.dataAtualizacao | date:'dd/MM/yyyy : HH:mm'}}" name="dataAtualizacao"
                     readonly />
                 </div>
               </div>

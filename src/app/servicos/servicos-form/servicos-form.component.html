@@ -103,7 +103,7 @@
               <div class="col-md-12">
                 <div class="form-group">
                   <label>Data Cadastro</label>
-                  <input type="text" class="form-control" [(ngModel)]="servico.dataCadastro" name="dataCadastro"
+                  <input type="text" class="form-control" value="{{servico.dataCadastro | date:'dd/MM/yyyy : HH:mm'}}" name="dataCadastro"
                     readonly />
                 </div>
               </div>
@@ -113,7 +113,7 @@
               <div class="col-md-12">
                 <div class="form-group">
                   <label>Última Atualização</label>
-                  <input type="text" class="form-control" [(ngModel)]="servico.dataAtualizacao" name="dataAtualizacao"
+                  <input type="text" class="form-control" value="{{servico.dataAtualizacao | date:'dd/MM/yyyy : HH:mm'}}" name="dataAtualizacao"
                     readonly />
                 </div>
               </div>
@@ -131,7 +131,7 @@
                     <div class="form-group">
                       <label>Adicionar Fornecedor</label>
                       <input id="fornecedor" name="fornecedor" type="text" class="form-control" [(ngModel)]="fornecedor"
-                        [ngbTypeahead]="search" placeholder="Digite as iniciais no nome" [inputFormatter]="formatter"
+                        [ngbTypeahead]="search" placeholder="Digite as iniciais do nome" [inputFormatter]="formatter"
                         [resultFormatter]="formatter">
                       <input type="text" readonly class="form-control text-white bg-success mb-3"
                         *ngIf="fornecedor.cpf!=null" value="CPF: {{fornecedor.cpf}}">
@@ -165,7 +165,7 @@
                     <div class="form-group">
                       <label>Adicionar Imposto</label>
                       <input id="imposto" name="imposto" type="text" class="form-control" [(ngModel)]="imposto"
-                        [ngbTypeahead]="searchImposto" placeholder="Digite as iniciais no nome"
+                        [ngbTypeahead]="searchImposto" placeholder="Digite as iniciais do nome"
                         [inputFormatter]="formatterImposto" [resultFormatter]="formatterImposto">
                       <input type="text" readonly class="form-control text-white bg-success mb-3"
                         *ngIf="imposto.id!=null" value="Imposto: {{imposto.nome}} => {{imposto.percentual}}">

@@ -1,4 +1,3 @@
-
 <ol class="breadcrumb mb-4">
 
   <li class="breadcrumb-item active">
@@ -14,42 +13,50 @@
   </li>
 </ol>
 
-
-<div class="container">
   <div class="row">
     <div class="col-md-12">
       <table class="table">
         <thead>
           <tr>
-            <th>Nome</th>
-            <th>Tempo de Execução (min)</th>
-            <th>Preço</th>
+            <th>Serviço</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let p of lista">
             <td>
-              <!-- <div class="btn-group" role="group">-->
-              <div class="btn-group btn-block" role="group">
-                <button class="btn btn-danger btn-sm" (click)="preparaDelecao(p)" data-toggle="modal"
-                  data-target="#modalDelecao" placement="top" ngbTooltip="Apagar">
-                  <i class="fa fa-trash"></i>
-                </button>
-                <input type="button" class="alert-primary btn-sm btn-block" routerLink="/servicos/form/{{ p.id }}"
-                  placement="top" ngbTooltip="Editar" value="{{ p.nome }}">
-              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <!-- <div class="btn-group" role="group">-->
+                  <div class="btn-group btn-block" role="group">
+                    <button class="btn-danger btn-sm" (click)="preparaDelecao(p)" data-toggle="modal"
+                      data-target="#modalDelecao" placement="top" ngbTooltip="Apagar">
+                      <i class="fa fa-trash"></i>
+                    </button>
+                    <input type="button" class="btn-primary btn-sm btn-block" routerLink="/servicos/form/{{ p.id }}"
+                      placement="top" ngbTooltip="Editar" value="{{ p.nome }}">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <span class="btn-sm btn-block  alert-primary">
+                    <span>ID: {{p.id }} </span>
+                    <span *ngIf="p.tempoDeExecucao!=null" class="alert-sm  alert-info">
+
+                      {{ p.tempoDeExecucao }} min.
+                    </span>
+                    <span *ngIf="p.venda!=null">
+                      {{ p.venda | currency:'BRL' }}
+                    </span>
+                  </span>
 
 
-              <!--    <button class="btn btn-danger btn-sm" (click)="preparaDelecao(p)" data-toggle="modal"
+                  <!--    <button class="btn btn-danger btn-sm" (click)="preparaDelecao(p)" data-toggle="modal"
                   data-target="#modalDelecao" placement="top" ngbTooltip="Apagar">
                   <i class="fa fa-trash"></i>
                 </button>-->
-              <!--   </div>-->
-            </td>
-            <td>{{p.tempoDeExecucao}}</td>
+                  <!--   </div>-->
 
-            <td>
-              {{ p.venda | currency:'BRL' }}
+                </div>
+              </div>
             </td>
           </tr>
         </tbody>
@@ -75,4 +82,4 @@
     </div>
   </div>
 
-</div>
+

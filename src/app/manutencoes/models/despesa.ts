@@ -3,10 +3,10 @@ import { Pessoa } from './../../pessoas/model/pessoa';
 export class Despesa{
 
   id: number;
-  data: string;
+  data: Date;
   nome: string;
   responsavel: Pessoa;
   manutencao: Manutencao;
-  totalManutencao: number;
+  //totalManutencao: number;
 
 }

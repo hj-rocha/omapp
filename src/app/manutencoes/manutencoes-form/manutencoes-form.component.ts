@@ -49,6 +49,7 @@ export class ManutencoesFormComponent implements OnInit {
   statusManutencao: Boolean = null;
   erroAlterarStatus: string;
 
+  totalDespesas: number;
 
   constructor(private service: ManutencaoService,
     private router: Router,
@@ -192,6 +193,7 @@ export class ManutencoesFormComponent implements OnInit {
     this.serviceServicosPrestados.listarPorManutencao(this.manutencao.id)
       .subscribe(response => {
         this.servicosPrestados = response;
+        this.calcularTotalDespesas();
       });
   }
 
@@ -233,6 +235,17 @@ export class ManutencoesFormComponent implements OnInit {
       this.erroAlterarStatus = errorResponse.error.message;
       this.statusManutencao = null;
     })
+  }
+
+  calcularTotalDespesas(){
+    let total: number = 0;
+
+    for (let index = 0; index < this.servicosPrestados.length; index++) {
+      total = total +  this.servicosPrestados[index].servico.venda;
+    }
+    total = total + this.manutencao.veiculo.custo;
+    this.totalDespesas = total;
+
   }
 
 }

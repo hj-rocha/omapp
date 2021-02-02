@@ -9,41 +9,83 @@
 
   </li>
 </ol>
-<div class="container">
-  <div class="row">
-    <div class="col-md-12">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>E/D</th>
-            <th>Nome</th>
-            <th>CNPJ</th>
-      <!--      <th>Grupos</th>-->
-            <th>Cidade</th>
-            <th>Bairro</th>
-       <!--     <th>Data Nascimento</th>
-            <th>Usuário email</th>
-            <th>Id</th>-->
-            <th>Email</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let p of lista">
-            <td>
-              <div class="btn-group" role="group">
-                <button class="btn btn-primary btn-sm" routerLink="/pessoas/juridicas/form/{{ p.id }}" placement="top"
-                  ngbTooltip="Editar">
-                  <i class="fa fa-edit"></i>
-                </button>
-                <button class="btn btn-danger btn-sm" (click)="preparaDelecao(p)" data-toggle="modal"
-                  data-target="#modalDelecao" placement="top" ngbTooltip="Apagar">
-                  <i class="fa fa-trash"></i>
-                </button>
+<div class="row">
+  <div class="col-md-12">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Pessoas Jurídicas</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of lista">
+          <td>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="btn-group btn-block" role="group">
+                      <button class="btn-danger btn-sm" (click)="preparaDelecao(p)" data-toggle="modal"
+                        data-target="#modalDelecao" placement="top" ngbTooltip="Apagar">
+                        <i class="fa fa-trash"></i>
+                      </button>
+                      <input type="button" class="btn-primary btn-sm btn-block"
+                        routerLink="/pessoas/juridicas/form/{{ p.id }}" placement="top" ngbTooltip="Editar"
+                        value="{{ p.nome }}">
+
+                    </div>
+
+                  </div>
+                  <div class="col-md-6">
+                    <div class="row">
+
+                      <div class="col-md-12">
+                        <span class="btn-sm btn-block  alert-primary">
+                          <span>ID: {{p.id }} </span>
+                          <span *ngIf="p.razaoSocial!=null" class="alert-sm  alert-info"> {{ p.razaoSocial}}</span>
+                        </span>
+                      </div>
+                    </div>
+
+                    <!--      <div class="col-md-12">
+                      <div class="row">
+                        <span *ngIf="p.cnpj!=null" class="btn-sm btn-block  alert-primary">
+                          <span> CNPJ: {{p.cnpj |
+                            mask:"00.000.000/0000-00" }}
+                          </span>
+                        </span>
+                      </div>
+                    </div>-->
+                  </div>
+
+                </div>
+
               </div>
-            </td>
-            <td>{{ p.nome }} </td>
-            <td>{{p.cnpj}}</td>
-       <!--     <td>
+
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-6">
+                    <span *ngIf="p.cnpj!=null" class="btn-sm btn-block  alert-primary">
+                      <span> CNPJ: {{p.cnpj |
+                        mask:"00.000.000/0000-00" }}
+                      </span>
+                    </span>
+                    <!--  <span *ngIf="p.email!=''" class="btn-sm btn-block  alert-primary">
+                      <span>{{ p.email }}</span>
+                    </span>-->
+                  </div>
+                  <div class="col-md-6" *ngIf="p.endereco.cidade.nome!='Não cadastrada'">
+                    <span class="btn-sm btn-block  alert-primary">
+                      <span>{{ p.endereco.cidade.nome }} - </span>
+                      <span *ngIf="p.endereco.bairro!=''"> {{ p.endereco.bairro }}</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+
+          <!--     <td>
               <table *ngIf="(p.grupos)[0]" class="table">
                 <tr *ngFor="let g of p.grupos">
                   <td>{{g.nome}}</td>
@@ -52,34 +94,31 @@
               </table>
             </td>
           -->
-            <td><span *ngIf="p.endereco">{{ p.endereco.cidade.nome }}</span></td>
-            <td><span *ngIf="p.endereco">{{ p.endereco.bairro }}</span></td>
-      <!--      <td>{{ p.dataNascimento}}</td>
+          <!--      <td>{{ p.dataNascimento}}</td>
             <td><span *ngIf="p.usuario">{{ p.usuario.username }}</span></td>
             <td>{{ p.id }}</td>-->
-            <td>{{ p.email }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+
+
+        </tr>
+      </tbody>
+    </table>
   </div>
-  <div id="modalDelecao" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4>Confirmação</h4>
-        </div>
+</div>
+<div id="modalDelecao" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4>Confirmação</h4>
+      </div>
 
-        <div class="modal-body" *ngIf="pessoaSelecionada">
-          Confirma a deleção da Pessoa {{ pessoaSelecionada.nome }}?
-        </div>
+      <div class="modal-body" *ngIf="pessoaSelecionada">
+        Confirma a deleção da Pessoa {{ pessoaSelecionada.nome }}?
+      </div>
 
-        <div class="modal-footer">
-          <button class="btn btn-success" (click)="deletarPessoa()" data-dismiss="modal">Confirmar</button>
-          <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
-        </div>
+      <div class="modal-footer">
+        <button class="btn btn-success" (click)="deletarPessoa()" data-dismiss="modal">Confirmar</button>
+        <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
       </div>
     </div>
   </div>
-
 </div>

@@ -1,20 +1,20 @@
 <ol class="breadcrumb mb-4">
   <li class="breadcrumb-item active">{{ id ? 'Editando as permissões do grupo: ' : 'Cadastrar grupo' }}</li>
-  <li class="breadcrumb-item active"><a routerLink="/pessoas/grupos/list" >Voltar para listagem</a></li>
+  <li class="breadcrumb-item active"><a routerLink="/pessoas/grupos/list">Voltar para listagem</a></li>
 </ol>
 
 <!--  <form #grupoForm="ngForm" (ngSubmit)="onSubmit()">
 -->
-    <div class="row">
-      <div class="col-md-12">
-        <div class="alert alert-success" role="alert" *ngIf="success == true">
-          Permissões atualizadas com sucesso!
-        </div>
-        <div class="alert alert-danger" role="alert" *ngIf="success == false">
-          {{ mensagemErro}}
-        </div>
-      </div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="alert alert-success" role="alert" *ngIf="success == true">
+      Permissões atualizadas com sucesso!
     </div>
+    <div class="alert alert-danger" role="alert" *ngIf="success == false">
+      {{ mensagemErro}}
+    </div>
+  </div>
+</div>
 
 <!--    <div class="row">
       <div class="col-md-6">
@@ -34,7 +34,7 @@
       </div>
     </div>
   -->
-    <!--
+<!--
     <div class="card text-white bg-info mb-3">
       <div class="card-body">
         <div class="card-header">
@@ -73,45 +73,67 @@
 
 
 
-   <div class="row">
-      <div class="col-md-12">
-        <div class="card text-white bg-info mb-3">
-          <div class="card-body">
-            <div class="card-header">
-              <h6 class="card-title">Grupo: {{permissoesInput[0].grupoNome}}</h6>
-              <h6 class="card-subtitle mb-2">Permissões do grupo</h6>
-            </div>
-            <table class="table">
-              <tr *ngFor="let p of permissoesInput; let i=index">
-                <td>
-                  {{p.id}}
-                </td>
-                <td>
-                  <span *ngIf="p.pertence">
-                    <button class="btn btn-danger btn-sm" type="button" (click)="desassociarPermissaoAoGrupo(p.id,i)"
-                    placement="top" ngbTooltip="Desassociar">
-                    <i class="fa fa-unlock"></i>
-                  </button>
-                  </span>
-                  <span *ngIf="!p.pertence">
-                    <button class="btn btn-success btn-sm" type="button" (click)="associarPermissaoAoGrupo(p.id,i)"
-                    placement="top" ngbTooltip="Associar">
-                    <i class="fa fa-lock"></i>
-                  </button>
-                  </span>
-                </td>
-                <td>
-                  {{p.nome}}
-                </td>
-                <td>
-                  <span *ngIf="p.pertence">
-                Associada
-                  </span>
-                </td>
-
-              </tr>
-            </table>
-          </div>
+<div class="row">
+  <div class="col-md-12">
+    <!--    <div class="card text-white bg-primary mb-3">
+      <div class="card-body">
+        <div class="card-header">
+          <h6 class="card-title">Grupo: {{permissoesInput[0].grupoNome}}</h6>
+          <h6 class="card-subtitle mb-2">Permissões do grupo</h6>
         </div>
-      </div>
-    </div>
+      -->
+    <table class="table">
+      <thead>
+        <tr>
+        <tr>
+          <th>Permissões do grupo:{{permissoesInput[0].grupoNome}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of permissoesInput; let i=index">
+          <td>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-6">
+                    <span class="btn-sm btn-block  alert-primary">
+                      {{p.nome}}
+                    </span>
+                  </div>
+                  <div class="col-md-6">
+                    <span class="btn-sm btn-block  alert-primary">
+                      <span>ID: {{p.id }} </span>
+                      <span *ngIf="p.pertence">
+                        <button class="btn btn-danger btn-sm" type="button"
+                          (click)="desassociarPermissaoAoGrupo(p.id,i)" placement="top" ngbTooltip="Desassociar">
+                          <i class="fa fa-unlock"></i>
+                        </button>
+                      </span>
+                      <span *ngIf="!p.pertence">
+                        <button class="btn btn-success btn-sm" type="button" (click)="associarPermissaoAoGrupo(p.id,i)"
+                          placement="top" ngbTooltip="Associar">
+                          <i class="fa fa-lock"></i>
+                        </button>
+                      </span>
+                      <span *ngIf="p.pertence">
+                        Associada
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+          </td>
+
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<!--
+  </div>
+</div>
+-->

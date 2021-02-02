@@ -13,8 +13,13 @@ export class ServicoService {
 
   constructor(private http: HttpClient) {}
 
+
+    //buscarPorNome(nome: string) : Observable<Servico> {
+    //  return this.http.get<any>(`${this.apiURL}/nome/${nome}`);
+   // }
+
     buscarPorNome(nome: string) : Observable<Servico> {
-      return this.http.get<any>(`${this.apiURL}/nome/${nome}`);
+      return this.http.get<any>(`${this.apiURL}`);
     }
 
   }

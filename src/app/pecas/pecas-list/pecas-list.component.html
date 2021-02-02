@@ -14,64 +14,87 @@
 </ol>
 
 
-<div class="container">
-  <div class="row">
-    <div class="col-md-12">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Nome</th>
-            <th>Código Interno</th>
-            <th>Preço</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let p of lista">
-            <td>
-              <!-- <div class="btn-group" role="group">-->
-              <div class="btn-group btn-block" role="group">
-                <button class="btn btn-danger btn-sm" (click)="preparaDelecao(p)" data-toggle="modal"
-                  data-target="#modalDelecao" placement="top" ngbTooltip="Apagar">
-                  <i class="fa fa-trash"></i>
-                </button>
-                <input type="button" class="alert-primary btn-sm btn-block" routerLink="/pecas/form/{{ p.id }}"
-                  placement="top" ngbTooltip="Editar" value="{{ p.nome }}">
+<div class="row">
+  <div class="col-md-12">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Peças</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of lista">
+          <td>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="btn-group btn-block" role="group">
+                      <button class="btn-danger btn-sm" (click)="preparaDelecao(p)" data-toggle="modal"
+                        data-target="#modalDelecao" placement="top" ngbTooltip="Apagar">
+                        <i class="fa fa-trash"></i>
+                      </button>
+                      <input type="button" class="btn-primary btn-sm btn-block" routerLink="/pecas/form/{{ p.id }}"
+                        placement="top" ngbTooltip="Editar" value="{{ p.nome }}">
+                    </div>
+                  </div>
+
+
+                  <div class="col-md-6">
+                    <span class="btn-sm btn-block  alert-primary">
+                      <span>ID: {{p.id }} </span>
+                      <span *ngIf="p.codigoInterno!=null" class="alert-sm  alert-info"> Cód. Int.:
+                        {{p.codigoInterno}}</span>
+                    </span>
+                  </div>
+                </div>
               </div>
 
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-6">
+                    <span *ngIf="p.marca.id!=1 || p.venda>0" class="btn-sm btn-block  alert-primary">
+                      <span *ngIf="p.marca.id!=1">{{p.marca.nome }} </span>
+                      <span *ngIf="p.venda>0" class="alert-sm  alert-info"> Preço: {{ p.venda | currency:'BRL'}}</span>
+                    </span>
+                  </div>
+                  <div class="col-md-6">
+                  </div>
+                </div>
+              </div>
 
-              <!--    <button class="btn btn-danger btn-sm" (click)="preparaDelecao(p)" data-toggle="modal"
+            </div>
+
+            <!-- <div class="btn-group" role="group">-->
+
+            <!--    <button class="btn btn-danger btn-sm" (click)="preparaDelecao(p)" data-toggle="modal"
                   data-target="#modalDelecao" placement="top" ngbTooltip="Apagar">
                   <i class="fa fa-trash"></i>
                 </button>-->
-              <!--   </div>-->
-            </td>
-            <td>{{p.codigoInterno}}</td>
+            <!--   </div>-->
 
-            <td>
-              {{ p.venda | currency:'BRL' }}
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-  <div id="modalDelecao" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4>Confirmação</h4>
-        </div>
+</div>
+<div id="modalDelecao" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4>Confirmação</h4>
+      </div>
 
-        <div class="modal-body" *ngIf="itemSelecionado">
-          Confirma a deleção da peça {{ itemSelecionado.nome }}?
-        </div>
+      <div class="modal-body" *ngIf="itemSelecionado">
+        Confirma a deleção da peça {{ itemSelecionado.nome }}?
+      </div>
 
-        <div class="modal-footer">
-          <button class="btn btn-success" (click)="deletar()" data-dismiss="modal">Confirmar</button>
-          <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
-        </div>
+      <div class="modal-footer">
+        <button class="btn btn-success" (click)="deletar()" data-dismiss="modal">Confirmar</button>
+        <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
       </div>
     </div>
   </div>
-
 </div>

@@ -10,47 +10,79 @@
   </li>
 </ol>
 
-<div class="container">
   <div class="row">
     <div class="col-md-12">
       <table class="table">
         <thead>
           <tr>
-            <th>Nome</th>
-            <th>Ano</th>
-            <th>Preço</th>
-            <th>Placa</th>
+            <th>Veículo</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let p of lista">
             <td>
-              <!-- <div class="btn-group" role="group">-->
-              <div class="btn-group btn-block" role="group">
-                <button class="btn btn-danger btn-sm" (click)="preparaDelecao(p)" data-toggle="modal"
-                  data-target="#modalDelecao" placement="top" ngbTooltip="Apagar">
-                  <i class="fa fa-trash"></i>
-                </button>
-                <input type="button" class="alert-primary btn-sm btn-block" routerLink="/veiculos/form/{{ p.id }}"
-                  placement="top" ngbTooltip="Editar" value="{{ p.nome }}">
-              </div>
 
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <!-- <div class="btn-group" role="group">-->
+                      <div class="btn-group btn-block" role="group">
+                        <button class="btn-danger btn-sm" (click)="preparaDelecao(p)" data-toggle="modal"
+                          data-target="#modalDelecao" placement="top" ngbTooltip="Apagar">
+                          <i class="fa fa-trash"></i>
+                        </button>
+                        <input type="button" class="btn-primary btn-sm btn-block" routerLink="/veiculos/form/{{ p.id }}"
+                          placement="top" ngbTooltip="Editar" value="{{ p.nome }}">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <span class="btn-sm btn-block  alert-primary">
+                        <span>ID: {{p.id }} </span>
+                        <span *ngIf="p.nome!=null" class="alert-sm  alert-info">{{p.placa}}</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
 
-              <!--    <button class="btn btn-danger btn-sm" (click)="preparaDelecao(p)" data-toggle="modal"
+                <div class="col-md-6">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <span *ngIf="p.marca.id!=1 || p.renavam!=null" class="btn-sm btn-block  alert-primary">
+                        <span *ngIf="p.marca.id!=1">{{p.marca.nome }} </span>
+                        <span class="alert-sm  alert-info" *ngIf="p.renavam!=null">
+                          <span>Renavam: {{p.renavam}}</span>
+                        </span>
+                      </span>
+                    </div>
+
+                    <div class="col-md-6">
+
+                      <!--    <button class="btn btn-danger btn-sm" (click)="preparaDelecao(p)" data-toggle="modal"
                   data-target="#modalDelecao" placement="top" ngbTooltip="Apagar">
                   <i class="fa fa-trash"></i>
                 </button>-->
-              <!--   </div>-->
-            </td>
-            <td>{{p.anoFabricacao}}</td>
-            <td>
+                      <!--   </div>-->
+                  <span  *ngIf="p.anoFabricacao!=null || p.anoModelo!=null || p.venda>0" class="btn-sm btn-block  alert-primary">
+                      <span *ngIf="p.anoFabricacao!=null">
+                        {{p.anoFabricacao}}
+                      </span>
+                      <span *ngIf="p.anoModelo!=null">
 
-              <!--'' <input type="text" class="form-control" [(ngModel)]="p.venda" name="venda" currencyMask
+                        /{{p.anoModelo}}
+                      </span>
+
+                      <!--'' <input type="text" class="form-control" [(ngModel)]="p.venda" name="venda" currencyMask
                   [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" readonly />-->
-              {{ p.venda | currency:'BRL' }}
-
+                      <span *ngIf="p.venda>0" class="alert-sm  alert-info">
+                        Preço: {{ p.venda | currency:'BRL' }}
+                      </span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </td>
-            <td>{{p.placa}}</td>
           </tr>
         </tbody>
       </table>
@@ -75,4 +107,3 @@
     </div>
   </div>
 
-</div>
