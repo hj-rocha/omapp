@@ -45,9 +45,9 @@
                 <div class="col-md-6">
                   <div class="row">
                     <div class="col-md-6">
-                      <span *ngIf="p.marca.id!=1 || p.renavam!=null" class="btn-sm btn-block  alert-primary">
+                      <span *ngIf="p.marca.id!=1 || (p.renavam!='' && p.renavam!=null) " class="btn-sm btn-block  alert-primary">
                         <span *ngIf="p.marca.id!=1">{{p.marca.nome }} </span>
-                        <span class="alert-sm  alert-info" *ngIf="p.renavam!=null">
+                        <span class="alert-sm  alert-info" *ngIf="(p.renavam!='' && p.renavam!=null)">
                           <span>Renavam: {{p.renavam}}</span>
                         </span>
                       </span>

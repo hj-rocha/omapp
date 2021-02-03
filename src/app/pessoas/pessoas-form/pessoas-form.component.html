@@ -35,7 +35,7 @@
       <div class="col-md-6">
         <div class="form-group">
           <label>CPF</label>
-          <input type="text" class="form-control" [(ngModel)]="pessoa.cpf" name="cpf" />
+          <input type="text" class="form-control" [(ngModel)]="pessoa.cpf" name="cpf"  mask="000.000.000-00" />
         </div>
       </div>
     </div>
@@ -146,7 +146,7 @@
       <div class="col-md-6">
         <div class="form-group">
           <label>CEP</label>
-          <input type="text" class="form-control" [(ngModel)]="pessoa.endereco.cep" name="cep" />
+          <input type="text" class="form-control" [(ngModel)]="pessoa.endereco.cep" name="cep" mask="00.000-000"/>
         </div>
       </div>
     </div>

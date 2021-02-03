@@ -1,4 +1,3 @@
-
 <ol class="breadcrumb mb-4">
   <li class="breadcrumb-item active">{{ id ? 'Editando ' : 'Cadastrando' }}</li>
   <li class="breadcrumb-item active"><a routerLink="/manutencoes/list">Voltar para listagem</a></li>
@@ -12,7 +11,14 @@
         <div class="card-body">
 
           <div class="card-header">
-            <h5 class="card-title">Manutenção <span class="badge  badge-info"> Id: {{manutencao.id}}</span></h5>
+            <h5 class="card-title">Manutenção <span class="badge  badge-info"> Id: {{manutencao.id}}</span>
+
+              <span *ngIf="manutencao.ativa" class="badge badge-success" placement="right"
+                ngbTooltip="Manutenção Aberta"><i class="fa fa-flag-checkered"></i></span>
+              <span *ngIf="!manutencao.ativa" class="badge badge-warning" placement="right"
+                ngbTooltip="Manutenção Fechada"><i class="fa fa-flag-checkered"></i></span>
+
+            </h5>
 
 
           </div>
@@ -36,7 +42,7 @@
               </div>
             </div>
 
-            <div class="col-md-4" *ngIf="manutencao.id">
+            <div class="col-md-6" *ngIf="manutencao.id">
               <div class="form-group">
                 <label>Veículo Nome</label>
                 <input type="text" [(ngModel)]="manutencao.veiculo.nome" name="manutencao.nome" class="form-control"
@@ -45,9 +51,11 @@
             </div>
 
             <div class="col-md-2">
+              <div class="form-group">
               <label>Custo Total do Veículo</label>
               <input type="text" class="form-control" [(ngModel)]="totalDespesas" name="custo" currencyMask
                 [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" readonly>
+                </div>
             </div>
 
 
@@ -68,69 +76,40 @@
               </div>
             </div>
           -->
-            <div class="col-md-4">
-              <label>Status da Manutenção</label>
-              <div class="card text-white bg-info mb-3">
-                <div class="card-body">
+            <div class="col-md-2" *ngIf="manutencao.id">
+              <div class="form-group">
+                <label>Status da Manutenção</label>
 
-                  <div class="row">
-                    <div class="col-md-6" *ngIf="manutencao.ativa != null">
-                      <div class="form-group">
-                        <label>Status</label>
+                  <div *ngIf="statusManutencao == null; then thenBlock else elseBlock"></div>
+                  <ng-template #thenBlock>
+                    <button class="form-control btn btn-danger" type="button" *ngIf="manutencao.ativa == true"
+                      (click)="statusManutencao=false">Fechar</button>
+                    <button class="form-control btn btn-warning" type="button" *ngIf="manutencao.ativa == false"
+                      (click)="statusManutencao=true">Abrir</button>
 
-                        <input type="text" *ngIf="manutencao.ativa" class="form-control btn btn-success" placement="top"
-                          ngbTooltip="Aberta" value="Aberta" />
-                        <!-- <div class="alert alert-success" *ngIf="manutencao.ativa" >Aberta</div>
-                        <div class="alert alert-danger" *ngIf="!manutencao.ativa" >Fechada</div>-->
-                        <input type="text" *ngIf="!manutencao.ativa" class="form-control btn btn-danger" placement="top"
-                          ngbTooltip="Fechada" value="Fechada" />
-                        <!--
 
-                  <input type="text" [(ngModel)]="manutencao.ativa" name="manutencao.status" class="form-control"
-                    disabled="true" />-->
-                      </div>
+                  </ng-template>
+
+                  <ng-template #elseBlock>
+
+                    <button class="form-control btn btn-danger" type="button" *ngIf="manutencao.ativa == true"
+                      (click)="statusManutencao=false">Fechar</button>
+                    <button class="form-control btn btn-warning" type="button" *ngIf="manutencao.ativa == false"
+                      (click)="statusManutencao=true">Abrir</button>
+                    <div class="alert alert-danger">
+
+                      Tem certeza que deseja alterar o status da manutenção?
+                      <button class="form-control btn btn-warning" type="button" (click)="statusManutencao=null">Não
+                        alterar</button>
+                      <p></p>
+                      <button type="submit" class="form-control btn btn-warning" *ngIf="manutencao.id"
+                        (click)="alterarStatusManutencao()">
+                        <i class="fa fa-sync-alt"> Sim</i>
+                      </button>
                     </div>
-
-                    <div class="col-md-6" *ngIf="manutencao.id">
-
-                      <div class="form-group">
-                        <label>Alterar Status</label>
-                        <div *ngIf="statusManutencao == null; then thenBlock else elseBlock"></div>
-                        <ng-template #thenBlock>
-                          <button class="form-control btn btn-danger" type="button" *ngIf="manutencao.ativa == true"
-                            (click)="statusManutencao=false">Fechar</button>
-                          <button class="form-control btn btn-warning" type="button" *ngIf="manutencao.ativa == false"
-                            (click)="statusManutencao=true">Abrir</button>
-
-
-                        </ng-template>
-
-                        <ng-template #elseBlock>
-
-                          <button class="form-control btn btn-danger" type="button" *ngIf="manutencao.ativa == true"
-                            (click)="statusManutencao=false">Fechar</button>
-                          <button class="form-control btn btn-warning" type="button" *ngIf="manutencao.ativa == false"
-                            (click)="statusManutencao=true">Abrir</button>
-                          <div class="alert alert-danger">
-
-                            Tem certeza que deseja alterar o status da manutenção?
-                            <button class="form-control btn btn-warning" type="button"
-                              (click)="statusManutencao=null">Não
-                              alterar</button>
-                            <p></p>
-                            <button type="submit" class="form-control btn btn-warning" *ngIf="manutencao.id"
-                              (click)="alterarStatusManutencao()">
-                              <i class="fa fa-sync-alt"> Sim</i>
-                            </button>
-                          </div>
-                        </ng-template>
-                      </div>
-                    </div>
-
-                  </div>
+                  </ng-template>
 
                 </div>
-              </div>
             </div>
 
 
@@ -230,7 +209,7 @@
             <button type="submit" class="btn btn-warning" *ngIf="manutencao.id">
               <i class="fa fa-sync-alt"></i> Atualizar
             </button>
-<!--
+            <!--
             <button type="button" class="btn btn-danger ml-1" routerLink="/manutencoes/list">
               <i class="fa fa-arrow-left"></i> Voltar
             </button>-->
@@ -249,7 +228,7 @@
 <div class="row">
 
   <div class="col-md-4">
-    <div class="card text-white bg-primary mb-3">
+    <div class="card text-white bg-secondary mb-3">
       <div class="card-body">
 
         <div class="card-header">
@@ -385,7 +364,7 @@
                       <button class="btn btn-sm" style="text-align: left;">
 
                         <div>Id: {{item.id}}</div>
-                        <div>Início: {{item.data}}</div>
+                        <div>Início: {{item.data }}</div>
                         <div>Serviço: {{item.servico.nome}}</div>
                         <div>Valor: {{item.servico.venda | currency:'BRL'}}</div>
                         <div>Responsável: {{item.responsavel.nome}}</div>
@@ -438,7 +417,7 @@
   </div>
 
   <div class="col-md-4">
-    <div class="card text-white bg-primary mb-3">
+    <div class="card text-white bg-secondary mb-3">
       <div class="card-body">
 
         <div class="card-header">
