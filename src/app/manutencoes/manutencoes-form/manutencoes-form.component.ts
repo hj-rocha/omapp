@@ -53,6 +53,8 @@ export class ManutencoesFormComponent implements OnInit {
   peca:Peca = new Peca();
   pecasUtilizadas: PecaUtilizada[] = [];
   pecaUtilizadaSelecionada: PecaUtilizada;
+  quantidade: number;
+
 
   msgSucessoPecaUtilizadaRemovido: string;
   msgSucessoPecaUtilizadaRemovidoStatus: boolean;
@@ -217,7 +219,7 @@ export class ManutencoesFormComponent implements OnInit {
     pU.responsavel = this.responsavelPelaDespesa;
     pU.peca = this.peca;
     pU.manutencao = this.manutencao;
-    pU.quantidade = 1;
+    pU.quantidade = this.quantidade;
     this.servivePecaUtilizada.adicionarPecaUtilizada(pU)
       .subscribe(response => {
         this.carregarPecasUtilizadas();
@@ -327,7 +329,7 @@ export class ManutencoesFormComponent implements OnInit {
       total = total +  this.servicosPrestados[index].servico.venda;
     }
     for (let index = 0; index < this.pecasUtilizadas.length; index++) {
-      total = total +  this.pecasUtilizadas[index].peca.venda;
+      total = total +  this.pecasUtilizadas[index].peca.venda * this.pecasUtilizadas[index].quantidade;
     }
 
     total = total + this.manutencao.veiculo.custo;

@@ -415,11 +415,30 @@
           <div class="card-body">
 
             <div class="row">
-              <div class="col-md-12">
+              <div class="col-md-8">
 
                 <input id="peca" name="peca" type="text" class="form-control" [(ngModel)]="peca"
-                  [ngbTypeahead]="searchPeca" placeholder="Digite o nome da peca"
-                  [inputFormatter]="formatterPeca" [resultFormatter]="formatterPeca">
+                  [ngbTypeahead]="searchPeca" placeholder="Digite o nome da peca" [inputFormatter]="formatterPeca"
+                  [resultFormatter]="formatterPeca">
+
+              </div>
+              <div class="col-md-4">
+                <input id="qtd" name="qtd" type="text" class="form-control"
+                  [(ngModel)]="quantidade" placeholder="Qtd" >
+              </div>
+            </div>
+            <div class="row">
+
+              <div class="col-md-12">
+
+                <!-- <div class="btn-group btn-block" role="group"> -->
+                <input id="responsavelPelaDespesa" name="responsavelPelaDespesa" type="text" class="form-control"
+                  [(ngModel)]="responsavelPelaDespesa" [ngbTypeahead]="search" placeholder="Digite o seu nome"
+                  [inputFormatter]="formatter" [resultFormatter]="formatter">
+
+                <button type="button" class="btn btn-success" (click)="adicionarPecaUsada()">
+                  Adicionar
+                </button>
 
               </div>
             </div>
@@ -454,10 +473,12 @@
 
                 <div class="row">
                   <div class="col-md-12">
-                    <div class="alert alert-success" role="alert" *ngIf="msgSucessoPecaUtilizadaAdicionadoStatus == true">
+                    <div class="alert alert-success" role="alert"
+                      *ngIf="msgSucessoPecaUtilizadaAdicionadoStatus == true">
                       {{msgSucessoPecaUtilizadaAdicionado}}
                     </div>
-                    <div class="alert alert-danger" role="alert" *ngIf="msgSucessoPecaUtilizadaAdicionadoStatus == false">
+                    <div class="alert alert-danger" role="alert"
+                      *ngIf="msgSucessoPecaUtilizadaAdicionadoStatus == false">
                       {{msgSucessoPecaUtilizadaAdicionado}}
                     </div>
                   </div>
@@ -476,70 +497,56 @@
 
               </div>
             </div>
-            <div class="row">
 
-              <div class="col-md-12">
-
-                <!-- <div class="btn-group btn-block" role="group"> -->
-                <input id="responsavelPelaDespesa" name="responsavelPelaDespesa" type="text" class="form-control"
-                  [(ngModel)]="responsavelPelaDespesa" [ngbTypeahead]="search" placeholder="Digite o seu nome"
-                  [inputFormatter]="formatter" [resultFormatter]="formatter">
-
-                <button type="button" class="btn btn-success" (click)="adicionarPecaUsada()">
-                  Adicionar
-                </button>
-
-              </div>
-            </div>
           </div>
         </div>
 
 
 
-            <div class="row">
-              <div class="col-md-12">
-                <table class="table">
-                  <thead>
-                    <tr>
+        <div class="row">
+          <div class="col-md-12">
+            <table class="table">
+              <thead>
+                <tr>
 
-                      <th>Controles</th>
-                      <th>Descrição</th>
+                  <th>Controles</th>
+                  <th>Descrição</th>
 
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let item of pecasUtilizadas">
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of pecasUtilizadas">
 
-                      <td>
+                  <td>
 
-                        <div class="row" *ngIf="item.dataEntrega == null">
-                          <div class="col-md-12">
-                            <button type="button" class="btn btn-danger" (click)="preparaDelecaoPeca(item)" placement="top"
-                              ngbTooltip="Apagar" data-toggle="modal" data-target="#modalDelecaoPeca">
-                              <i class="fa fa-trash"></i>
-                            </button>
-                          </div>
-                        </div>
-                        <br />
+                    <div class="row" *ngIf="item.dataEntrega == null">
+                      <div class="col-md-12">
+                        <button type="button" class="btn btn-danger" (click)="preparaDelecaoPeca(item)" placement="top"
+                          ngbTooltip="Apagar" data-toggle="modal" data-target="#modalDelecaoPeca">
+                          <i class="fa fa-trash"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <br />
 
 
-                      </td>
-                      <td>
-                        <div class="card">
-                          <button class="btn btn-sm" style="text-align: left;">
+                  </td>
+                  <td>
+                    <div class="card">
+                      <button class="btn btn-sm" style="text-align: left;">
 
-                            <div>Id: {{item.id}}</div>
-                            <div>Início: {{item.data | date:'dd/MM/yyyy : HH:mm'}}</div>
-                            <div>Serviço: {{item.peca.nome}}</div>
-                            <div>Valor: {{item.peca.venda | currency:'BRL'}}</div>
-                            <div>Qtd: {{item.quantidade }}</div>
-                            <div>Responsável: {{item.responsavel.nome}}</div>
+                        <div>Id: {{item.id}}</div>
+                        <div>Saída: {{item.data | date:'dd/MM/yyyy : HH:mm'}}</div>
+                        <div>Peça: {{item.peca.nome}}</div>
+                        <div  class="btn-info" style="padding-left: 5px;">Valor Unitário: {{item.peca.venda | currency:'BRL'}}</div>
+                        <div  class="btn-info" style="padding-left: 5px;">Qtd: {{item.quantidade }}</div>
+                        <div>Responsável: {{item.responsavel.nome}}</div>
 
-                          </button>
-                        </div>
+                      </button>
+                    </div>
 
-                        <!-- <div class="btn-group" role="group">-->
-                        <!--     <div class="btn-group btn-block" role="group">
+                    <!-- <div class="btn-group" role="group">-->
+                    <!--     <div class="btn-group btn-block" role="group">
                             <button class="btn btn-danger btn-sm"  data-toggle="modal"
                               data-target="#modalDelecao" placement="top" ngbTooltip="Apagar">
                               <i class="fa fa-trash"></i>
@@ -548,13 +555,13 @@
                               placement="top" ngbTooltip="Editar" value="{{item.servico.nome }}">
                           </div>-->
 
-                      </td>
+                  </td>
 
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
 
 
 
