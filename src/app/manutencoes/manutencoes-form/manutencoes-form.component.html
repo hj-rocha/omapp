@@ -13,11 +13,12 @@
           <div class="card-header">
             <h5 class="card-title">Manutenção <span class="badge  badge-info"> Id: {{manutencao.id}}</span>
 
-              <span *ngIf="manutencao.ativa" class="badge badge-success" placement="right"
-                ngbTooltip="Manutenção Aberta"><i class="fa fa-flag-checkered"></i></span>
-              <span *ngIf="!manutencao.ativa" class="badge badge-warning" placement="right"
-                ngbTooltip="Manutenção Fechada"><i class="fa fa-flag-checkered"></i></span>
-
+              <span *ngIf="manutencao.id!=null">
+                <span *ngIf="manutencao.ativa" class="badge badge-success" placement="right"
+                  ngbTooltip="Manutenção Aberta"><i class="fa fa-flag-checkered"></i></span>
+                <span *ngIf="!manutencao.ativa" class="badge badge-warning" placement="right"
+                  ngbTooltip="Manutenção Fechada"><i class="fa fa-flag-checkered"></i></span>
+              </span>
             </h5>
 
 
@@ -52,10 +53,10 @@
 
             <div class="col-md-2" *ngIf="manutencao.id">
               <div class="form-group">
-              <label>Custo Total do Veículo</label>
-              <input type="text" class="form-control" [(ngModel)]="totalDespesas" name="custo" currencyMask
-                [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" readonly>
-                </div>
+                <label>Custo Total do Veículo</label>
+                <input type="text" class="form-control" [(ngModel)]="totalDespesas" name="custo" currencyMask
+                  [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" readonly>
+              </div>
             </div>
 
 
@@ -80,36 +81,36 @@
               <div class="form-group">
                 <label>Status da Manutenção</label>
 
-                  <div *ngIf="statusManutencao == null; then thenBlock else elseBlock"></div>
-                  <ng-template #thenBlock>
-                    <button class="form-control btn btn-danger" type="button" *ngIf="manutencao.ativa == true"
-                      (click)="statusManutencao=false">Fechar</button>
-                    <button class="form-control btn btn-warning" type="button" *ngIf="manutencao.ativa == false"
-                      (click)="statusManutencao=true">Abrir</button>
+                <div *ngIf="statusManutencao == null; then thenBlock else elseBlock"></div>
+                <ng-template #thenBlock>
+                  <button class="form-control btn btn-danger" type="button" *ngIf="manutencao.ativa == true"
+                    (click)="statusManutencao=false">Fechar</button>
+                  <button class="form-control btn btn-warning" type="button" *ngIf="manutencao.ativa == false"
+                    (click)="statusManutencao=true">Abrir</button>
 
 
-                  </ng-template>
+                </ng-template>
 
-                  <ng-template #elseBlock>
+                <ng-template #elseBlock>
 
-                    <button class="form-control btn btn-danger" type="button" *ngIf="manutencao.ativa == true"
-                      (click)="statusManutencao=false">Fechar</button>
-                    <button class="form-control btn btn-warning" type="button" *ngIf="manutencao.ativa == false"
-                      (click)="statusManutencao=true">Abrir</button>
-                    <div class="alert alert-danger">
+                  <button class="form-control btn btn-danger" type="button" *ngIf="manutencao.ativa == true"
+                    (click)="statusManutencao=false">Fechar</button>
+                  <button class="form-control btn btn-warning" type="button" *ngIf="manutencao.ativa == false"
+                    (click)="statusManutencao=true">Abrir</button>
+                  <div class="alert alert-danger">
 
-                      Tem certeza que deseja alterar o status da manutenção?
-                      <button class="form-control btn btn-warning" type="button" (click)="statusManutencao=null">Não
-                        alterar</button>
-                      <p></p>
-                      <button type="submit" class="form-control btn btn-warning" *ngIf="manutencao.id"
-                        (click)="alterarStatusManutencao()">
-                        <i class="fa fa-sync-alt"> Sim</i>
-                      </button>
-                    </div>
-                  </ng-template>
+                    Tem certeza que deseja alterar o status da manutenção?
+                    <button class="form-control btn btn-warning" type="button" (click)="statusManutencao=null">Não
+                      alterar</button>
+                    <p></p>
+                    <button type="submit" class="form-control btn btn-warning" *ngIf="manutencao.id"
+                      (click)="alterarStatusManutencao()">
+                      <i class="fa fa-sync-alt"> Sim</i>
+                    </button>
+                  </div>
+                </ng-template>
 
-                </div>
+              </div>
             </div>
 
 
@@ -410,8 +411,153 @@
         <div class="card-header">
           <h5 class="card-title">Peças Utilizadas</h5>
         </div>
+        <div class="card text-white bg-info mb-3">
+          <div class="card-body">
 
-        ...
+            <div class="row">
+              <div class="col-md-12">
+
+                <input id="peca" name="peca" type="text" class="form-control" [(ngModel)]="peca"
+                  [ngbTypeahead]="searchPeca" placeholder="Digite o nome da peca"
+                  [inputFormatter]="formatterPeca" [resultFormatter]="formatterPeca">
+
+              </div>
+            </div>
+
+
+            <div class="card text-white bg- mb-3" *ngIf="msgSucessoPecaUtilizadaAdicionadoStatus != null
+            || msgSucessoPecaUtilizadaRemovidoStatus != null">
+              <div class="card-body">
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <div *ngIf="msgSucessoPecaUtilizadaAdicionadoStatus != null
+                || msgSucessoPecaUtilizadaRemovidoStatus != null">
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="alert alert-success" role="alert" *ngIf="msgSucessoPecaUtilizadaRemovidoStatus == true">
+
+                      {{msgSucessoPecaUtilizadaRemovido}}
+                    </div>
+                    <div class="alert alert-danger" role="alert" *ngIf="msgSucessoPecaUtilizadaRemovidoStatus == false">
+
+                      {{msgSucessoPecaUtilizadaRemovido}}
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="alert alert-success" role="alert" *ngIf="msgSucessoPecaUtilizadaAdicionadoStatus == true">
+                      {{msgSucessoPecaUtilizadaAdicionado}}
+                    </div>
+                    <div class="alert alert-danger" role="alert" *ngIf="msgSucessoPecaUtilizadaAdicionadoStatus == false">
+                      {{msgSucessoPecaUtilizadaAdicionado}}
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <div *ngIf="msgSucessoPecaUtilizadaAdicionadoStatus != null
+                || msgSucessoPecaUtilizadaRemovidoStatus != null">
+                      <button type="button" class="btn btn-warning" (click)="limparMensagens()">
+                        Limpar mensagens
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <div class="row">
+
+              <div class="col-md-12">
+
+                <!-- <div class="btn-group btn-block" role="group"> -->
+                <input id="responsavelPelaDespesa" name="responsavelPelaDespesa" type="text" class="form-control"
+                  [(ngModel)]="responsavelPelaDespesa" [ngbTypeahead]="search" placeholder="Digite o seu nome"
+                  [inputFormatter]="formatter" [resultFormatter]="formatter">
+
+                <button type="button" class="btn btn-success" (click)="adicionarPecaUsada()">
+                  Adicionar
+                </button>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+            <div class="row">
+              <div class="col-md-12">
+                <table class="table">
+                  <thead>
+                    <tr>
+
+                      <th>Controles</th>
+                      <th>Descrição</th>
+
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of pecasUtilizadas">
+
+                      <td>
+
+                        <div class="row" *ngIf="item.dataEntrega == null">
+                          <div class="col-md-12">
+                            <button type="button" class="btn btn-danger" (click)="preparaDelecaoPeca(item)" placement="top"
+                              ngbTooltip="Apagar" data-toggle="modal" data-target="#modalDelecaoPeca">
+                              <i class="fa fa-trash"></i>
+                            </button>
+                          </div>
+                        </div>
+                        <br />
+
+
+                      </td>
+                      <td>
+                        <div class="card">
+                          <button class="btn btn-sm" style="text-align: left;">
+
+                            <div>Id: {{item.id}}</div>
+                            <div>Início: {{item.data | date:'dd/MM/yyyy : HH:mm'}}</div>
+                            <div>Serviço: {{item.peca.nome}}</div>
+                            <div>Valor: {{item.peca.venda | currency:'BRL'}}</div>
+                            <div>Qtd: {{item.quantidade }}</div>
+                            <div>Responsável: {{item.responsavel.nome}}</div>
+
+                          </button>
+                        </div>
+
+                        <!-- <div class="btn-group" role="group">-->
+                        <!--     <div class="btn-group btn-block" role="group">
+                            <button class="btn btn-danger btn-sm"  data-toggle="modal"
+                              data-target="#modalDelecao" placement="top" ngbTooltip="Apagar">
+                              <i class="fa fa-trash"></i>
+                            </button>
+                            <input type="button" class="alert-primary btn-sm btn-block" routerLink="/manutencoes/form/{{item.servico.id }}"
+                              placement="top" ngbTooltip="Editar" value="{{item.servico.nome }}">
+                          </div>-->
+
+                      </td>
+
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+
+
       </div>
     </div>
   </div>
@@ -465,6 +611,27 @@
 
         <div class="modal-footer">
           <button class="btn btn-success" (click)="entregarServicoPrestado();" data-dismiss="modal">Confirmar</button>
+          <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="modalDelecaoPeca" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4>Confirmação</h4>
+        </div>
+
+        <div class="modal-body" *ngIf="pecaUtilizadaSelecionada">
+          Confirma apagar o serviço {{ pecaUtilizadaSelecionada.peca.nome}}
+          => Data: {{pecaUtilizadaSelecionada.data}}
+          => Responsável: {{pecaUtilizadaSelecionada.responsavel.nome}}?
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn btn-success" (click)="removerPecaUtilizada();" data-dismiss="modal">Confirmar</button>
           <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
         </div>
       </div>

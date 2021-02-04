@@ -1,4 +1,8 @@
-import { ServicoPrestado } from './../../servico-prestado/servicoPrestado';
+import { PecasUtilizadasService } from './../services/pecas-utilizadas.service';
+import { PecaUtilizada } from './../models/pecaUtilizada';
+import { PecaService } from './../../manutencoes/services/peca.service';
+import { Peca } from './../../pecas/models/peca';
+import { ServicoPrestado } from './../../manutencoes/models/servicoPrestado';
 import { ServicoPrestadoService } from './../services/servico-prestado.service';
 
 import { ServicoService } from './../services/servico.service';
@@ -46,6 +50,16 @@ export class ManutencoesFormComponent implements OnInit {
   entregue: boolean;
   msgEntrega: string;
 
+  peca:Peca = new Peca();
+  pecasUtilizadas: PecaUtilizada[] = [];
+  pecaUtilizadaSelecionada: PecaUtilizada;
+
+  msgSucessoPecaUtilizadaRemovido: string;
+  msgSucessoPecaUtilizadaRemovidoStatus: boolean;
+
+  msgSucessoPecaUtilizadaAdicionado: string;
+  msgSucessoPecaUtilizadaAdicionadoStatus: boolean;
+
   statusManutencao: Boolean = null;
   erroAlterarStatus: string;
 
@@ -57,7 +71,9 @@ export class ManutencoesFormComponent implements OnInit {
     private servicePessoa: PessoasService,
     private serviceVeiculo: VeiculosService,
     private serviceServico: ServicoService,
-    private serviceServicosPrestados: ServicoPrestadoService) {
+    private servicePeca: PecaService,
+    private serviceServicosPrestados: ServicoPrestadoService,
+    private servivePecaUtilizada: PecasUtilizadasService) {
     this.manutencao = new Manutencao();
   }
 
@@ -67,6 +83,8 @@ export class ManutencoesFormComponent implements OnInit {
   formatterVeiculo = (veiculo: Veiculo) => veiculo.placa;
 
   formatterServico = (servico: Servico) => servico.nome;
+
+  formatterPeca = (peca: Peca) => peca.nome;
 
   search = (text$: Observable<string>) =>
     text$.pipe(
@@ -118,6 +136,22 @@ export class ManutencoesFormComponent implements OnInit {
       tap(() => this.searching = false)
     )
 
+    searchPeca = (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      tap(() => this.searching = true),
+      switchMap(term =>
+        this.servicePeca.buscarPorNome(term).pipe(
+          tap(() => this.searchFailed = false),
+          catchError(() => {
+            this.searchFailed = true;
+            return of([]);
+          }))
+      ),
+      tap(() => this.searching = false)
+    )
+
   ngOnInit(): void {
     this.init();
   }
@@ -135,6 +169,7 @@ export class ManutencoesFormComponent implements OnInit {
               this.errors = null;
               this.manutencao = response;
               this.carregarServicosPrestados();
+              this.carregarPecasUtilizadas();
             }, errorResponse => {
               this.mensagemErro = errorResponse.error.message;
               this.errors = errorResponse.error.errors;
@@ -177,6 +212,23 @@ export class ManutencoesFormComponent implements OnInit {
       });
   }
 
+  adicionarPecaUsada() {
+    let pU: PecaUtilizada = new PecaUtilizada();
+    pU.responsavel = this.responsavelPelaDespesa;
+    pU.peca = this.peca;
+    pU.manutencao = this.manutencao;
+    pU.quantidade = 1;
+    this.servivePecaUtilizada.adicionarPecaUtilizada(pU)
+      .subscribe(response => {
+        this.carregarPecasUtilizadas();
+        this.msgSucessoPecaUtilizadaAdicionado = "Peça adicionada com sucesso."
+        this.msgSucessoPecaUtilizadaAdicionadoStatus = true;
+      }, errorResponse => {
+        this.msgSucessoPecaUtilizadaAdicionado = errorResponse.error.message;
+        this.msgSucessoPecaUtilizadaAdicionadoStatus = false;
+      });
+  }
+
   removerServicoPrestado() {
     this.serviceServicosPrestados.removerServicoPrestado(this.servicoPrestadoSelecionado.id)
       .subscribe(response => {
@@ -190,6 +242,21 @@ export class ManutencoesFormComponent implements OnInit {
       );
   }
 
+  removerPecaUtilizada() {
+    this.servivePecaUtilizada.removerPecaUtilizada(this.pecaUtilizadaSelecionada.id)
+      .subscribe(response => {
+        this.carregarPecasUtilizadas()
+        this.msgSucessoPecaUtilizadaRemovido = 'Peça removida com sucesso!';
+        this.msgSucessoPecaUtilizadaRemovidoStatus = true;
+      }, errorResponse => {
+        this.msgSucessoPecaUtilizadaRemovido = 'Erro ao remover peça!';
+        this.msgSucessoPecaUtilizadaRemovidoStatus = false;
+      }
+      );
+  }
+
+
+
   carregarServicosPrestados() {
     this.serviceServicosPrestados.listarPorManutencao(this.manutencao.id)
       .subscribe(response => {
@@ -198,13 +265,28 @@ export class ManutencoesFormComponent implements OnInit {
       });
   }
 
+  carregarPecasUtilizadas() {
+    this.servivePecaUtilizada.listarPorManutencao(this.manutencao.id)
+      .subscribe(response => {
+        this.pecasUtilizadas = response;
+        this.calcularTotalDespesas();
+      });
+  }
+
   preparaDelecao(item: ServicoPrestado) {
     this.servicoPrestadoSelecionado = item;
   }
 
+  preparaDelecaoPeca(item: PecaUtilizada) {
+    this.pecaUtilizadaSelecionada = item;
+  }
+
+
   limparMensagens() {
     this.msgSucessoServicoPrestadoAdicionadoStatus = null;
     this.msgSucessoServicoPrestadoRemovidoStatus = null;
+    this.msgSucessoPecaUtilizadaAdicionadoStatus = null;
+    this.msgSucessoPecaUtilizadaRemovidoStatus = null;
     this.mensagemErro = null;
     this.success = null;
   }
@@ -244,6 +326,10 @@ export class ManutencoesFormComponent implements OnInit {
     for (let index = 0; index < this.servicosPrestados.length; index++) {
       total = total +  this.servicosPrestados[index].servico.venda;
     }
+    for (let index = 0; index < this.pecasUtilizadas.length; index++) {
+      total = total +  this.pecasUtilizadas[index].peca.venda;
+    }
+
     total = total + this.manutencao.veiculo.custo;
     this.totalDespesas = total;
 
