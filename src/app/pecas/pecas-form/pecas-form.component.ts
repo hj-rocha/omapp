@@ -21,6 +21,7 @@ export class PecasFormComponent implements OnInit {
   success: boolean;
   errors: String[];
   mensagemErro: string;
+  outrosErros: string;
   peca: Peca;
   id: number;
 
@@ -140,6 +141,7 @@ export class PecasFormComponent implements OnInit {
       }, errorResponse => {
         this.success = false;
         this.mensagemErro = errorResponse.error.message;
+        //this.outrosErros = errorResponse.error.errors;
       })
 
   }

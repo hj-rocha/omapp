@@ -50,7 +50,7 @@
               </div>
             </div>
 
-            <div class="col-md-2">
+            <div class="col-md-2" *ngIf="manutencao.id">
               <div class="form-group">
               <label>Custo Total do Veículo</label>
               <input type="text" class="form-control" [(ngModel)]="totalDespesas" name="custo" currencyMask
@@ -364,7 +364,7 @@
                       <button class="btn btn-sm" style="text-align: left;">
 
                         <div>Id: {{item.id}}</div>
-                        <div>Início: {{item.data }}</div>
+                        <div>Início: {{item.data | date:'dd/MM/yyyy : HH:mm'}}</div>
                         <div>Serviço: {{item.servico.nome}}</div>
                         <div>Valor: {{item.servico.venda | currency:'BRL'}}</div>
                         <div>Responsável: {{item.responsavel.nome}}</div>
@@ -373,7 +373,7 @@
                           ainda.</div>
                         <div *ngIf="item.dataEntrega != null" class="btn-success" style="padding-left: 5px;"> Entregue
                           em:
-                          {{ item.dataEntrega | date:'dd/MM/yyyy-HH:mm'}}</div>
+                          {{ item.dataEntrega | date:'dd/MM/yyyy : HH:mm'}}</div>
 
                       </button>
                     </div>

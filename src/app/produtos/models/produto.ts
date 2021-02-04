@@ -5,9 +5,9 @@ export class Produto{
   id: number;
   nome: string;
   descricao: string;
-  marca: Marca = new Marca();
+  marca: Marca;
   custo:number;
-  impostos: Imposto[];
+  impostos: Imposto[]=[];
   venda:number;
   dataCadastro: Date;
   dataAtualizacao: Date;

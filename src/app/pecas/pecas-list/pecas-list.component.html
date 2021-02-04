@@ -41,7 +41,7 @@
                   <div class="col-md-6">
                     <span class="btn-sm btn-block  alert-primary">
                       <span>ID: {{p.id }} </span>
-                      <span *ngIf="p.codigoInterno!=null" class="alert-sm  alert-info"> Cód. Int.:
+                      <span *ngIf="p.codigoInterno!=null || p.codigoInterno!=''" class="alert-sm  alert-info"> Cód. Int.:
                         {{p.codigoInterno}}</span>
                     </span>
                   </div>
@@ -51,8 +51,8 @@
               <div class="col-md-6">
                 <div class="row">
                   <div class="col-md-6">
-                    <span *ngIf="p.marca.id!=1 || p.venda>0" class="btn-sm btn-block  alert-primary">
-                      <span *ngIf="p.marca.id!=1">{{p.marca.nome }} </span>
+                    <span *ngIf="p.marca!=null || p.venda>0" class="btn-sm btn-block  alert-primary">
+                      <span *ngIf="p.marca!=null">{{p.marca.nome }} </span>
                       <span *ngIf="p.venda>0" class="alert-sm  alert-info"> Preço: {{ p.venda | currency:'BRL'}}</span>
                     </span>
                   </div>

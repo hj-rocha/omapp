@@ -36,7 +36,7 @@
                     <div class="col-md-6">
                       <span class="btn-sm btn-block  alert-primary">
                         <span>ID: {{p.id }} </span>
-                        <span *ngIf="p.nome!=null" class="alert-sm  alert-info">{{p.placa}}</span>
+                        <span class="alert-sm  alert-info">{{p.placa}}</span>
                       </span>
                     </div>
                   </div>
@@ -45,8 +45,8 @@
                 <div class="col-md-6">
                   <div class="row">
                     <div class="col-md-6">
-                      <span *ngIf="p.marca.id!=1 || (p.renavam!='' && p.renavam!=null) " class="btn-sm btn-block  alert-primary">
-                        <span *ngIf="p.marca.id!=1">{{p.marca.nome }} </span>
+                      <span *ngIf="p.marca!=null || (p.renavam!='' && p.renavam!=null) " class="btn-sm btn-block  alert-primary">
+                        <span *ngIf="p.marca!=null">{{p.marca.nome }} </span>
                         <span class="alert-sm  alert-info" *ngIf="(p.renavam!='' && p.renavam!=null)">
                           <span>Renavam: {{p.renavam}}</span>
                         </span>

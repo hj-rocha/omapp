@@ -25,6 +25,7 @@ export class VeiculosFormComponent implements OnInit {
   success: boolean;
   errors: String[];
   mensagemErro: string;
+  outrosErros: string;
   veiculo: Veiculo;
   id: number;
 
@@ -182,6 +183,7 @@ export class VeiculosFormComponent implements OnInit {
       }, errorResponse => {
         this.success = false;
         this.mensagemErro = errorResponse.error.message;
+        this.outrosErros = errorResponse.error.errors;
       })
 
   }

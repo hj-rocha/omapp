@@ -167,7 +167,7 @@ export class PessoasFormCreateComponent implements OnInit {
     // stop here if form is invalid
     if (this.form.invalid) {
 
-      console.log(this.form.root)
+      //console.log(this.form.root)
       return;
     }
 

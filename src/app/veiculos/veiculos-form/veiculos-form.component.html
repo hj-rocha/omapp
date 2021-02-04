@@ -158,6 +158,11 @@
                       <div *ngFor="let item of veiculo.impostos">
                         <input type="text" class="form-control" name="produto.fornecedor.id"
                           value="{{item.nome}} => {{item.percentual}}%" />
+                          <button class="btn btn-danger" (click)="deassociarImpostoAProduto(impostoId)" data-dismiss="modal">
+                            <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                            Confirmar
+                          </button>
+
                       </div>
                     </div>
 
@@ -424,7 +429,7 @@
                   Operação realizada com sucesso com sucesso!
                 </div>
                 <div class="alert alert-danger" role="alert" *ngIf="success == false">
-                  {{mensagemErro}}
+                  {{mensagemErro}} {{this.outrosErros}}
                 </div>
               </div>
             </div>
