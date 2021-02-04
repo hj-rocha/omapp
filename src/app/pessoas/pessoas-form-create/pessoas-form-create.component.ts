@@ -206,10 +206,12 @@ export class PessoasFormCreateComponent implements OnInit {
         this.pessoa = response;
       }, errorResponse => {
         this.success = false;
-        this.errors = errorResponse.error.errors;
+        this.mensagemErro= errorResponse.error.message;
+        this.errors = errorResponse.error;
       })
 
   }
+
   toDate(dateStr: any) {
     var parts = dateStr.split("-");
     return parts[2] + "/" + parts[1] + "/" + parts[0];

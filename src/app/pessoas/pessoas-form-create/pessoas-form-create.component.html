@@ -132,10 +132,10 @@
         </div>
       </div>
     </div>
-    <div class="alert alert-danger" role="alert" *ngIf="success == false">
+ <!--   <div class="alert alert-danger" role="alert" *ngIf="success == false">
       Está havendo algum problema no servidor. Contate o administrador.
     </div>
-
+  -->
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
@@ -224,6 +224,9 @@
       </div>
       <div class="alert alert-danger" role="alert" *ngFor="let erro of errors">
         {{ erro }}
+      </div>
+      <div class="alert alert-danger" role="alert" *ngIf="success == false">
+        {{mensagemErro}}
       </div>
     </div>
   </div>
