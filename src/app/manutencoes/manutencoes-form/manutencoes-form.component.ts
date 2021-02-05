@@ -1,3 +1,5 @@
+import { OutrasDespesasService } from './../services/outras-despesas.service';
+import { OutraDespesa } from './../models/outraDespesa';
 import { PecasUtilizadasService } from './../services/pecas-utilizadas.service';
 import { PecaUtilizada } from './../models/pecaUtilizada';
 import { PecaService } from './../../manutencoes/services/peca.service';
@@ -62,6 +64,17 @@ export class ManutencoesFormComponent implements OnInit {
   msgSucessoPecaUtilizadaAdicionado: string;
   msgSucessoPecaUtilizadaAdicionadoStatus: boolean;
 
+  outraDespesa: OutraDespesa= new OutraDespesa();
+  outrasDepesas: OutraDespesa[] = [];
+  outraDespesaSelecionada: OutraDespesa;
+
+  msgSucessoOutraDespesaRemovido: string;
+  msgSucessoOutraDespesaRemovidoStatus: boolean;
+
+  msgSucessoOutraDespesaAdicionado: string;
+  msgSucessoOutraDespesaAdicionadoStatus: boolean;
+
+
   statusManutencao: Boolean = null;
   erroAlterarStatus: string;
 
@@ -75,6 +88,7 @@ export class ManutencoesFormComponent implements OnInit {
     private serviceServico: ServicoService,
     private servicePeca: PecaService,
     private serviceServicosPrestados: ServicoPrestadoService,
+    private serviceOutraDespesa: OutrasDespesasService,
     private servivePecaUtilizada: PecasUtilizadasService) {
     this.manutencao = new Manutencao();
   }
@@ -172,6 +186,7 @@ export class ManutencoesFormComponent implements OnInit {
               this.manutencao = response;
               this.carregarServicosPrestados();
               this.carregarPecasUtilizadas();
+              this.carregarOutraDespesas();
             }, errorResponse => {
               this.mensagemErro = errorResponse.error.message;
               this.errors = errorResponse.error.errors;
@@ -231,6 +246,23 @@ export class ManutencoesFormComponent implements OnInit {
       });
   }
 
+  adicionarOutraDespesa() {
+    let oD: OutraDespesa = new OutraDespesa();
+    oD.responsavel = this.responsavelPelaDespesa;
+    oD.descricao = this.outraDespesa.descricao;
+    oD.manutencao = this.manutencao;
+    oD.total = this.outraDespesa.total;
+    this.serviceOutraDespesa.adicionarOutraDespesa(oD)
+      .subscribe(response => {
+        this.carregarOutraDespesas();
+        this.msgSucessoOutraDespesaAdicionado = "Despesa adicionada com sucesso."
+        this.msgSucessoOutraDespesaAdicionadoStatus = true;
+      }, errorResponse => {
+        this.msgSucessoOutraDespesaAdicionado = errorResponse.error.message;
+        this.msgSucessoOutraDespesaAdicionadoStatus = false;
+      });
+  }
+
   removerServicoPrestado() {
     this.serviceServicosPrestados.removerServicoPrestado(this.servicoPrestadoSelecionado.id)
       .subscribe(response => {
@@ -257,6 +289,19 @@ export class ManutencoesFormComponent implements OnInit {
       );
   }
 
+  removerOutraDespesa() {
+    this.serviceOutraDespesa.removerOutraDespesa(this.outraDespesaSelecionada.id)
+      .subscribe(response => {
+        this. carregarOutraDespesas()
+        this.msgSucessoOutraDespesaRemovido = 'Despesa removida com sucesso!';
+        this.msgSucessoOutraDespesaRemovidoStatus = true;
+      }, errorResponse => {
+        this.msgSucessoOutraDespesaRemovido = 'Erro ao remover despesa!';
+        this.msgSucessoOutraDespesaRemovidoStatus = false;
+      }
+      );
+  }
+
 
 
   carregarServicosPrestados() {
@@ -275,6 +320,14 @@ export class ManutencoesFormComponent implements OnInit {
       });
   }
 
+  carregarOutraDespesas() {
+    this.serviceOutraDespesa.listarPorManutencao(this.manutencao.id)
+      .subscribe(response => {
+        this.outrasDepesas = response;
+        this.calcularTotalDespesas();
+      });
+  }
+
   preparaDelecao(item: ServicoPrestado) {
     this.servicoPrestadoSelecionado = item;
   }
@@ -283,12 +336,17 @@ export class ManutencoesFormComponent implements OnInit {
     this.pecaUtilizadaSelecionada = item;
   }
 
+  preparaDelecaoOutraDespesa(item: OutraDespesa) {
+    this.outraDespesaSelecionada = item;
+  }
 
   limparMensagens() {
     this.msgSucessoServicoPrestadoAdicionadoStatus = null;
     this.msgSucessoServicoPrestadoRemovidoStatus = null;
     this.msgSucessoPecaUtilizadaAdicionadoStatus = null;
     this.msgSucessoPecaUtilizadaRemovidoStatus = null;
+    this.msgSucessoOutraDespesaAdicionadoStatus = null;
+    this.msgSucessoOutraDespesaRemovidoStatus = null;
     this.mensagemErro = null;
     this.success = null;
   }
@@ -328,8 +386,13 @@ export class ManutencoesFormComponent implements OnInit {
     for (let index = 0; index < this.servicosPrestados.length; index++) {
       total = total +  this.servicosPrestados[index].servico.venda;
     }
+
     for (let index = 0; index < this.pecasUtilizadas.length; index++) {
       total = total +  this.pecasUtilizadas[index].peca.venda * this.pecasUtilizadas[index].quantidade;
+    }
+
+    for (let index = 0; index < this.outrasDepesas.length; index++) {
+      total = total +  this.outrasDepesas[index].total;
     }
 
     total = total + this.manutencao.veiculo.custo;

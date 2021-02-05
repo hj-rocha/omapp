@@ -258,12 +258,16 @@
                   [(ngModel)]="responsavelPelaDespesa" [ngbTypeahead]="search" placeholder="Digite o seu nome"
                   [inputFormatter]="formatter" [resultFormatter]="formatter">
 
+              </div>
+            </div>
 
+            <div class="row">
+              <div class="col-md-8"></div>
+              <div class="col-md-4">
 
                 <button type="button" class="btn btn-success" (click)="adicionarServicoPrestado()">
                   Adicionar
                 </button>
-
               </div>
             </div>
 
@@ -414,6 +418,7 @@
         <div class="card text-white bg-info mb-3">
           <div class="card-body">
 
+
             <div class="row">
               <div class="col-md-8">
 
@@ -423,10 +428,12 @@
 
               </div>
               <div class="col-md-4">
-                <input id="qtd" name="qtd" type="text" class="form-control"
-                  [(ngModel)]="quantidade" placeholder="Qtd" >
+                <input id="qtd" name="qtd" type="text" class="form-control" [(ngModel)]="quantidade" placeholder="Qtd">
               </div>
             </div>
+
+
+
             <div class="row">
 
               <div class="col-md-12">
@@ -436,10 +443,15 @@
                   [(ngModel)]="responsavelPelaDespesa" [ngbTypeahead]="search" placeholder="Digite o seu nome"
                   [inputFormatter]="formatter" [resultFormatter]="formatter">
 
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-8"></div>
+              <div class="col-md-4">
                 <button type="button" class="btn btn-success" (click)="adicionarPecaUsada()">
                   Adicionar
                 </button>
-
               </div>
             </div>
 
@@ -538,8 +550,9 @@
                         <div>Id: {{item.id}}</div>
                         <div>Saída: {{item.data | date:'dd/MM/yyyy : HH:mm'}}</div>
                         <div>Peça: {{item.peca.nome}}</div>
-                        <div  class="btn-info" style="padding-left: 5px;">Valor Unitário: {{item.peca.venda | currency:'BRL'}}</div>
-                        <div  class="btn-info" style="padding-left: 5px;">Qtd: {{item.quantidade }}</div>
+                        <div class="btn-info" style="padding-left: 5px;">Valor Unitário: {{item.peca.venda |
+                          currency:'BRL'}}</div>
+                        <div class="btn-info" style="padding-left: 5px;">Qtd: {{item.quantidade }}</div>
                         <div>Responsável: {{item.responsavel.nome}}</div>
 
                       </button>
@@ -577,7 +590,145 @@
           <h5 class="card-title">Outras Despesas</h5>
         </div>
 
-        ...
+        <div class="card text-white bg-info mb-3">
+          <div class="card-body">
+
+            <div class="row">
+              <div class="col-md-12">
+                <textarea id="outraDespesa.descricao" name="outraDespesa.descricao" rows="1" class="form-control"
+                  [(ngModel)]="outraDespesa.descricao" placeholder="Descrição da despesa"></textarea>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <!-- <div class="btn-group btn-block" role="group"> -->
+                <input id="responsavelPelaDespesa" name="responsavelPelaDespesa" type="text" class="form-control"
+                  [(ngModel)]="responsavelPelaDespesa" [ngbTypeahead]="search" placeholder="Digite o seu nome"
+                  [inputFormatter]="formatter" [resultFormatter]="formatter">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-8  ">
+                <input id="outraDespesa.total" name="outraDespesa.total" type="text" class="form-control"
+                  [(ngModel)]="outraDespesa.total" currencyMask autocomplete="off"
+                  [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" placeholder="valor (R$)">
+              </div>
+              <div class="col-md-4">
+                <button type="button" class="btn btn-success" (click)="adicionarOutraDespesa()">
+                  Adicionar
+                </button>
+              </div>
+            </div>
+
+            <div class="card text-white bg- mb-3" *ngIf="msgSucessoOutraDespesaAdicionadoStatus != null
+            || msgSucessoOutraDespesaRemovidoStatus != null">
+              <div class="card-body">
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <div *ngIf="msgSucessoOutraDespesaAdicionadoStatus != null
+                || msgSucessoOutraDespesaRemovidoStatus != null">
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="alert alert-success" role="alert" *ngIf="msgSucessoOutraDespesaRemovidoStatus == true">
+
+                      {{msgSucessoOutraDespesaRemovido}}
+                    </div>
+                    <div class="alert alert-danger" role="alert" *ngIf="msgSucessoOutraDespesaRemovidoStatus == false">
+
+                      {{msgSucessoOutraDespesaRemovido}}
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="alert alert-success" role="alert"
+                      *ngIf="msgSucessoOutraDespesaAdicionadoStatus == true">
+                      {{msgSucessoOutraDespesaAdicionado}}
+                    </div>
+                    <div class="alert alert-danger" role="alert"
+                      *ngIf="msgSucessoOutraDespesaAdicionadoStatus == false">
+                      {{msgSucessoOutraDespesaAdicionado}}
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <div *ngIf="msgSucessoOutraDespesaAdicionadoStatus != null
+                || msgSucessoOutraDespesaRemovidoStatus != null">
+                      <button type="button" class="btn btn-warning" (click)="limparMensagens()">
+                        Limpar mensagens
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <table class="table">
+              <thead>
+                <tr>
+
+                  <th>Controles</th>
+                  <th>Descrição</th>
+
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of outrasDepesas">
+
+                  <td>
+
+                    <div class="row" *ngIf="item.data != null">
+                      <div class="col-md-12">
+                        <button type="button" class="btn btn-danger" (click)="preparaDelecaoOutraDespesa(item)"
+                          placement="top" ngbTooltip="Apagar" data-toggle="modal"
+                          data-target="#modalDelecaoOutraDespesa">
+                          <i class="fa fa-trash"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <br />
+
+
+                  </td>
+                  <td>
+                    <div class="card">
+                      <button class="btn btn-sm" style="text-align: left;">
+
+                        <div>Id: {{item.id}}</div>
+                        <div>Lançamento: {{item.data | date:'dd/MM/yyyy : HH:mm'}}</div>
+                        <div class="btn-info" style="padding-left: 5px;">Valor Unitário: {{item.total |
+                          currency:'BRL'}}</div>
+                        <div>Responsável: {{item.responsavel.nome}}</div>
+
+                      </button>
+                    </div>
+
+                  </td>
+
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -639,6 +790,27 @@
 
         <div class="modal-footer">
           <button class="btn btn-success" (click)="removerPecaUtilizada();" data-dismiss="modal">Confirmar</button>
+          <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="modalDelecaoOutraDespesa" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4>Confirmação</h4>
+        </div>
+
+        <div class="modal-body" *ngIf="outraDespesaSelecionada">
+          Confirma apagar a despesa {{ outraDespesaSelecionada.descricao}}
+          => Data: {{outraDespesaSelecionada.data}}
+          => Responsável: {{outraDespesaSelecionada.responsavel.nome}}?
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn btn-success" (click)="removerOutraDespesa();" data-dismiss="modal">Confirmar</button>
           <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
         </div>
       </div>

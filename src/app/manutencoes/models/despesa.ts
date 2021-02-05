@@ -4,6 +4,7 @@ export class Despesa{
 
   id: number;
   data: Date;
+  total: number;
   nome: string;
   responsavel: Pessoa;
   manutencao: Manutencao;
