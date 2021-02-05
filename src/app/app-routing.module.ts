@@ -40,7 +40,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: '', component: LayoutComponent, children: [
     {path:'nao_tem_permissao', component: NaoTemPermissaoComponent},
-    { path : '', component: HomeComponent },
+    { path : '', component: HomeComponent,
+    canActivate: [AuthGuard], data: { roles: ['CONSULTAR_PESSOAS'] } },
     { path: '' , redirectTo: '/home', pathMatch: 'full' }
   ]},
   { path: '', component: LayoutComponent, children: [

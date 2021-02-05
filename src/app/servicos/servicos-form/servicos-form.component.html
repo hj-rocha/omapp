@@ -38,7 +38,7 @@
                 <div class="form-group">
                   <label>Descrição</label>
                   <textarea type="text" class="form-control" [(ngModel)]="servico.descricao" name="descricao" cols="2"
-                    rows="5"></textarea>
+                    rows="5" autocomplete="off"></textarea>
                 </div>
               </div>
             </div>
@@ -68,7 +68,7 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label>Custo</label>
-                  <input type="text" class="form-control" currencyMask
+                  <input type="text" class="form-control" currencyMask autocomplete="off"
                     [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" [(ngModel)]="servico.custo" name="custo" />
                 </div>
               </div>
@@ -93,7 +93,7 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label>Venda</label>
-                  <input type="text" class="form-control" currencyMask
+                  <input type="text" class="form-control" currencyMask autocomplete="off"
                     [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" [(ngModel)]="servico.venda" name="venda" />
                 </div>
               </div>
@@ -207,7 +207,7 @@
               <div class="col-md-12">
                 <div class="form-group">
                   <label>Tempo de Execução (min)</label>
-                  <input type="text" class="form-control" [(ngModel)]="servico.tempoDeExecucao" name="servico.tempoDeExecucao" />
+                  <input type="text" class="form-control" autocomplete="off" [(ngModel)]="servico.tempoDeExecucao" name="servico.tempoDeExecucao" />
                 </div>
               </div>
             </div>

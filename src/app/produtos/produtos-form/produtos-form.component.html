@@ -38,7 +38,7 @@
       <div class="col-md-2">
         <div class="form-group">
           <label>Custo</label>
-          <input type="text" class="form-control" currencyMask
+          <input type="text" class="form-control" currencyMask autocomplete="off"
           [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" [(ngModel)]="produto.custo" name="custo" />
         </div>
       </div>
@@ -48,7 +48,7 @@
       <div class="col-md-2">
         <div class="form-group">
           <label>Venda</label>
-          <input type="text" class="form-control" currencyMask
+          <input type="text" class="form-control" currencyMask autocomplete="off"
           [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" [(ngModel)]="produto.venda" name="venda" />
         </div>
       </div>

@@ -38,7 +38,7 @@
                 <div class="form-group">
                   <label>Descrição</label>
                   <textarea type="text" class="form-control" [(ngModel)]="veiculo.descricao" name="descricao" cols="2"
-                    rows="5"></textarea>
+                    rows="5" autocomplete="off"></textarea>
 
                 </div>
               </div>
@@ -48,7 +48,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label>Custo</label>
-                  <input type="text" style="min-width: 150px;"  class="form-control " currencyMask
+                  <input type="text" style="min-width: 150px;"  class="form-control " currencyMask autocomplete="off"
                     [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" [(ngModel)]="veiculo.custo"
                     name="veiculo.custo" />
                 </div>
@@ -74,7 +74,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label>Venda</label>
-                  <input type="text" style="min-width: 150px;" class="form-control" currencyMask
+                  <input type="text" style="min-width: 150px;" class="form-control" currencyMask autocomplete="off"
                     [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" [(ngModel)]="veiculo.venda"
                     name="veiculo.venda" />
                 </div>
@@ -158,11 +158,11 @@
                       <div *ngFor="let item of veiculo.impostos">
                         <input type="text" class="form-control" name="produto.fornecedor.id"
                           value="{{item.nome}} => {{item.percentual}}%" />
-                          <button class="btn btn-danger" (click)="deassociarImpostoAProduto(impostoId)" data-dismiss="modal">
+                     <!--     <button class="btn btn-danger" (click)="desassociarImpostoAProduto(impostoId)" data-dismiss="modal">
                             <i class="fa fa-floppy-o" aria-hidden="true"></i>
                             Confirmar
                           </button>
-
+                        -->
                       </div>
                     </div>
 
@@ -195,7 +195,7 @@
               <div class="col-md-12">
                 <div class="form-group">
                   <label>Renavam</label>
-                  <input type="text" mask="00000000000" class="form-control" [(ngModel)]="veiculo.renavam"
+                  <input type="text" mask="00000000000" class="form-control" [(ngModel)]="veiculo.renavam" autocomplete="off"
                     name="veiculo.renavam" />
                 </div>
               </div>
@@ -205,7 +205,7 @@
               <div class="col-md-12">
                 <div class="form-group">
                   <label>Placa*</label>
-                  <input type="text" mask="AAAAAAA" class="form-control" [(ngModel)]="veiculo.placa"
+                  <input type="text" mask="AAAAAAA" class="form-control" [(ngModel)]="veiculo.placa" autocomplete="off"
                     name="veiculo.placa" required />
                 </div>
               </div>
@@ -216,7 +216,7 @@
                 <div class="form-group">
                   <label>Placa Anterior</label>
                   <input type="text" mask="AAAAAAA" class="form-control" [(ngModel)]="veiculo.placaAnterior"
-                    name="veiculo.placaAnterior" />
+                    name="veiculo.placaAnterior" autocomplete="off" />
                 </div>
               </div>
             </div>
@@ -226,7 +226,7 @@
                 <div class="form-group">
                   <label>Chassi</label>
                   <input type="text" mask="AA.AAAAAA.AA.AAAAAA" class="form-control" [(ngModel)]="veiculo.chassi"
-                    name="veiculo.chassi" />
+                    name="veiculo.chassi" autocomplete="off" />
                 </div>
               </div>
             </div>
@@ -374,7 +374,7 @@
               <div class="col-md-12">
                 <div class="form-group">
                   <label>RNTRC</label>
-                  <input type="text" class="form-control" [(ngModel)]="veiculo.rntrc" name="veiculo.rntrc" />
+                  <input type="text" class="form-control" [(ngModel)]="veiculo.rntrc" name="veiculo.rntrc" autocomplete="off" />
                 </div>
               </div>
             </div>
