@@ -17,7 +17,7 @@
       <div class="col-md-6">
         <div class="form-group">
           <label>Nome *</label>
-          <input type="text" class="form-control" [(ngModel)]="pessoa.nome" name="nome" />
+          <input type="text" class="form-control" [(ngModel)]="pessoa.nome" name="nome" autocomplete="off" />
         </div>
       </div>
     </div>
@@ -26,7 +26,7 @@
       <div class="col-md-6">
         <div class="form-group">
           <label>Email de contato</label>
-          <input type="text" class="form-control" [(ngModel)]="pessoa.email" name="email" />
+          <input type="text" class="form-control" [(ngModel)]="pessoa.email" name="email" autocomplete="off" />
         </div>
       </div>
     </div>
@@ -35,7 +35,7 @@
       <div class="col-md-6">
         <div class="form-group">
           <label>CPF</label>
-          <input type="text" class="form-control" [(ngModel)]="pessoa.cpf" name="cpf"  mask="000.000.000-00" />
+          <input type="text" class="form-control" [(ngModel)]="pessoa.cpf" name="cpf"  mask="000.000.000-00" autocomplete="off" />
         </div>
       </div>
     </div>
@@ -44,7 +44,7 @@
       <div class="col-md-6">
         <div class="form-group">
           <label>Identidade</label>
-          <input type="text" class="form-control" [(ngModel)]="pessoa.identidade" name="identidade" />
+          <input type="text" class="form-control" [(ngModel)]="pessoa.identidade" name="identidade" autocomplete="off" />
         </div>
       </div>
     </div>
@@ -93,7 +93,7 @@
         <div class="form-group">
           <label>Telefone</label>
           <input type="text" name="telefone" id="telefone" class="form-control" [(ngModel)]="pessoa.telefone"
-            mask="(00) 0 0000-0000" />
+            mask="(00) 0 0000-0000" autocomplete="off" />
         </div>
       </div>
     </div>
@@ -103,7 +103,7 @@
         <div class="form-group">
           <label>Telefone Comercial</label>
           <input type="text" class="form-control"  name="telefoneComercial" id="telefoneComercial"
-          [(ngModel)]="pessoa.telefoneComercial"   mask="(00) 0 0000-0000" />
+          [(ngModel)]="pessoa.telefoneComercial"   mask="(00) 0 0000-0000" autocomplete="off" />
         </div>
       </div>
     </div>
@@ -146,7 +146,7 @@
       <div class="col-md-6">
         <div class="form-group">
           <label>CEP</label>
-          <input type="text" class="form-control" [(ngModel)]="pessoa.endereco.cep" name="cep" mask="00.000-000"/>
+          <input type="text" class="form-control" [(ngModel)]="pessoa.endereco.cep" name="cep" mask="00.000-000" autocomplete="off" />
         </div>
       </div>
     </div>
@@ -211,7 +211,7 @@
   <div class="col-md-6">
     <div class="form-group">
       <label>Logradouro</label>
-      <input type="text" class="form-control" [(ngModel)]="pessoa.endereco.logradouro" name="logradouro" />
+      <input type="text" class="form-control" [(ngModel)]="pessoa.endereco.logradouro" name="logradouro" autocomplete="off" />
     </div>
   </div>
 </div>
@@ -220,7 +220,7 @@
   <div class="col-md-6">
     <div class="form-group">
       <label>Número</label>
-      <input type="text" class="form-control" [(ngModel)]="pessoa.endereco.numero" name="numero" />
+      <input type="text" class="form-control" [(ngModel)]="pessoa.endereco.numero" name="numero" autocomplete="off" />
     </div>
   </div>
 </div>
@@ -229,7 +229,7 @@
   <div class="col-md-6">
     <div class="form-group">
       <label>Complemento</label>
-      <input type="text" class="form-control" [(ngModel)]="pessoa.endereco.complemento" name="complemento" />
+      <input type="text" class="form-control" [(ngModel)]="pessoa.endereco.complemento" name="complemento" autocomplete="off" />
     </div>
   </div>
 </div>

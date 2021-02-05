@@ -22,6 +22,11 @@ import { TokenInterceptor } from './token.interceptor';
 import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada/pagina-nao-encontrada.component';
 import { NaoTemPermissaoComponent } from './nao-tem-permissao/nao-tem-permissao.component';
 import { GeografiaModule } from './geografia/geografia.module';
+import { LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
+
+registerLocaleData(localePt);
 
 
 
@@ -48,6 +53,7 @@ import { GeografiaModule } from './geografia/geografia.module';
     ProdutosModule
   ],
   providers: [
+    { provide: LOCALE_ID, useValue: 'pt-BR' },
     ClientesService,
     ServicoPrestadoService,
     AuthService,
