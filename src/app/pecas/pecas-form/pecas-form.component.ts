@@ -32,6 +32,7 @@ export class PecasFormComponent implements OnInit {
   model: any;
   searching = false;
   searchFailed = false;
+  buscou: boolean =false;
 
   constructor(private service: PecaService,
     private router: Router,
@@ -87,7 +88,7 @@ export class PecasFormComponent implements OnInit {
       tap(() => this.searching = true),
       switchMap(term =>
         this.serviceMarcas.listar().pipe(
-          tap(() => this.searchFailed = false),
+          tap(() =>{ this.searchFailed = false; this.buscou =true}),
           catchError(() => {
             this.searchFailed = true;
             return of([]);
@@ -130,6 +131,10 @@ export class PecasFormComponent implements OnInit {
 
     if (this.fornecedor.id != null) {
       this.peca.fornecedores[this.peca.fornecedores.length+1] = this.fornecedor;
+    }
+
+    if (this.peca.marca !=null && !(this.peca.marca.id > 0) ) {
+      this.peca.marca = null;
     }
 
     this.service

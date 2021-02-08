@@ -5,6 +5,7 @@ export class Produto{
   id: number;
   nome: string;
   descricao: string;
+  codigoInterno: string;
   marca: Marca;
   custo:number;
   impostos: Imposto[]=[];

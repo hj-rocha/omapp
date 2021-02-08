@@ -61,6 +61,9 @@
                     [ngbTypeahead]="searchMarca" placeholder="Digite as iniciais no nome" autocomplete="off"
                     [inputFormatter]="formatterMarca" [resultFormatter]="formatterMarca">
                 </div>
+                <div class="alert alert-danger" role="alert" *ngIf="buscou && peca.marca==null">
+                  Marca não encontrada!
+                </div>
               </div>
             </div>
 
