@@ -1,0 +1,41 @@
+<br />
+
+<div class="card mb-12">
+  <div class="card-body">
+
+    <div class="card-header">
+      <h4 class="card-title">Financeiro</h4>
+    </div>
+
+    <div class="btn-group btn-block" role="group">
+
+      <button routerLink="/contas_pagar" class="btn" style="background-color: #fd7e14; color: #fff;">
+        <i class="fa fa-usd fa-2x" aria-hidden="true"></i>
+        <p>Contas a Pagar</p>
+      </button>
+
+      <button routerLink="/contas_receber" class="btn" style="background-color: #6c757d; color: #fff;">
+        <i class="fa fa-usd fa-2x" aria-hidden="true"></i>
+        <p>Contas a Receber</p>
+      </button>
+    </div>
+
+    <div class="btn-group  btn-block" role="group">
+
+      <button routerLink="/caixas" class="btn" style="background-color: #6c757d; color: #fff;">
+        <i class="fa fa-usd fa-2x" aria-hidden="true"></i>
+        <p>Caixa - Abrir</p>
+      </button>
+
+      <button routerLink="/caixas/list" class="btn" style="background-color: #fd7e14; color: #fff;">
+        <i class="fa fa-usd fa-2x" aria-hidden="true"></i>
+        <p>Caixas - Listar</p>
+      </button>
+
+    </div>
+  </div>
+
+
+</div>
+
+<router-outlet></router-outlet>

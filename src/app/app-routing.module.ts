@@ -13,6 +13,21 @@ const routes: Routes = [
 
   { path: 'clientes', loadChildren: () => import('./clientes/clientes.module').then(m => m.ClientesModule) },
 
+  { path: 'contas_receber', loadChildren: () =>
+   import('./financeiro/contas-receber/contas-receber.module').then(m => m.ContasReceberModule),
+   canActivate: [AuthGuard], data: { roles: ['CONSULTAR_CONTASRECEBER'] } },
+
+
+  { path: 'contas_pagar', loadChildren: () => import('./financeiro/contas-pagar/contas-pagar.module').then(m => m.ContasPagarModule),
+  canActivate: [AuthGuard], data: { roles: ['CONSULTAR_CONTASPAGAR'] } },
+
+
+  { path: 'caixas', loadChildren: () => import('./financeiro/caixa/caixa.module').then(m => m.CaixaModule),
+  canActivate: [AuthGuard], data: { roles: ['CONSULTAR_CAIXAS'] }  },
+
+  { path: 'financeiros', loadChildren: () => import('./financeiro/financeiro.module').then(m => m.FinanceiroModule),
+  canActivate: [AuthGuard], data: { roles: ['CONSULTAR_FINANCEIROS'] } },
+
   { path: 'servicos-prestados', loadChildren: () => import('./servico-prestado/servico-prestado.module').then(m => m.ServicoPrestadoModule),
   canActivate: [AuthGuard], data: { roles: ['CONSULTAR_MANUTENCOES'] } },
 
@@ -49,7 +64,6 @@ const routes: Routes = [
   ]},
 
   { path: 'geografia', loadChildren: () => import('./geografia/geografia.module').then(m => m.GeografiaModule) },
-
 
 ];
 
