@@ -3,13 +3,13 @@ import { CommonModule } from '@angular/common';
 
 import { ComprasRoutingModule } from './compras-routing.module';
 
-import { CompraVeiculoComponent } from './compra-veiculo/compra-veiculo.component';
-
-import { CompraMercadoriaComponent } from './compra-mercadoria/compra-mercadoria.component';
+import { PainelComponent } from './painel/painel.component';
+import { ComprasMercadoriasListComponent } from './compras-mercadorias-list/compras-mercadorias-list.component';
+import { ComprasVeiculosListComponent } from './compras-veiculos-list/compras-veiculos-list.component';
 
 
 @NgModule({
-  declarations: [ CompraVeiculoComponent, CompraMercadoriaComponent],
+  declarations: [  PainelComponent, ComprasMercadoriasListComponent, ComprasVeiculosListComponent],
   imports: [
     CommonModule,
     ComprasRoutingModule

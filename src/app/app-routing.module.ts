@@ -1,4 +1,4 @@
-import { ClientesModule } from './clientes/clientes.module';
+
 import { NaoTemPermissaoComponent } from './nao-tem-permissao/nao-tem-permissao.component';
 
 import { NgModule } from '@angular/core';
@@ -12,6 +12,7 @@ import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada/pagina-nao
 const routes: Routes = [
 
   { path: 'clientes', loadChildren: () => import('./clientes/clientes.module').then(m => m.ClientesModule) },
+
 
   { path: 'transacoes_comerciais', loadChildren: () => import('./transacoes-comerciais/transacoes-comerciais.module').then(m => m.TransacoesComerciaisModule),
   canActivate: [AuthGuard], data: { roles: ['CONSULTAR_VENDAS', 'CONSULTAR_COMPRAS'] }  },

@@ -1,9 +1,9 @@
-import { ComprasVeiculosListComponent } from './compras-veiculos-list/compras-veiculos-list.component';
-import { ComprasMercadoriasListComponent } from './compras-mercadorias-list/compras-mercadorias-list.component';
+import { DevolucoesFornecedoresListComponent } from './devolucoes-fornecedores-list/devolucoes-fornecedores-list.component';
 import { AuthGuard } from './../../auth.guard';
 import { PainelComponent } from './painel/painel.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { DevolucoesClientesListComponent } from './devolucoes-clientes-list/devolucoes-clientes-list.component';
 
 
 
@@ -13,8 +13,8 @@ const routes: Routes = [
   canActivate: [AuthGuard],
   data: { roles: ['CONSULTAR_PRODUTOS'] }, children:[
 
-    { path: 'mercadorias', component: ComprasMercadoriasListComponent},
-    { path: 'veiculos', component: ComprasVeiculosListComponent }
+    { path: 'fornecedores', component: DevolucoesFornecedoresListComponent },
+    { path: 'clientes', component: DevolucoesClientesListComponent }
 
    // {path:'list', component:VeiculosListComponent },
   //  {path:'form', component: VeiculosFormComponent, canActivate: [AuthGuard], data: { roles: ['EDITAR_PRODUTOS'] }},
@@ -26,9 +26,8 @@ const routes: Routes = [
 
 ];
 
-
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ComprasRoutingModule { }
+export class DevolucoesRoutingModule { }
