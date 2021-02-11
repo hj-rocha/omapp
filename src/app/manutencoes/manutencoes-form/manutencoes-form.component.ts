@@ -270,7 +270,7 @@ export class ManutencoesFormComponent implements OnInit {
         this.msgSucessoServicoPrestadoRemovido = 'Serviço removido com sucesso!';
         this.msgSucessoServicoPrestadoRemovidoStatus = true;
       }, errorResponse => {
-        this.msgSucessoServicoPrestadoRemovido = 'Erro ao remover serviço!';
+        this.msgSucessoServicoPrestadoRemovido  = errorResponse.error.message;
         this.msgSucessoServicoPrestadoRemovidoStatus = false;
       }
       );
@@ -283,7 +283,7 @@ export class ManutencoesFormComponent implements OnInit {
         this.msgSucessoPecaUtilizadaRemovido = 'Peça removida com sucesso!';
         this.msgSucessoPecaUtilizadaRemovidoStatus = true;
       }, errorResponse => {
-        this.msgSucessoPecaUtilizadaRemovido = 'Erro ao remover peça!';
+        this.msgSucessoPecaUtilizadaRemovido = errorResponse.error.message;
         this.msgSucessoPecaUtilizadaRemovidoStatus = false;
       }
       );
@@ -296,7 +296,7 @@ export class ManutencoesFormComponent implements OnInit {
         this.msgSucessoOutraDespesaRemovido = 'Despesa removida com sucesso!';
         this.msgSucessoOutraDespesaRemovidoStatus = true;
       }, errorResponse => {
-        this.msgSucessoOutraDespesaRemovido = 'Erro ao remover despesa!';
+        this.msgSucessoOutraDespesaRemovido  = errorResponse.error.message;
         this.msgSucessoOutraDespesaRemovidoStatus = false;
       }
       );

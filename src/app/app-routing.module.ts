@@ -13,6 +13,10 @@ const routes: Routes = [
 
   { path: 'clientes', loadChildren: () => import('./clientes/clientes.module').then(m => m.ClientesModule) },
 
+  { path: 'transacoes_comerciais', loadChildren: () => import('./transacoes-comerciais/transacoes-comerciais.module').then(m => m.TransacoesComerciaisModule),
+  canActivate: [AuthGuard], data: { roles: ['CONSULTAR_VENDAS', 'CONSULTAR_COMPRAS'] }  },
+
+
   { path: 'contas_receber', loadChildren: () =>
    import('./financeiro/contas-receber/contas-receber.module').then(m => m.ContasReceberModule),
    canActivate: [AuthGuard], data: { roles: ['CONSULTAR_CONTASRECEBER'] } },
