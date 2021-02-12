@@ -1,5 +1,5 @@
-import { MarcaService } from './../services/marca.service';
-import { Marca } from './../models/marca';
+import { MarcaService } from './../../services/marca.service';
+import { Marca } from './../../models/marca';
 import { Component, OnInit } from '@angular/core';
 
 @Component({

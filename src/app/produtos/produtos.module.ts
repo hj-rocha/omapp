@@ -9,12 +9,11 @@ import { PainelComponent } from './painel/painel.component';
 import { ProdutosListComponent } from './produtos-list/produtos-list.component';
 import { ProdutosFormComponent } from './produtos-form/produtos-form.component';
 import { ProdutosImpostosListComponent } from './produtos-impostos-list/produtos-impostos-list.component';
-import { MarcasFormComponent } from './marcas-form/marcas-form.component';
-import { MarcasListComponent } from './marcas-list/marcas-list.component';
+
 
 
 @NgModule({
-  declarations: [ PainelComponent, ProdutosListComponent, ProdutosFormComponent, ProdutosImpostosListComponent, MarcasFormComponent, MarcasListComponent],
+  declarations: [ PainelComponent, ProdutosListComponent, ProdutosFormComponent, ProdutosImpostosListComponent],
   imports: [
     NgxMaskModule,
     NgxCurrencyModule,

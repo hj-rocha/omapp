@@ -1,5 +1,5 @@
-import { MarcasListComponent } from './marcas-list/marcas-list.component';
-import { MarcasFormComponent } from './marcas-form/marcas-form.component';
+import { MarcasListComponent } from './marcas/marcas-list/marcas-list.component';
+import { MarcasFormComponent } from './marcas/marcas-form/marcas-form.component';
 import { ProdutosImpostosListComponent } from './produtos-impostos-list/produtos-impostos-list.component';
 import { PainelComponent } from './painel/painel.component';
 import { ProdutosFormComponent } from './produtos-form/produtos-form.component';
@@ -16,6 +16,7 @@ const routes: Routes = [
   { path: '', component: LayoutComponent,
   canActivate: [AuthGuard],
   data: { roles: ['CONSULTAR_PRODUTOS'] }, children:[
+    { path: 'marcas', loadChildren: () => import('./marcas/marcas.module').then(m => m.MarcasModule) },
     { path: '', component: PainelComponent, children:[
 
     {path:'list', component:ProdutosListComponent },
