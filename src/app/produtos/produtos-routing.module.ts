@@ -17,6 +17,7 @@ const routes: Routes = [
   canActivate: [AuthGuard],
   data: { roles: ['CONSULTAR_PRODUTOS'] }, children:[
     { path: 'marcas', loadChildren: () => import('./marcas/marcas.module').then(m => m.MarcasModule) },
+    { path: 'impostos', loadChildren: () => import('./impostos/impostos.module').then(m => m.ImpostosModule) },
     { path: '', component: PainelComponent, children:[
 
     {path:'list', component:ProdutosListComponent },
