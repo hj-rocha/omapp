@@ -18,6 +18,7 @@ const routes: Routes = [
   data: { roles: ['CONSULTAR_PRODUTOS'] }, children:[
     { path: 'marcas', loadChildren: () => import('./marcas/marcas.module').then(m => m.MarcasModule) },
     { path: 'impostos', loadChildren: () => import('./impostos/impostos.module').then(m => m.ImpostosModule) },
+    { path: 'acessorios', loadChildren: () => import('./acessorios/acessorios.module').then(m => m.AcessoriosModule) },
     { path: '', component: PainelComponent, children:[
 
     {path:'list', component:ProdutosListComponent },

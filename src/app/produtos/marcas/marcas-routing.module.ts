@@ -14,13 +14,13 @@ const routes: Routes = [
   data: { roles: ['CONSULTAR_PRODUTOS'] }, children:[
 
     { path: 'list', component: MarcasListComponent},
-    { path: 'form', component: MarcasFormComponent }
+    { path: 'form', component: MarcasFormComponent },
 
    // {path:'list', component:VeiculosListComponent },
   //  {path:'form', component: VeiculosFormComponent, canActivate: [AuthGuard], data: { roles: ['EDITAR_PRODUTOS'] }},
   //  {path:'form/:id', component: VeiculosFormComponent, canActivate: [AuthGuard], data: { roles: ['EDITAR_PRODUTOS'] }},
 
-    //{ path: '', redirectTo : '/transacoes_comerciais/transacoes_comerciais', pathMatch: 'full' }
+    { path: '', redirectTo : '/produtos/marcas/list', pathMatch: 'full' }
 
 ]}
 
