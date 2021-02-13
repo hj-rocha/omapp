@@ -1,16 +1,16 @@
-import { Pessoa } from '../model/pessoa';
+import { Pessoa } from './../model/pessoa';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
+import { environment } from './../../../environments/environment';
 import { Injectable } from '@angular/core';
-
 
 @Injectable({
   providedIn: 'root'
 })
-export class PessoasService {
+export class PessoasTodasService {
 
-  apiURL: string = environment.apiURLBase + "/pessoas_fisicas"
+
+  apiURL: string = environment.apiURLBase + "/pessoas"
 
   constructor(private http: HttpClient) {}
 
@@ -22,6 +22,16 @@ export class PessoasService {
 
       return this.http.get<Pessoa[]>(url);
     }
+
+    listarPorNome(nome: string):Observable<Pessoa[]>{
+
+      const httpParams = new HttpParams();
+
+      const url = this.apiURL;
+
+      return this.http.get<Pessoa[]>(`${this.apiURL}/nome/${nome}`);
+    }
+
     deletar(pessoa: Pessoa) : Observable<any> {
       return this.http.delete<any>(`${this.apiURL}/${pessoa.id}`);
     }
@@ -40,3 +50,5 @@ export class PessoasService {
     }
 
 }
+
+

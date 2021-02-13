@@ -1,3 +1,6 @@
+import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgxMaskModule } from 'ngx-mask';
+import { NgxCurrencyModule } from 'ngx-currency';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -11,7 +14,10 @@ import { PainelComponent } from './painel/painel.component';
   declarations: [PainelComponent],
   imports: [
     CommonModule,
-    TransacoesComerciaisRoutingModule
+    TransacoesComerciaisRoutingModule,
+    NgxCurrencyModule,
+    NgxMaskModule,
+    NgbTypeaheadModule,
   ]
 })
 export class TransacoesComerciaisModule { }

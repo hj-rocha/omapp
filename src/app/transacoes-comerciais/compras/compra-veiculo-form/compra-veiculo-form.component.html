@@ -1,0 +1,162 @@
+<ol class="breadcrumb mb-4">
+  <li class="breadcrumb-item active">{{ id ? 'Editando ' : 'Cadastrando' }}</li>
+  <li class="breadcrumb-item active"><a routerLink="/transacoes_comerciais/compras/veiculos">Voltar para listagem</a>
+  </li>
+</ol>
+
+<form #compraVeiculoForm="ngForm" (ngSubmit)="onSubmit()">
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card text-white bg-primary mb-3">
+        <div class="card-body">
+
+          <div class="card-header">
+            <h5 class="card-title">
+              {{ id ? 'Atualizar Compra do veículo Id: ' : 'Registrar Compra de um veículo' }} {{compra.id}}
+            </h5>
+          </div>
+
+
+          <div class="row">
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Renavam</label>
+                <input id="veiculo" name="veiculo" type="text" class="form-control" [(ngModel)]="veiculo"
+                  [ngbTypeahead]="searchVeiculo" placeholder="Digite as iniciais do RENAVAM"
+                  [inputFormatter]="formatterVeiculo" [resultFormatter]="formatterVeiculo" autocomplete="off">
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Último Proprietário</label>
+                <input *ngIf="veiculo.proprietarios.length==0" type="text" class="form-control"
+                  placeholder="Não há registro de proprietários" readonly />
+                <div *ngFor="let item of veiculo.proprietarios;let indexOfelement=index;">
+                  <input *ngIf="indexOfelement==veiculo.proprietarios.length-1" type="text" class="form-control"
+                    name="produto.fornecedor.id" value={{item.nome}} readonly />
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="row">
+            <div class="col-md-3">
+
+              <div class="form-group">
+                <label>Nome</label>
+                <input type="text" class="form-control" id="veiculo.nome" name="veiculo.nome" [ngModel]="veiculo.nome"
+                  readonly />
+
+              </div>
+            </div>
+
+            <div class="col-md-3">
+
+              <div class="form-group">
+                <label>Valor Pago</label>
+                <input type="text" class="form-control" id="itemCompra.valorUnitario" name="itemCompra.valorUnitario"
+                  [(ngModel)]="itemCompra.valorUnitario" currencyMask
+                  [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" autocomplete="off" />
+
+              </div>
+            </div>
+
+            <div class="col-md-3">
+
+              <div class="form-group">
+                <label>Placa Atual</label>
+                <input type="text" class="form-control" id="veiculo.placa" name="veiculo.placa"
+                  [ngModel]="veiculo.placa" autocomplete="off" />
+
+              </div>
+            </div>
+
+            <div class="col-md-3">
+
+              <div class="form-group">
+                <label>Placa Anterior</label>
+                <input type="text" class="form-control" id="veiculo.placaAnterior" name="veiculo.placaAnterior"
+                  [ngModel]="veiculo.placaAnterior" autocomplete="off" />
+
+              </div>
+            </div>
+
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+
+              <div class="form-group">
+                <label>Fornecedor</label>
+
+                <input id="compra.fornecedor" name="compra.fornecedor" type="text" class="form-control"
+                  [(ngModel)]="compra.fornecedor" [ngbTypeahead]="searchPessoa" placeholder="Digite as iniciais no nome"
+                  [inputFormatter]="formatterPessoa" [resultFormatter]="formatterPessoa" autocomplete="off">
+
+              </div>
+
+            </div>
+
+            <div class="col-md-6">
+
+              <div class="form-group">
+                <label>Comprador</label>
+
+                <input id="compra.comprador" name="compra.comprador" type="text" class="form-control"
+                  [(ngModel)]="compra.comprador" [ngbTypeahead]="searchPessoa" placeholder="Digite as iniciais no nome"
+                  [inputFormatter]="formatterPessoa" [resultFormatter]="formatterPessoa" autocomplete="off">
+
+              </div>
+
+            </div>
+          </div>
+
+          <div class="row">
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Proprietário Atual</label>
+               <input id="proprietario" name="proprietario" type="text" class="form-control" [(ngModel)]="proprietario"
+                  [ngbTypeahead]="searchPessoa" placeholder="Digite as iniciais no nome"
+                  [inputFormatter]="formatterPessoa" [resultFormatter]="formatterPessoa" autocomplete="off">
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Conferente</label>
+                <input id="compra.conferente" name="compra.conferente" type="text" class="form-control"
+                  [(ngModel)]="compra.conferente" [ngbTypeahead]="searchPessoa" placeholder="Digite as iniciais no nome"
+                  [inputFormatter]="formatterPessoa" [resultFormatter]="formatterPessoa" autocomplete="off" readonly>
+              </div>
+            </div>
+
+          </div>
+
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="btn-group">
+
+                <button type="submit" class="btn btn-success">
+                  <i class="fa fa-floppy-o"></i> Salvar
+                </button>
+
+                <button type="submit" class="btn btn-warning" *ngIf="compra.id">
+                  <i class="fa fa-sync-alt"></i> Atualizar
+                </button>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</form>
