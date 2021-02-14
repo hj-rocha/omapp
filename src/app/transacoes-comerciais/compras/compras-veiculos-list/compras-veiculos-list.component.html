@@ -8,3 +8,98 @@
     <i class="fa fa-motorcycle fa-2x"></i> Registrar Compra de Veículo
   </button>
 </div>
+
+<ol class="breadcrumb mb-12">
+
+  <li class="breadcrumb-item active">
+
+    <input type="text" class="form-control" placeholder="Buscar veículo : Placa">
+
+  </li>
+</ol>
+
+<div class="row">
+  <div class="col-md-12">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Compra</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr *ngFor="let p of lista">
+          <td>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-6">
+                    <!-- <div class="btn-group" role="group">-->
+                    <div class="btn-group btn-block" role="group">
+                      <button class="btn-danger btn-sm" (click)="preparaDelecao(p)" data-toggle="modal"
+                        data-target="#modalDelecao" placement="top" ngbTooltip="Apagar">
+                        <i class="fa fa-trash"></i>
+                      </button>
+                      <input type="button" class="btn-primary btn-sm btn-block"
+                        routerLink="/transacoes_comerciais/compras/veiculos/form/{{ p.id }}" placement="top" ngbTooltip="Editar"
+                        value="ID: {{p.id }}">
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <span class="btn-sm btn-block  alert-primary">
+                      <span>Fornecedor: {{ p.fornecedor.nome }} </span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-6">
+                    <span class="btn-sm btn-block  alert-primary">
+                      <span class="alert-sm  alert-info">Comprador: {{ p.comprador.nome }} </span>
+                    </span>
+                  </div>
+
+                  <div class="col-md-6">
+                    <span class="btn-sm btn-block  alert-primary">
+                      <span> Conferente: {{p.conferente.nome }} </span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div id="modalDelecao" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4>Confirmação</h4>
+      </div>
+
+      <div class="modal-body" *ngIf="itemSelecionado">
+        Confirma a deleção do Veículo do Fornecedor {{ itemSelecionado.fornecedor.nome }}?
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-success" (click)="deletar()" data-dismiss="modal">Confirmar</button>
+        <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
