@@ -33,7 +33,7 @@ export class ComprasService {
       return this.http.delete<any>(`${this.apiURL}/${compra.id}`);
     }
 
-    getItemById(id: number) : Observable<Compra> {
+    getItemById(id: number) : Observable<ItemCompraVeiculo> {
       return this.http.get<any>(`${this.apiURL}/${id}`);
     }
 
@@ -42,8 +42,8 @@ export class ComprasService {
     }
 
 
-    salvar( itemCompra: ItemCompraVeiculo ) : Observable<Compra> {
-      return this.http.post<Compra>( `${this.apiURL}` , itemCompra);
+    salvar( itemCompra: ItemCompraVeiculo ) : Observable<ItemCompraVeiculo> {
+      return this.http.post<ItemCompraVeiculo>( `${this.apiURL}` , itemCompra);
     }
 
     atualizar( compra: Compra ) : Observable<any> {

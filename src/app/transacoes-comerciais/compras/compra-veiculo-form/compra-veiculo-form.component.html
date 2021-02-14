@@ -70,7 +70,7 @@
               <div class="form-group">
                 <label>Placa Atual</label>
                 <input type="text" class="form-control" id="veiculo.placa" name="veiculo.placa"
-                  [ngModel]="veiculo.placa" autocomplete="off" />
+                  [(ngModel)]="veiculo.placa" autocomplete="off" />
 
               </div>
             </div>
@@ -80,7 +80,7 @@
               <div class="form-group">
                 <label>Placa Anterior</label>
                 <input type="text" class="form-control" id="veiculo.placaAnterior" name="veiculo.placaAnterior"
-                  [ngModel]="veiculo.placaAnterior" autocomplete="off" />
+                  [(ngModel)]="veiculo.placaAnterior" autocomplete="off" />
 
               </div>
             </div>
@@ -119,7 +119,7 @@
 
             <div class="col-md-6">
               <div class="form-group">
-                <label>Proprietário Atual</label>
+                <label>Atualizar Proprietário</label>
                <input id="proprietario" name="proprietario" type="text" class="form-control" [(ngModel)]="proprietario"
                   [ngbTypeahead]="searchPessoa" placeholder="Digite as iniciais no nome"
                   [inputFormatter]="formatterPessoa" [resultFormatter]="formatterPessoa" autocomplete="off">
@@ -137,17 +137,33 @@
 
           </div>
 
+          <div class="row">
+            <div class="col-md-12">
+              <div class="alert alert-success" role="alert" *ngIf="success == true">
+                Operação realizada com sucesso com sucesso!
+              </div>
+              <div class="alert alert-danger" role="alert" *ngIf="success == false">
+                {{mensagemErro}}
+              </div>
+            </div>
+          </div>
+
 
           <div class="row">
             <div class="col-md-6">
               <div class="btn-group">
 
-                <button type="submit" class="btn btn-success">
+                <button type="submit" class="btn btn-success" *ngIf="!compra.id">
                   <i class="fa fa-floppy-o"></i> Salvar
                 </button>
 
                 <button type="submit" class="btn btn-warning" *ngIf="compra.id">
                   <i class="fa fa-sync-alt"></i> Atualizar
+                </button>
+
+                <button type="button" class="btn btn-danger" *ngIf="compra.id"  placement="top"
+                ngbTooltip="Apagar" data-toggle="modal" data-target="#modalRecebeimento">
+                  <i class="fa fa-sync-alt"></i> Receber Compra
                 </button>
 
               </div>
@@ -160,3 +176,29 @@
   </div>
 
 </form>
+
+
+<div id="modalRecebeimento" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4>Confirmação</h4>
+      </div>
+
+      <div class="modal-body" *ngIf="compra.id>0">
+        Confirma receber essa compra de Id: {{ compra.id}}
+        => Comprador: {{compra.comprador.nome}}
+        => Fornecedor: {{compra.fornecedor.nome}}
+        => Conferente: {{compra.conferente.nome}}
+        => Veículo: {{veiculo.nome}}
+        => RENAVAM: {{veiculo.renavam}}
+
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-success" (click)="receberCompra();" data-dismiss="modal">Confirmar</button>
+        <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>

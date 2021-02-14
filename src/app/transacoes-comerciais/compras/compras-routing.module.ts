@@ -19,7 +19,9 @@ const routes: Routes = [
     { path: 'veiculos', component: ComprasVeiculosListComponent },
 
     { path: 'mercadorias/form', component: CompraMercadoriasFormComponent},
-    { path: 'veiculos/form', component: CompraVeiculoFormComponent }
+    { path: 'veiculos/form', component: CompraVeiculoFormComponent },
+
+    { path: 'veiculos/form/:id', component: CompraVeiculoFormComponent }
 
 
    // {path:'list', component:VeiculosListComponent },

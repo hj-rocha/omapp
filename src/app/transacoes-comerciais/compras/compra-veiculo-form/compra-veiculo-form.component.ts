@@ -77,6 +77,7 @@ export class CompraVeiculoFormComponent implements OnInit {
     )
 
   ngOnInit(): void {
+    this.init();
     this.obeterPessoaLogada();
   }
 
@@ -84,22 +85,23 @@ export class CompraVeiculoFormComponent implements OnInit {
     let params: Observable<Params> = this.activatedRoute.params
     params.subscribe(urlParams => {
       this.id = urlParams['id'];
-      /* if (this.id) {
-         this.service
+       if (this.id) {
+         this.compraService
            .getItemById(this.id)
            .subscribe(
              response => {
                this.errors = null;
-               this.manutencao = response;
-               this.carregarServicosPrestados();
-               this.carregarPecasUtilizadas();
-               this.carregarOutraDespesas();
+               this.itemCompra = response;
+               this.compra = this.itemCompra.compra;
+               this.veiculo = this.itemCompra.veiculo;
+
+
              }, errorResponse => {
                this.mensagemErro = errorResponse.error.message;
                this.errors = errorResponse.error.errors;
              }
            )
-       }*/
+       }
     });
 
   }
@@ -116,16 +118,20 @@ export class CompraVeiculoFormComponent implements OnInit {
 
     console.log("Valor unitario = "+this.itemCompra.valorUnitario)
     console.log("Placa = "+this.itemCompra.veiculo.placa)
+    console.log("Compra id = "+this.compra.id)
 
     this.compraService
     .salvar( this.itemCompra)
     .subscribe(response => {
       this.success = true;
       this.errors = null;
-      this.compra = response;
+      this.itemCompra = response;
+      this.compra=this.itemCompra.compra
+      this.veiculo=this.itemCompra.veiculo;
     }, errorResponse => {
       this.success = false;
-      this.mensagemErro = "ERRO";
+      this.mensagemErro = errorResponse.error.message;
+      this.errors = errorResponse.error.errors;
     });
 
   }
@@ -133,13 +139,17 @@ export class CompraVeiculoFormComponent implements OnInit {
   obeterPessoaLogada(){
     this.servicePessoa.getPessoaById(this.usuarioLogadoService.getUsuarioAutenticado())
     .subscribe(response => {
-      this.success = true;
+      //this.success = true;
       this.errors = null;
       this.compra.conferente = response;
     }, errorResponse => {
-      this.success = false;
+     // this.success = false;
       this.mensagemErro = "ERRO";
     });
+
+  }
+
+  receberCompra(){
 
   }
 
