@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { ComprasRoutingModule } from './compras-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PainelComponent } from './painel/painel.component';
 import { ComprasMercadoriasListComponent } from './compras-mercadorias-list/compras-mercadorias-list.component';
 import { ComprasVeiculosListComponent } from './compras-veiculos-list/compras-veiculos-list.component';
@@ -24,6 +25,7 @@ import { CompraMercadoriasFormComponent } from './compra-mercadorias-form/compra
     NgxCurrencyModule,
     NgxMaskModule,
     NgbTypeaheadModule,
+    NgbModule,
   ]
 })
 export class ComprasModule { }

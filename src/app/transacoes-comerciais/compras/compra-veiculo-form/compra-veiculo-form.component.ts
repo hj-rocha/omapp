@@ -1,6 +1,10 @@
+import { ItemContaPagar } from './../../../financeiro/models/pagar/item_conta_pagar';
+import { ContaPagar } from './../../../financeiro/models/pagar/conta_pagar';
+import { Estoque } from './../../../estoque/models/estoque';
+import { OutputRecebimentoCompraVeiculo } from './../models/output_recebimento_compra_veiculo';
+import { InputRecebimentoCompraVeiculo } from './../models/input_recebimento_compra_veiculo';
 import { ItemCompraVeiculo } from './../models/item_compra_veiculo';
 import { ComprasService } from './../services/compras.service';
-import { ItemCompra } from './../models/item_compra';
 import { UsuarioLogadoService } from './../../services/usuario-logado.service';
 import { VeiculoService } from './../../services/veiculo.service';
 import { Veiculo } from './../../../veiculos/models/veiculo';
@@ -10,14 +14,79 @@ import { debounceTime, distinctUntilChanged, tap, switchMap, catchError } from '
 import { Observable, of } from 'rxjs';
 import { Pessoa } from './../../../pessoas/model/pessoa';
 import { PessoasService } from './../../services/pessoas.service';
-import { Component, OnInit } from '@angular/core';
-import { PessoasForm2Component } from 'src/app/pessoas/pessoas-form2/pessoas-form2.component';
+import { Component, OnInit, Injectable } from '@angular/core';
+
+import { NgbDateStruct, NgbDateParserFormatter, NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap';
+
+@Injectable()
+export class FormatDateAdapter extends NgbDateAdapter<string> {
+
+  readonly DELIMITER = '/';
+
+  fromModel(value: string | null): NgbDateStruct | null {
+    if (value) {
+      let date = value.split(this.DELIMITER);
+      return {
+        day: parseInt(date[0], 10),
+        month: parseInt(date[1], 10),
+        year: parseInt(date[2], 10)
+      };
+    }
+    return null;
+  }
+
+  toModel(date: NgbDateStruct | null): string | null {
+    return date ? date.day + this.DELIMITER + date.month + this.DELIMITER + date.year : null;
+  }
+
+}
+
+@Injectable()
+export class FormataData extends NgbDateParserFormatter {
+
+  readonly DELIMITER = '/'; // 18/10/1987
+
+  parse(value: string): NgbDateStruct | null {
+
+    if (value) {
+      let date = value.split(this.DELIMITER);
+      return {
+        day: parseInt(date[0], 10),
+        month: parseInt(date[1], 10),
+        year: parseInt(date[2], 10)
+      };
+    }
+    return null;
+  }
+
+  format(date: NgbDateStruct): string | null {
+
+    return date ? validarDia(date.day) + this.DELIMITER + validarDia(date.month) + this.DELIMITER + date.year : '';
+  }
+
+  toModel(date: NgbDateStruct | null): string | null {
+    return date ? date.day + this.DELIMITER + date.month + this.DELIMITER + date.year : null;
+  }
+
+}
+
+function validarDia(valor) {
+  if (valor.toString !== '' && parseInt(valor) <= 9) {
+    return '0' + valor;
+  } else {
+    return valor;
+  }
+}
+
+
 
 @Component({
   selector: 'app-compra-veiculo-form',
   templateUrl: './compra-veiculo-form.component.html',
-  styleUrls: ['./compra-veiculo-form.component.css']
-})
+  styleUrls: ['./compra-veiculo-form.component.css'],
+   providers: [{ provide: NgbDateParserFormatter, useClass: FormataData },
+    { provide: NgbDateAdapter, useClass: FormatDateAdapter }]
+  })
 export class CompraVeiculoFormComponent implements OnInit {
 
   searching = false;
@@ -32,6 +101,16 @@ export class CompraVeiculoFormComponent implements OnInit {
   success: boolean;
   errors: String[];
   mensagemErro: string;
+
+  recebendo: boolean = false;
+
+  inputRCV: InputRecebimentoCompraVeiculo = new InputRecebimentoCompraVeiculo();
+  outputRCV: OutputRecebimentoCompraVeiculo = new OutputRecebimentoCompraVeiculo();
+
+  estoque: Estoque;
+  contaPagar: ContaPagar;
+  itensContaPagar: ItemContaPagar[];
+  linkManuntencao: number;
 
   constructor(
     private servicePessoa: PessoasService,
@@ -78,7 +157,10 @@ export class CompraVeiculoFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.init();
-    this.obeterPessoaLogada();
+    this.obterPessoaLogada();
+    if(this.recebendo || this.compra.processada){
+      this.carregarECM();
+    }
   }
 
   init() {
@@ -136,7 +218,7 @@ export class CompraVeiculoFormComponent implements OnInit {
 
   }
 
-  obeterPessoaLogada(){
+  obterPessoaLogada(){
     this.servicePessoa.getPessoaById(this.usuarioLogadoService.getUsuarioAutenticado())
     .subscribe(response => {
       //this.success = true;
@@ -149,7 +231,40 @@ export class CompraVeiculoFormComponent implements OnInit {
 
   }
 
+  recebendoCompra(){
+    this.recebendo=true;
+  }
+
   receberCompra(){
+
+   // console.log("data: "+this.inputRCV.dataPrimeiraParcela);
+    //console.log("parcelas: "+this.inputRCV.numeroParcelas);
+
+    this.inputRCV.idCompra=this.compra.id;
+    this.inputRCV.idConferenteLogado=this.compra.conferente.id;
+  //  console.log("conferente: "+this.inputRCV.idConferenteLogado);
+  //  console.log("compra: "+this.inputRCV.idCompra);
+
+    this.compraService.receberCompra(this.inputRCV)
+    .subscribe(response => {
+      this.errors = null;
+      this.success = true;
+      this.outputRCV = response;
+      this.recebendo=false;
+      this.compra = this.outputRCV.compra;
+      this.linkManuntencao = this.outputRCV.idManutencao;
+     // this.estoque= this.outputRCV.estoque;
+      this.veiculo = this.outputRCV.veiculo;
+      this.contaPagar = this.outputRCV.contaPagar;
+      this.itensContaPagar= this.outputRCV.itensContaPagar;
+    }, errorResponse => {
+      this.success = false;
+      this.mensagemErro = errorResponse.error.message;
+    }
+    );
+  }
+
+  carregarECM(){
 
   }
 

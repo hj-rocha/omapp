@@ -120,6 +120,9 @@ export class PessoasFormComponent implements OnInit {
   }
 
   onSubmit() {
+
+    //console.log(this.pessoa.dataNascimento)
+
     if (this.id) {
       //this.pessoa.dataNascimento = this.date;
       this.service
