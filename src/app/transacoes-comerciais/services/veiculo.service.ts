@@ -16,4 +16,10 @@ export class VeiculoService {
 
     return this.sevice.listarPorRenavam(renavam);
   }
+
+  listarVeiculosNoEstoquePorRenavam(renavam: string): Observable<Veiculo[]> {
+
+    return this.sevice.listarVeiculosNoEstoquePorRenavam(renavam);
+  }
+
 }

@@ -26,6 +26,10 @@ export class VeiculosService {
       return this.http.get<any>(`${this.apiURL}/renavam/${renavam}`);
     }
 
+    listarVeiculosNoEstoquePorRenavam(renavam: string): Observable<Veiculo[]> {
+      return this.http.get<any>(`${this.apiURL}/renavam/noestoque/${renavam}`);
+    }
+
     deletar(veiculo: Veiculo) : Observable<any> {
       return this.http.delete<any>(`${this.apiURL}/${veiculo.id}`);
     }

@@ -1,20 +1,21 @@
-import { ContaPagar } from './../../../financeiro/contas-pagar/models/conta_pagar';
-import { ItemContaPagar } from '../../../financeiro/contas-pagar/models/item_conta_pagar';
-import { Estoque } from './../../../estoque/models/estoque';
-import { OutputRecebimentoCompraVeiculo } from './../models/output_recebimento_compra_veiculo';
-import { InputRecebimentoCompraVeiculo } from './../models/input_recebimento_compra_veiculo';
-import { ItemCompraVeiculo } from './../models/item_compra_veiculo';
-import { ComprasService } from './../services/compras.service';
-import { UsuarioLogadoService } from './../../services/usuario-logado.service';
-import { VeiculoService } from './../../services/veiculo.service';
-import { Veiculo } from './../../../veiculos/models/veiculo';
-import { Params, ActivatedRoute } from '@angular/router';
-import { Compra } from './../models/compra';
+import { OutputDespachamentoVendaVeiculo } from './../models/output_despachamento_venda_veiculo';
+import { InputDespachamentoVendaVeiculo } from './../models/input_despachamento_venda_veiculo';
 import { debounceTime, distinctUntilChanged, tap, switchMap, catchError } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
-import { Pessoa } from './../../../pessoas/model/pessoa';
+import { ActivatedRoute, Params } from '@angular/router';
+import { VendasService } from './../services/vendas.service';
+import { UsuarioLogadoService } from './../../services/usuario-logado.service';
+import { VeiculoService } from './../../services/veiculo.service';
 import { PessoasService } from './../../services/pessoas.service';
+import { ItemContaReceber } from './../../../financeiro/contas-receber/models/item-conta-receber';
+import { ContaReceber } from './../../../financeiro/contas-receber/models/conta_receber';
+import { Estoque } from './../../../estoque/models/estoque';
+import { Pessoa } from 'src/app/pessoas/model/pessoa';
+import { Veiculo } from 'src/app/veiculos/models/veiculo';
+import { ItemVendaVeiculo } from './../models/item-venda-veiculo';
+import { Venda } from './../models/venda';
 import { Component, OnInit, Injectable } from '@angular/core';
+
 
 import { NgbDateStruct, NgbDateParserFormatter, NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap';
 
@@ -79,44 +80,45 @@ function validarDia(valor) {
 }
 
 
-
 @Component({
-  selector: 'app-compra-veiculo-form',
-  templateUrl: './compra-veiculo-form.component.html',
-  styleUrls: ['./compra-veiculo-form.component.css'],
-   providers: [{ provide: NgbDateParserFormatter, useClass: FormataData },
+  selector: 'app-venda-veiculo-form',
+  templateUrl: './venda-veiculo-form.component.html',
+  styleUrls: ['./venda-veiculo-form.component.css'],
+  providers: [{ provide: NgbDateParserFormatter, useClass: FormataData },
     { provide: NgbDateAdapter, useClass: FormatDateAdapter }]
-  })
-export class CompraVeiculoFormComponent implements OnInit {
+})
+export class VendaVeiculoFormComponent implements OnInit {
+
 
   searching = false;
   searchFailed = false;
 
   id: number;
-  compra: Compra = new Compra();
-  itemCompra: ItemCompraVeiculo = new ItemCompraVeiculo();
+  venda: Venda = new Venda();
+  itemVendaVeiculo: ItemVendaVeiculo = new ItemVendaVeiculo();
   veiculo: Veiculo = new Veiculo();
-  proprietario: Pessoa = new Pessoa();
+
 
   success: boolean;
   errors: String[];
   mensagemErro: string;
 
-  recebendo: boolean = false;
+  despachando: boolean = false;
 
-  inputRCV: InputRecebimentoCompraVeiculo = new InputRecebimentoCompraVeiculo();
-  outputRCV: OutputRecebimentoCompraVeiculo = new OutputRecebimentoCompraVeiculo();
+
+  inputDVV: InputDespachamentoVendaVeiculo = new InputDespachamentoVendaVeiculo();
+  outputDVV: OutputDespachamentoVendaVeiculo = new OutputDespachamentoVendaVeiculo();
 
   estoque: Estoque;
-  contaPagar: ContaPagar;
-  itensContaPagar: ItemContaPagar[];
+  contaReceber: ContaReceber;
+  itensContaReceber: ItemContaReceber[];
   linkManuntencao: number;
 
   constructor(
     private servicePessoa: PessoasService,
     private veiculosService: VeiculoService,
     private usuarioLogadoService: UsuarioLogadoService,
-    private compraService: ComprasService,
+    private vendaService: VendasService,
     private activatedRoute: ActivatedRoute) { }
 
   formatterPessoa = (pessoa: Pessoa) => pessoa.nome;
@@ -145,7 +147,7 @@ export class CompraVeiculoFormComponent implements OnInit {
       distinctUntilChanged(),
       tap(() => this.searching = true),
       switchMap(term =>
-        this.veiculosService.listarPorRenavam(term).pipe(
+        this.veiculosService.listarVeiculosNoEstoquePorRenavam(term).pipe(
           tap(() => this.searchFailed = false),
           catchError(() => {
             this.searchFailed = true;
@@ -158,7 +160,7 @@ export class CompraVeiculoFormComponent implements OnInit {
   ngOnInit(): void {
     this.init();
     this.obterPessoaLogada();
-    if(this.recebendo || this.compra.processada){
+    if(this.despachando || this.venda.processada){
       this.carregarECM();
     }
   }
@@ -168,14 +170,14 @@ export class CompraVeiculoFormComponent implements OnInit {
     params.subscribe(urlParams => {
       this.id = urlParams['id'];
        if (this.id) {
-         this.compraService
+         this.vendaService
            .getItemById(this.id)
            .subscribe(
              response => {
                this.errors = null;
-               this.itemCompra = response;
-               this.compra = this.itemCompra.compra;
-               this.veiculo = this.itemCompra.veiculo;
+               this.itemVendaVeiculo = response;
+               this.venda = this.itemVendaVeiculo.venda;
+               this.veiculo = this.itemVendaVeiculo.veiculo;
 
 
              }, errorResponse => {
@@ -191,25 +193,22 @@ export class CompraVeiculoFormComponent implements OnInit {
 
   onSubmit() {
 
-    if (this.proprietario.id != null) {
-      this.veiculo.proprietarios[this.veiculo.proprietarios.length+1] = this.proprietario;
-    }
 
-    this.itemCompra.veiculo = this.veiculo;
-    this.itemCompra.compra = this.compra;
+    this.itemVendaVeiculo.veiculo = this.veiculo;
+    this.itemVendaVeiculo.venda = this.venda;
 
-    console.log("Valor unitario = "+this.itemCompra.valorUnitario)
-    console.log("Placa = "+this.itemCompra.veiculo.placa)
-    console.log("Compra id = "+this.compra.id)
+    console.log("Valor unitario = "+this.itemVendaVeiculo.valorUnitario)
+    console.log("Placa = "+this.itemVendaVeiculo.veiculo.placa)
+    console.log("Venda id = "+this.venda.id)
 
-    this.compraService
-    .salvar( this.itemCompra)
+    this.vendaService
+    .salvar( this.itemVendaVeiculo)
     .subscribe(response => {
       this.success = true;
       this.errors = null;
-      this.itemCompra = response;
-      this.compra=this.itemCompra.compra
-      this.veiculo=this.itemCompra.veiculo;
+      this.itemVendaVeiculo = response;
+      this.venda=this.itemVendaVeiculo.venda
+      this.veiculo=this.itemVendaVeiculo.veiculo;
     }, errorResponse => {
       this.success = false;
       this.mensagemErro = errorResponse.error.message;
@@ -223,7 +222,7 @@ export class CompraVeiculoFormComponent implements OnInit {
     .subscribe(response => {
       //this.success = true;
       this.errors = null;
-      this.compra.conferente = response;
+      this.venda.conferente = response;
     }, errorResponse => {
      // this.success = false;
       this.mensagemErro = "ERRO";
@@ -231,41 +230,42 @@ export class CompraVeiculoFormComponent implements OnInit {
 
   }
 
-  recebendoCompra(){
-    this.recebendo=true;
+  despachandoVenda(){
+    this.despachando=true;
   }
 
-  receberCompra(){
 
-   // console.log("data: "+this.inputRCV.dataPrimeiraParcela);
-    //console.log("parcelas: "+this.inputRCV.numeroParcelas);
+  depacharVenda(){
 
-    this.inputRCV.idCompra=this.compra.id;
-    this.inputRCV.idConferenteLogado=this.compra.conferente.id;
-  //  console.log("conferente: "+this.inputRCV.idConferenteLogado);
-  //  console.log("compra: "+this.inputRCV.idCompra);
+    // console.log("data: "+this.inputDVV.dataPrimeiraParcela);
+     //console.log("parcelas: "+this.inputDVV.numeroParcelas);
 
-    this.compraService.receberCompra(this.inputRCV)
-    .subscribe(response => {
-      this.errors = null;
-      this.success = true;
-      this.outputRCV = response;
-      this.recebendo=false;
-      this.compra = this.outputRCV.compra;
-      this.linkManuntencao = this.outputRCV.idManutencao;
-     // this.estoque= this.outputRCV.estoque;
-      this.veiculo = this.outputRCV.veiculo;
-      this.contaPagar = this.outputRCV.contaPagar;
-      this.itensContaPagar= this.outputRCV.itensContaPagar;
-    }, errorResponse => {
-      this.success = false;
-      this.mensagemErro = errorResponse.error.message;
-    }
-    );
-  }
+     this.inputDVV.idVenda=this.venda.id;
+     this.inputDVV.idConferenteLogado=this.venda.conferente.id;
+   //  console.log("conferente: "+this.inputDVV.idConferenteLogado);
+   //  console.log("compra: "+this.inputDVV.idCompra);
 
-  carregarECM(){
+     this.vendaService.despacharVenda(this.inputDVV)
+     .subscribe(response => {
+       this.errors = null;
+       this.success = true;
+       //this.outputRCV = response;
+       this.despachando=false;
+       //this.venda = this.outputRCV.compra;
+       //this.linkManuntencao = this.outputRCV.idManutencao;
+      // this.estoque= this.outputRCV.estoque;
+       //this.veiculo = this.outputRCV.veiculo;
+       //this.contaPagar = this.outputRCV.contaPagar;
+       //this.itensContaPagar= this.outputRCV.itensContaPagar;
+     }, errorResponse => {
+       this.success = false;
+       this.mensagemErro = errorResponse.error.message;
+     }
+     );
+   }
 
-  }
+   carregarECM(){
+
+   }
 
 }

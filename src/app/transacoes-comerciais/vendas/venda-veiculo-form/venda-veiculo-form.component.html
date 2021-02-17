@@ -1,0 +1,317 @@
+<ol class="breadcrumb mb-4">
+  <li class="breadcrumb-item active">{{ id ? 'Editando Venda Veiculo' : 'Registrando Venda Veículo' }}</li>
+  <li class="breadcrumb-item active"><a routerLink="/transacoes_comerciais/vendas/veiculos">Voltar para listagem</a>
+  </li>
+</ol>
+
+<form #vendaVeiculoForm="ngForm" (ngSubmit)="onSubmit()">
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card text-white bg-primary mb-3">
+        <div class="card-body">
+
+          <div class="card-header">
+            <h5 class="card-title">
+              <span *ngIf="!venda.processada">{{ id ? 'Atualizar Venda do veículo Id: ' : 'Registrar Venda de um veículo' }} {{venda.id}}</span>
+              <span *ngIf="venda.processada" class="alert alert-success"> Venda Despachada</span>
+            </h5>
+          </div>
+
+
+          <div class="row">
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Renavam</label>
+                <input id="veiculo" name="veiculo" type="text" class="form-control" [(ngModel)]="veiculo"
+                  [ngbTypeahead]="searchVeiculo" placeholder="Digite as iniciais do RENAVAM"
+                  [inputFormatter]="formatterVeiculo" [resultFormatter]="formatterVeiculo" autocomplete="off">
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Nome</label>
+                <input type="text" class="form-control" id="veiculo.nome" name="veiculo.nome" [ngModel]="veiculo.nome"
+                  readonly />
+              </div>
+            </div>
+
+          </div>
+
+          <div class="row">
+
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Placa</label>
+                <input type="text" class="form-control" id="veiculo.placa" name="veiculo.placa"
+                  [(ngModel)]="veiculo.placa" autocomplete="off" readonly />
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Valor da Venda</label>
+                <input type="text" class="form-control" id="itemVendaVeiculo.valorUnitario" name="itemVendaVeiculo.valorUnitario"
+                  [(ngModel)]="itemVendaVeiculo.valorUnitario" currencyMask
+                  [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" autocomplete="off" />
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Cliente</label>
+                <input id="venda.cliente" name="venda.cliente" type="text" class="form-control"
+                  [(ngModel)]="venda.cliente" [ngbTypeahead]="searchPessoa" placeholder="Digite as iniciais no nome"
+                  [inputFormatter]="formatterPessoa" [resultFormatter]="formatterPessoa" autocomplete="off">
+              </div>
+            </div>
+
+          </div>
+
+          <div class="row">
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Vendedor</label>
+                <input id="venda.vendedor" name="venda.vendedor" type="text" class="form-control"
+                  [(ngModel)]="venda.vendedor" [ngbTypeahead]="searchPessoa" placeholder="Digite as iniciais no nome"
+                  [inputFormatter]="formatterPessoa" [resultFormatter]="formatterPessoa" autocomplete="off">
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Conferente</label>
+                <input id="venda.conferente" name="venda.conferente" type="text" class="form-control"
+                  [(ngModel)]="venda.conferente" [ngbTypeahead]="searchPessoa" placeholder="Digite as iniciais no nome"
+                  [inputFormatter]="formatterPessoa" [resultFormatter]="formatterPessoa" autocomplete="off" readonly>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="alert alert-success" role="alert" *ngIf="success == true">
+                Operação realizada com sucesso com sucesso!
+              </div>
+              <div class="alert alert-danger" role="alert" *ngIf="success == false">
+                {{mensagemErro}}
+              </div>
+            </div>
+          </div>
+
+
+          <div class="row" *ngIf="!despachando && !venda.processada">
+            <div class="col-md-6">
+              <div class="btn-group">
+
+                <button type="submit" class="btn btn-success" *ngIf="!venda.id">
+                  <i class="fa fa-floppy-o"></i> Salvar
+                </button>
+
+                <button type="submit" class="btn btn-warning" *ngIf="venda.id">
+                  <i class="fa fa-sync-alt"></i> Atualizar
+                </button>
+
+                <button type="button" class="btn btn-danger" *ngIf="venda.id" placement="top" ngbTooltip="Apagar"
+                  data-toggle="modal" data-target="#modalDespachamento">
+                  <i class="fa fa-sync-alt"></i> Despachar Venda
+                </button>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</form>
+
+
+
+
+<!--MODAL DE CONFIRMÇÃO DE RECEBIMENTO-->
+<div id="modalDespachamento" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4>Confirmação</h4>
+      </div>
+
+      <div class="modal-body" *ngIf="venda.id>0">
+        Confirma o despache dessa venda de Id: {{ venda.id}}
+        => Vendedor: {{venda.vendedor.nome}}
+        => Cliente: {{venda.cliente.nome}}
+        => Conferente: {{venda.conferente.nome}}
+        => Veículo: {{veiculo.nome}}
+        => RENAVAM: {{veiculo.renavam}}
+
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-success" (click)="despachandoVenda();" data-dismiss="modal">Confirmar</button>
+        <button class="btn btn-default" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--MODAL DE CONFIRMÇÃO DE RECEBIMENTO-->
+
+<form #despacharVendaForm="ngForm" *ngIf="despachando">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card text-black bg-warning mb-3">
+        <div class="card-body">
+
+          <div class="card-header">
+            <h5 class="card-title">
+              Despachando Venda...
+            </h5>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <p>Dados para lançar no contas a receber.</p>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Número de Parcelas</label>
+                <input type="number" class="form-control" [(ngModel)]="inputDVV.numeroParcelas" id="numeroParcelas"
+                  name="numeroParcelas">
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Intervalo (dias)</label>
+                <input type="number" class="form-control" [(ngModel)]="inputDVV.intervaloEntreParcelas"
+                  id="intervaloEntreParcelas" name="intervaloEntreParcelas">
+              </div>
+            </div>
+
+            <div class="col-md-6">
+
+              <label>Data Primeira Parcela</label>
+              <div class="form-group">
+                <div class="input-group">
+                  <input class="form-control" placeholder="dd/mm/yyyy" name="dataPrimeiraParcela"
+                    [(ngModel)]="inputDVV.dataPrimeiraParcela" ngbDatepicker #dataPrimeiraParcela="ngbDatepicker"
+                    id="dataPrimeiraParcela" required="true" (click)="dataPrimeiraParcela.toggle()">
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-primary calendar" (click)="dataPrimeiraParcela.toggle()"
+                      type="button">
+                      <i class="fa fa-calendar fa-fw"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <!--
+              <label>Data Primeira Parcela</label>
+              <div class="form-group">
+                <div class="input-group">
+                  <input class="form-control" type="date" placeholder="dd/mm/yyyy" name="dataPrimeiraParcela"
+                    [(ngModel)]="inputRCV.dataPrimeiraParcela" required="true">
+                </div>
+              </div>
+            -->
+
+            </div>
+
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Enviar</label>
+                <button class="btn btn-success form-control" (click)="this.depacharVenda();">Confirmar
+                  Despacamento</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</form>
+<div *ngIf="venda.processada">
+
+  <!--Estoque do veículo-->
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card text-white bg-info mb-3">
+        <div class="card-body">
+
+          <div class="card-header">
+            <h5 class="card-title">
+              Estoque do Veículo
+            </h5>
+
+            <p>Veículo: {{veiculo.nome}}</p>
+            <p>RENAVAM: {{veiculo.renavam}}</p>
+            <p>Placa: {{veiculo.placa}}</p>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Estoque do veículo-->
+
+  <!--Contas a Pagar-->
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card text-white bg-primary mb-3">
+        <div class="card-body">
+
+          <div class="card-header">
+            <h5 class="card-title">
+              Contas a Receber do Cliente
+            </h5>
+
+            <table>
+              <tr *ngFor="let item of itensContaReceber">
+                <td>data: {{item.dataVencimento}} </td>
+                <td>valor: {{item.valorDocumento}}</td>
+              </tr>
+            </table>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Contas a Pagar-->
+
+  <!--Manuntenção-->
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card text-white bg-info mb-3">
+        <div class="card-body">
+
+          <div class="card-header">
+            <h5 class="card-title">
+              Manutenção do Veiculo
+            </h5>
+            <input type="button" class="btn-warning btn-sm btn-block" routerLink="/manutencoes/form/{{linkManuntencao}}"
+              placement="top" ngbTooltip="Manuntenção" value="Manuntenção">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Manuntenção-->
+
+
+</div>
