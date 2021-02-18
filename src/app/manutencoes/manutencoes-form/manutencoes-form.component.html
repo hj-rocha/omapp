@@ -262,9 +262,13 @@
             </div>
 
             <div class="row">
-              <div class="col-md-8"></div>
-              <div class="col-md-4">
+              <div class="col-md-12">
+                <p>&nbsp;</p>
+                </div>
+            </div>
 
+            <div class="row">
+              <div class="col-md-12">
                 <button type="button" class="btn btn-success" (click)="adicionarServicoPrestado()">
                   Adicionar
                 </button>
@@ -420,19 +424,18 @@
 
 
             <div class="row">
-              <div class="col-md-8">
-
+              <div class="col-md-12">
                 <input id="peca" name="peca" type="text" class="form-control" [(ngModel)]="peca"
                   [ngbTypeahead]="searchPeca" placeholder="Digite o nome da peca" [inputFormatter]="formatterPeca"
                   [resultFormatter]="formatterPeca">
-
-              </div>
-              <div class="col-md-4">
-                <input id="qtd" name="qtd" type="text" class="form-control" [(ngModel)]="quantidade" placeholder="Qtd">
               </div>
             </div>
 
-
+            <div class="row">
+              <div class="col-md-12">
+                <input id="qtd" name="qtd" type="text" class="form-control" [(ngModel)]="quantidade" placeholder="Qtd">
+              </div>
+            </div>
 
             <div class="row">
 
@@ -447,9 +450,8 @@
             </div>
 
             <div class="row">
-              <div class="col-md-8"></div>
-              <div class="col-md-4">
-                <button type="button" class="btn btn-success" (click)="adicionarPecaUsada()">
+              <div class="col-md-12">
+                <button type="button" class="btn btn-success" (click)="adicionarServicoPrestado()">
                   Adicionar
                 </button>
               </div>
@@ -601,6 +603,14 @@
             </div>
 
             <div class="row">
+              <div class="col-md-12  ">
+                <input id="outraDespesa.total" name="outraDespesa.total" type="text" class="form-control"
+                  [(ngModel)]="outraDespesa.total" currencyMask autocomplete="off"
+                  [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" placeholder="valor (R$)">
+              </div>
+            </div>
+
+            <div class="row">
               <div class="col-md-12">
                 <!-- <div class="btn-group btn-block" role="group"> -->
                 <input id="responsavelPelaDespesa" name="responsavelPelaDespesa" type="text" class="form-control"
@@ -610,12 +620,7 @@
             </div>
 
             <div class="row">
-              <div class="col-md-8  ">
-                <input id="outraDespesa.total" name="outraDespesa.total" type="text" class="form-control"
-                  [(ngModel)]="outraDespesa.total" currencyMask autocomplete="off"
-                  [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" placeholder="valor (R$)">
-              </div>
-              <div class="col-md-4">
+              <div class="col-md-12">
                 <button type="button" class="btn btn-success" (click)="adicionarOutraDespesa()">
                   Adicionar
                 </button>

@@ -171,15 +171,18 @@ export class VendaVeiculoFormComponent implements OnInit {
       this.id = urlParams['id'];
        if (this.id) {
          this.vendaService
-           .getItemById(this.id)
+           .getTudoItemById(this.id)
            .subscribe(
              response => {
-               this.errors = null;
-               this.itemVendaVeiculo = response;
-               this.venda = this.itemVendaVeiculo.venda;
-               this.veiculo = this.itemVendaVeiculo.veiculo;
-
-
+              this.errors = null;
+              this.outputDVV = response;
+                this.venda = this.outputDVV.venda;
+             // this.linkManuntencao = this.outputDVV.idManutencao;
+             // this.estoque= this.outputRCV.estoque;
+              this.veiculo = this.outputDVV.veiculo;
+              this.contaReceber = this.outputDVV.contaReceber;
+              this.itensContaReceber= this.outputDVV.itensContaReceber;
+              this.estoque = this.outputDVV.estoque;
              }, errorResponse => {
                this.mensagemErro = errorResponse.error.message;
                this.errors = errorResponse.error.errors;
@@ -257,6 +260,7 @@ export class VendaVeiculoFormComponent implements OnInit {
        this.veiculo = this.outputDVV.veiculo;
        this.contaReceber = this.outputDVV.contaReceber;
        this.itensContaReceber= this.outputDVV.itensContaReceber;
+       this.estoque = this.outputDVV.estoque;
      }, errorResponse => {
        this.success = false;
        this.mensagemErro = errorResponse.error.message;

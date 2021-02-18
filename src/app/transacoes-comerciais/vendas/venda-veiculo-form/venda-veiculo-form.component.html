@@ -260,6 +260,7 @@
             <p>Veículo: {{veiculo.nome}}</p>
             <p>RENAVAM: {{veiculo.renavam}}</p>
             <p>Placa: {{veiculo.placa}}</p>
+            <p>Quantidade: {{estoque.quantidade}}</p>
 
 
           </div>
@@ -282,8 +283,10 @@
 
             <table>
               <tr *ngFor="let item of itensContaReceber">
-                <td>data: {{item.dataVencimento}} </td>
-                <td>valor: {{item.valorDocumento}}</td>
+                <td>
+                  <p>Data da Vencimento: {{item.dataVencimento | date:'dd/MM/yyy'}}</p>
+                  <p>Valor a Receber: {{item.valorDocumento | currency:'BRL' }}</p>
+                </td>
               </tr>
             </table>
 
@@ -295,7 +298,7 @@
   <!--Contas a Pagar-->
 
   <!--Manuntenção-->
-  <div class="row">
+  <div class="row"  *ngIf="linkManuntencao>0">
     <div class="col-md-12">
       <div class="card text-white bg-info mb-3">
         <div class="card-body">
@@ -304,8 +307,8 @@
             <h5 class="card-title">
               Manutenção do Veiculo
             </h5>
-            <input type="button" class="btn-warning btn-sm btn-block" routerLink="/manutencoes/form/{{linkManuntencao}}"
-              placement="top" ngbTooltip="Manuntenção" value="Manuntenção">
+            <input type="button" class="btn-primary btn-sm btn-block" routerLink="/manutencoes/form/{{linkManuntencao}}"
+              placement="top" ngbTooltip="Manuntenção" value="Manutenção">
           </div>
         </div>
       </div>

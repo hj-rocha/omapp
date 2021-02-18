@@ -169,16 +169,18 @@ export class CompraVeiculoFormComponent implements OnInit {
       this.id = urlParams['id'];
        if (this.id) {
          this.compraService
-           .getItemById(this.id)
+           .getItemTudoById(this.id)
            .subscribe(
              response => {
                this.errors = null;
-               this.itemCompra = response;
-               this.compra = this.itemCompra.compra;
-               this.veiculo = this.itemCompra.veiculo;
+               this.outputRCV = response;
+               this.compra = this.outputRCV.compra;
+               this.veiculo = this.outputRCV.veiculo;
+               this.contaPagar = this.outputRCV.contaPagar;
+               this.itensContaPagar= this.outputRCV.itensContaPagar;
+               this.estoque = this.outputRCV.estoque;
 
-
-             }, errorResponse => {
+              }, errorResponse => {
                this.mensagemErro = errorResponse.error.message;
                this.errors = errorResponse.error.errors;
              }
@@ -257,6 +259,7 @@ export class CompraVeiculoFormComponent implements OnInit {
       this.veiculo = this.outputRCV.veiculo;
       this.contaPagar = this.outputRCV.contaPagar;
       this.itensContaPagar= this.outputRCV.itensContaPagar;
+      this.estoque = this.outputRCV.estoque;
     }, errorResponse => {
       this.success = false;
       this.mensagemErro = errorResponse.error.message;

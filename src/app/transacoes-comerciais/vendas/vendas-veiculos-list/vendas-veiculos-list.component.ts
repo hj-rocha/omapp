@@ -25,7 +25,6 @@ export class VendasVeiculosListComponent implements OnInit {
     this.service
       .listar()
       .subscribe(response => {
-        this.success = true;
         this.errors = null;
         this.lista = response;
       }, errorResponse => {
@@ -54,7 +53,7 @@ export class VendasVeiculosListComponent implements OnInit {
         errorResponse => {
           this.success = false;
           this.mensagemErro = errorResponse.error.message;
-          this.mensagemErro = 'Ocorreu um erro ao apagar a venda.'
+          this.mensagemErro = 'Não pode apagar uma venda despachada.'
         }
       )
   }

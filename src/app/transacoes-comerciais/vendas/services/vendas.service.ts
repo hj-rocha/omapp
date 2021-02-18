@@ -1,3 +1,4 @@
+import { OutputDespachamentoVendaVeiculo } from './../models/output_despachamento_venda_veiculo';
 import { InputDespachamentoVendaVeiculo } from './../models/input_despachamento_venda_veiculo';
 import { ItemVendaVeiculo } from './../models/item-venda-veiculo';
 import { Venda } from './../models/venda';
@@ -35,6 +36,11 @@ export class VendasService {
 
     getItemById(id: number) : Observable<ItemVendaVeiculo> {
       return this.http.get<any>(`${this.apiURL}/${id}`);
+    }
+
+
+    getTudoItemById(id: number) : Observable<OutputDespachamentoVendaVeiculo> {
+      return this.http.get<any>(`${this.apiURL}/completa/${id}`);
     }
 
     getItemByPlaca(placa: string) : Observable<Venda> {

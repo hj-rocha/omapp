@@ -1,3 +1,4 @@
+import { OutputRecebimentoCompraVeiculo } from './../models/output_recebimento_compra_veiculo';
 import { InputRecebimentoCompraVeiculo } from './../models/input_recebimento_compra_veiculo';
 import { ItemCompraVeiculo } from './../models/item_compra_veiculo';
 import { ItemCompra } from './../models/item_compra';
@@ -7,7 +8,7 @@ import { Veiculo } from './../../../veiculos/models/veiculo';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from './../../../../environments/environment';
 import { Injectable } from '@angular/core';
-import { OutputRecebimentoCompraVeiculo } from '../models/output_recebimento_compra_veiculo';
+
 
 @Injectable({
   providedIn: 'root'
@@ -37,6 +38,10 @@ export class ComprasService {
 
     getItemById(id: number) : Observable<ItemCompraVeiculo> {
       return this.http.get<any>(`${this.apiURL}/${id}`);
+    }
+
+    getItemTudoById(id: number) : Observable<OutputRecebimentoCompraVeiculo> {
+      return this.http.get<any>(`${this.apiURL}/completa/${id}`);
     }
 
     getItemByPlaca(placa: string) : Observable<Compra> {
