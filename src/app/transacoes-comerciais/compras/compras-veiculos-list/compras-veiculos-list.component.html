@@ -43,7 +43,7 @@
                       </button>
                       <input type="button" class="btn-primary btn-sm btn-block"
                         routerLink="/transacoes_comerciais/compras/veiculos/form/{{ p.id }}" placement="top" ngbTooltip="Editar"
-                        value="ID: {{p.id}} ">
+                        value="ID: {{p.id}} &nbsp; {{p.dataCadastro | date:'dd/MM/yyy'}}">
                     </div>
                   </div>
 

@@ -247,6 +247,10 @@ export class CompraVeiculoFormComponent implements OnInit {
   //  console.log("conferente: "+this.inputRCV.idConferenteLogado);
   //  console.log("compra: "+this.inputRCV.idCompra);
 
+  console.log("parcelas: "+this.inputRCV.numeroParcelas);
+  console.log("intervalo: "+this.inputRCV.intervaloEntreParcelas);
+  console.log("data primeira : " +this.inputRCV.dataPrimeiraParcela);
+
     this.compraService.receberCompra(this.inputRCV)
     .subscribe(response => {
       this.errors = null;

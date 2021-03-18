@@ -3,6 +3,7 @@ export abstract class TransacaoComercial {
 
   id: number;
   dataCadastro: Date;
+  dataRecebimento: Date;
   processada: boolean;
   conferente: Pessoa;
 }
