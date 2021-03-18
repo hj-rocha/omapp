@@ -18,6 +18,21 @@
             </h5>
           </div>
 
+          <div class="row" *ngIf="venda.id>0">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Data Registro</label>
+                <input type="text" class="form-control" value="{{venda.dataCadastro | date:'dd/MM/yyyy HH:mm'}}" readonly />
+              </div>
+            </div>
+
+            <div class="col-md-6" *ngIf="venda.processada">
+              <div class="form-group">
+                <label>Data Despacho</label>
+                <input type="text" class="form-control" value="{{venda.dataDespacho | date:'dd/MM/yyyy HH:mm'}}" readonly />
+              </div>
+            </div>
+          </div>
 
           <div class="row">
 
@@ -315,6 +330,5 @@
     </div>
   </div>
   <!--Manuntenção-->
-
 
 </div>

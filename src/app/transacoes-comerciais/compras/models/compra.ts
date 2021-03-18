@@ -4,9 +4,9 @@ import { TransacaoComercialEntrada } from "../../models/transacao_comercial_entr
 
 export class Compra extends TransacaoComercialEntrada {
 
+  dataRecebimento: Date;
   fornecedor: Pessoa;
   comprador: Pessoa;
-
   itensCompra: ItemCompra[];
 
 }
