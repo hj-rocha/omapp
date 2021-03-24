@@ -1,3 +1,4 @@
+import { Page } from './../../shared/models/page-interface';
 import { PessoaJuridica } from './../model/pessoaJuridica';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
@@ -13,6 +14,10 @@ export class PessoasJuridicasService {
   apiURL: string = environment.apiURLBase + "/pessoas_juridicas"
 
   constructor(private http: HttpClient) {}
+
+  getPessoasJuridicasPage(page, size): Observable<Page> {
+    return this.http.get<Page>(`${this.apiURL}?page=${page}&size=${size}`);
+  }
 
     listar():Observable<PessoaJuridica[]>{
 

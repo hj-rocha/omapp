@@ -1,4 +1,4 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewChecked } from '@angular/core';
 
 import  jQuery  from 'jquery';
 
@@ -7,11 +7,11 @@ import  jQuery  from 'jquery';
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.css']
 })
-export class LayoutComponent implements AfterViewInit {
+export class LayoutComponent implements AfterViewChecked {
 
   constructor() { }
 
-  ngAfterViewInit(){
+  ngAfterViewChecked(){
     (function($) {
         "use strict";
 

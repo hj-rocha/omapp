@@ -20,7 +20,8 @@ import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { GruposFormComponent } from './grupos-form/grupos-form.component';
 import { GruposFormCreateComponent } from './grupos-form-create/grupos-form-create.component';
 import { TypeaheadComponent } from './typeahead/typeahead.component';
-import { PessoasForm2Component } from './pessoas-form2/pessoas-form2.component'
+import { PessoasForm2Component } from './pessoas-form2/pessoas-form2.component';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
@@ -37,6 +38,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     NgbModule,
     ReactiveFormsModule,
     NgxMaskModule.forRoot(),
+    MatPaginatorModule
 
   ], exports: [
       PessoasFormComponent,
