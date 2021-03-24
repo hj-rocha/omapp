@@ -15,9 +15,9 @@ export class PessoasService {
 
   constructor(private http: HttpClient) {}
 
-  getPessoasFisicasPage(page, size): Observable<Page> {
-    return this.http.get<Page>(`${this.apiURL}?page=${page}&size=${size}`);
-  }
+  getElementsPage(page, size, sort): Observable<Page> {
+        return this.http.get<Page>(`${this.apiURL}?page=${page}&size=${size}&sort=${sort}`);
+      }
 
     listar():Observable<Pessoa[]>{
 

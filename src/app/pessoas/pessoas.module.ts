@@ -1,3 +1,4 @@
+import { MatSelectModule } from '@angular/material/select';
 import { PessoasJuridicasFormComponent } from './pessoas-juridicas-form/pessoas-juridicas-form.component';
 import { PessoasJuridicasListComponent } from './pessoas-juridicas-list/pessoas-juridicas-list.component';
 import { PessoasJuridicasFormCreateComponent } from './pessoas-juridicas-form-create/pessoas-juridicas-form-create.component';
@@ -38,7 +39,8 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
     NgbModule,
     ReactiveFormsModule,
     NgxMaskModule.forRoot(),
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSelectModule
 
   ], exports: [
       PessoasFormComponent,

@@ -83,6 +83,36 @@
     </div>
   </div>
 
+  <div class="row">
+  <!--  <div class="col">
+      <mat-form-field appearance="fill">
+        <mat-label>Ordenar por</mat-label>
+        <mat-select  [(value)]="sort">
+          <mat-option *ngFor="let item of itensSort" [value]="item.value" (click)=pageLoad()>
+            {{item.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  -->
+
+  <div class="col-md-2">
+    <div class="form-group">
+      <select class="form-control" (change)="onSelect($event.target.value)" id="sort">
+        <option value="0">Ordenar por</option>
+        <option *ngFor="let item of itensSort" value={{item.value}}>{{item.viewValue}}</option>
+      </select>
+    </div>
+  </div>
+
+    <div class="col">
+      <mat-paginator [length]="length"                [pageSize]="pageSize"
+                       [pageSizeOptions]="pageSizeOptions"                (page)="pageEvent = $event"
+                       (click)=pageLoad()>
+      </mat-paginator>
+    </div>
+  </div>
+
   <!--
   <div id="modalDelecao" class="modal fade" role="dialog">
     <div class="modal-dialog">

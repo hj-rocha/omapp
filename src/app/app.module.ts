@@ -26,7 +26,6 @@ import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import {MatPaginatorModule} from '@angular/material/paginator';
 
 registerLocaleData(localePt);
 
@@ -53,8 +52,7 @@ registerLocaleData(localePt);
     PessoasModule,
     GeografiaModule,
     ProdutosModule,
-    NoopAnimationsModule,
-    MatPaginatorModule
+    NoopAnimationsModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pt-BR' },

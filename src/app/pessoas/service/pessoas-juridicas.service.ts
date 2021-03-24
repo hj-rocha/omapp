@@ -13,35 +13,35 @@ export class PessoasJuridicasService {
 
   apiURL: string = environment.apiURLBase + "/pessoas_juridicas"
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  getPessoasJuridicasPage(page, size): Observable<Page> {
-    return this.http.get<Page>(`${this.apiURL}?page=${page}&size=${size}`);
+  getElementsPage(page, size, sort): Observable<Page> {
+    return this.http.get<Page>(`${this.apiURL}?page=${page}&size=${size}&sort=${sort}`);
   }
 
-    listar():Observable<PessoaJuridica[]>{
+  listar(): Observable<PessoaJuridica[]> {
 
-      const httpParams = new HttpParams();
+    const httpParams = new HttpParams();
 
-      const url = this.apiURL;
+    const url = this.apiURL;
 
-      return this.http.get<PessoaJuridica[]>(url);
-    }
-    deletar(pessoa: PessoaJuridica) : Observable<any> {
-      return this.http.delete<any>(`${this.apiURL}/${pessoa.id}`);
-    }
+    return this.http.get<PessoaJuridica[]>(url);
+  }
 
-    getPessoaById(id: number) : Observable<PessoaJuridica> {
-      return this.http.get<any>(`${this.apiURL}/${id}`);
-    }
+  deletar(pessoa: PessoaJuridica): Observable<any> {
+    return this.http.delete<any>(`${this.apiURL}/${pessoa.id}`);
+  }
 
+  getPessoaById(id: number): Observable<PessoaJuridica> {
+    return this.http.get<any>(`${this.apiURL}/${id}`);
+  }
 
-    salvar( pessoa: PessoaJuridica ) : Observable<PessoaJuridica> {
-      return this.http.post<PessoaJuridica>( `${this.apiURL}` , pessoa);
-    }
+  salvar(pessoa: PessoaJuridica): Observable<PessoaJuridica> {
+    return this.http.post<PessoaJuridica>(`${this.apiURL}`, pessoa);
+  }
 
-    atualizar( pessoa: PessoaJuridica ) : Observable<any> {
-      return this.http.put<PessoaJuridica>(`${this.apiURL}/${pessoa.id}` , pessoa);
-    }
+  atualizar(pessoa: PessoaJuridica): Observable<any> {
+    return this.http.put<PessoaJuridica>(`${this.apiURL}/${pessoa.id}`, pessoa);
+  }
 
 }

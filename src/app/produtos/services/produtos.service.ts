@@ -1,3 +1,4 @@
+import { Page } from './../../shared/models/page-interface';
 import { Produto } from './../models/produto';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
@@ -11,30 +12,34 @@ export class ProdutosService {
 
   apiURL: string = environment.apiURLBase + "/produtos"
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-    listar():Observable<Produto[]>{
+  getElementsPage(page, size, sort): Observable<Page> {
+    return this.http.get<Page>(`${this.apiURL}?page=${page}&size=${size}&sort=${sort}`);
+  }
 
-      const httpParams = new HttpParams();
+  listar(): Observable<Produto[]> {
 
-      const url = this.apiURL;
+    const httpParams = new HttpParams();
 
-      return this.http.get<Produto[]>(url);
-    }
-    deletar(produto: Produto) : Observable<any> {
-      return this.http.delete<any>(`${this.apiURL}/${produto.id}`);
-    }
+    const url = this.apiURL;
 
-    getProdutoById(id: number) : Observable<Produto> {
-      return this.http.get<any>(`${this.apiURL}/${id}`);
-    }
+    return this.http.get<Produto[]>(url);
+  }
+  deletar(produto: Produto): Observable<any> {
+    return this.http.delete<any>(`${this.apiURL}/${produto.id}`);
+  }
+
+  getProdutoById(id: number): Observable<Produto> {
+    return this.http.get<any>(`${this.apiURL}/${id}`);
+  }
 
 
-    salvar( produto: Produto ) : Observable<Produto> {
-      return this.http.post<Produto>( `${this.apiURL}` , produto);
-    }
+  salvar(produto: Produto): Observable<Produto> {
+    return this.http.post<Produto>(`${this.apiURL}`, produto);
+  }
 
-    atualizar( produto: Produto ) : Observable<any> {
-      return this.http.put<Produto>(`${this.apiURL}/${produto.id}` , produto);
-    }
+  atualizar(produto: Produto): Observable<any> {
+    return this.http.put<Produto>(`${this.apiURL}/${produto.id}`, produto);
+  }
 }
