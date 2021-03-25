@@ -105,6 +105,12 @@
     </div>
   </div>
 
+  <div class="col-md-6">
+    <div class="form-group">
+      <input type="text" class="form-control" placeholder="palavra de busca" [(ngModel)]="palavraChave" name="nome" />
+    </div>
+  </div>
+
     <div class="col">
       <mat-paginator [length]="length"                [pageSize]="pageSize"
                        [pageSizeOptions]="pageSizeOptions"                (page)="pageEvent = $event"

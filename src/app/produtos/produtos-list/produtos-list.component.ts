@@ -37,8 +37,8 @@ export class ProdutosListComponent implements OnInit {
     {value: 'id,desc', viewValue: 'Id DESC'},
     {value: 'nome,asc', viewValue: 'Nome ASC'},
     {value: 'nome,desc', viewValue: 'Nome DESC'}
-
   ];
+  palavraChave: String;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
